@@ -1,1 +1,185 @@
-<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#F8F4EE"><meta name="description" content="TouwTaal NT2: Nederlands oefenen per niveau."><title>Alfa A – Woordpuzzels | TouwTaal NT2</title><link rel="stylesheet" href="../../styles.css"></head><body><a class="skip" href="#inhoud">Ga naar inhoud</a><header class="site-header"><nav class="nav" aria-label="Hoofdnavigatie"><a class="site-label" href="../../index.html">TouwTaal · NT2-oefeningen</a><div class="navlinks"><a href="../../index.html">Alle niveaus</a><a href="../../alfa-a/puzzels/">Alfa A-puzzels</a><a href="https://touwtaal.github.io/">TouwTaal</a></div></nav></header><section class="hero"><div class="hero-inner"><div class="eyebrow">Niveau Alfa A</div><h1>Woordpuzzels</h1><p>Oefen Nederlands op niveau Alfa A.</p></div></section><main id="inhoud" class="wrap"><div class="breadcrumbs"><a href="../../index.html">Alle niveaus</a> / <a href="../">Alfa A</a> / Woordpuzzels</div><h2>Woordpuzzels voor Alfa A</h2><p class="intro">Hier verzamelen we puzzels per thema. De oefeningen worden later toegevoegd.</p><div class="grid"><article class="card"><span class="tag">Binnenkort</span><h3>Woordzoeker</h3><p>Zoek korte, bekende woorden in een eenvoudig rooster.</p><span class="pill">In voorbereiding</span></article><article class="card"><span class="tag">Binnenkort</span><h3>Ontbrekende letters</h3><p>Kies de letter die in een woord ontbreekt.</p><span class="pill">In voorbereiding</span></article><article class="card"><span class="tag">Binnenkort</span><h3>Woorden bouwen</h3><p>Zet letters in de juiste volgorde.</p><span class="pill">In voorbereiding</span></article></div><div class="feature-list"><div class="feature"><strong>Per thema</strong><p>Dezelfde woorden keren terug in alle drie de oefeningen.</p></div><div class="feature"><strong>Online oefenen</strong><p>Voor telefoon, tablet en computer.</p></div><div class="feature"><strong>Printen</strong><p>We voegen per puzzel een duidelijke A4-printversie toe.</p></div></div></main><footer class="footer"><p>Learn Dutch with confidence.</p><p><a href="https://touwtaal.github.io/">TouwTaal</a> · NT2-oefeningen</p></footer></body></html>
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#F8F4EE"><meta name="description" content="TouwTaal Alfa A: thematische woordzoekers, ontbrekende letters en woorden bouwen. Online en printbaar.">
+<title>Alfa A – Woordpuzzels | TouwTaal NT2</title>
+<link rel="icon" href="https://touwtaal.github.io/assets/touwtaal-favicon.png">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.puzzle-top{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.theme-select{font:700 1rem 'DM Sans',sans-serif;border:1px solid var(--line);border-radius:12px;background:var(--nav);color:var(--ink);padding:.7rem 1rem;min-width:240px}
+.toolbar{display:flex;gap:.6rem;flex-wrap:wrap}
+button{font:inherit;cursor:pointer}
+.action{border:1px solid var(--purple);background:var(--purple);color:#fff;padding:.7rem 1rem;border-radius:12px;font-weight:700}
+.action.light{background:var(--nav);color:var(--deep)}
+.puzzle-section{background:var(--nav);border:1px solid var(--line);border-radius:22px;padding:1.5rem;margin:1.4rem 0;break-inside:avoid}
+.puzzle-section h2{font-size:1.55rem;margin-bottom:.5rem}
+.hint{color:var(--muted);font-size:.95rem}
+.word-list{display:flex;gap:.55rem;flex-wrap:wrap;margin:1rem 0}
+.target{padding:.45rem .85rem;border:1px solid var(--lavender);border-radius:100px;background:var(--art);color:var(--ink);font-weight:700}
+.target.active{background:var(--purple);color:white}
+.target.found{background:var(--section);text-decoration:line-through}
+.letter-grid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:3px;width:min(100%,365px);margin:1rem 0}
+.cell{display:grid;place-items:center;aspect-ratio:1;background:#fff;border:1px solid var(--line);border-radius:6px;font:800 clamp(.9rem,3vw,1.3rem) Manrope,sans-serif;color:var(--ink);padding:0}
+.cell.selected{background:var(--lilac);border-color:var(--purple)}
+.cell.found{background:var(--art);border-color:var(--purple)}
+.exercise{padding:1rem 0;border-top:1px solid var(--line)}
+.exercise:first-child{border-top:0}
+.exercise label{display:block;font-weight:700;margin-bottom:.55rem}
+.missing-word{font:800 1.5rem Manrope,sans-serif;letter-spacing:.16em;display:inline-block;min-width:165px}
+.letter-input{width:3rem;height:3rem;text-align:center;border:2px solid var(--lavender);border-radius:10px;font:800 1.5rem Manrope,sans-serif;text-transform:uppercase;color:var(--ink);background:white}
+.letter-tiles{display:flex;gap:.4rem;flex-wrap:wrap;margin:.6rem 0}
+.tile{width:2.7rem;height:2.9rem;border:1px solid var(--lavender);border-radius:9px;background:var(--art);font:800 1.2rem Manrope,sans-serif;color:var(--ink)}
+.build-answer{min-height:2.9rem;border-bottom:2px solid var(--purple);font:800 1.3rem Manrope,sans-serif;letter-spacing:.18em;padding:.3rem .4rem;display:inline-block;min-width:160px}
+.feedback{font-weight:700;min-height:1.6rem;color:var(--deep);margin:.4rem 0}
+.small-button{border:1px solid var(--line);background:var(--section);color:var(--ink);border-radius:8px;padding:.4rem .7rem;margin:.4rem 0}
+.print-only{display:none}
+@media print{
+@page{size:A4;margin:12mm}
+body{font-size:11pt}
+.puzzle-top,.toolbar,.screen-only,.hint.screen-only,.feedback,.small-button,.target,.tile,.letter-input{display:none!important}
+.print-only{display:block}
+.puzzle-section{padding:0;border:0;border-radius:0;margin:0 0 9mm;break-inside:avoid}
+.puzzle-section h2{font-size:15pt}
+.letter-grid{width:76mm;gap:0;margin:3mm 0 4mm}
+.cell{border:1px solid #333;border-radius:0;background:#fff!important;color:#000!important;font-size:12pt}
+.exercise{display:flex;align-items:center;gap:6mm;padding:2mm 0}
+.exercise label{margin:0;min-width:28mm}
+.missing-word{font-size:14pt;min-width:35mm}
+.build-answer{border:0;letter-spacing:.2em}
+.print-tiles{font:800 14pt Manrope,sans-serif;letter-spacing:.4em}
+.print-line{border-bottom:1px solid #333;width:48mm;height:8mm}
+.hero{display:none}
+.wrap{padding:0}
+}
+</style></head>
+<body><a class="skip" href="#inhoud">Ga naar inhoud</a>
+<header class="site-header"><nav class="nav" aria-label="Hoofdnavigatie">
+<a class="site-label" href="../../"><img src="https://touwtaal.github.io/assets/logo.jpg" alt="TouwTaal" style="height:45px;max-width:155px;object-fit:contain"> <span>NT2-oefeningen</span></a>
+<div class="navlinks"><a href="../../">Alle niveaus</a><a href="../">Alfa A</a><a href="https://touwtaal.github.io/">TouwTaal</a></div></nav></header>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">Alfa A · Woordpuzzels</div><h1>Woorden oefenen</h1><p>Zoek letters. Maak woorden. Oefen in kleine stappen.</p></div></section>
+<main id="inhoud" class="wrap">
+<div class="breadcrumbs"><a href="../../">Alle niveaus</a> / <a href="../">Alfa A</a> / Woordpuzzels</div>
+<div class="puzzle-top"><div><h2>Kies een thema</h2><p class="hint">Drie oefeningen met dezelfde woorden.</p>
+<select class="theme-select" id="theme" aria-label="Kies een thema">
+<option value="eten">Eten en drinken</option><option value="lichaam">Mijn lichaam</option><option value="kleding">Kleding</option>
+<option value="huis">Mijn huis</option><option value="vervoer">Vervoer</option><option value="boodschappen">Boodschappen</option></select></div>
+<div class="toolbar"><button class="action light" type="button" id="reset">Opnieuw beginnen</button><button class="action" type="button" id="print">Print dit thema</button></div></div>
+<div class="print-only"><h1 style="font-size:20pt;margin:0 0 3mm">Alfa A · <span id="print-title"></span></h1><p>Naam: ___________________________________ &nbsp; Datum: _______________</p></div>
+<section class="puzzle-section" aria-labelledby="ws-title"><h2 id="ws-title">1. Woordzoeker</h2>
+<p class="hint screen-only">Tik op een woord. Tik dan de letters aan, van links naar rechts of van boven naar beneden.</p>
+<p class="print-only">Zoek deze woorden. Zet er een streep omheen:</p>
+<div id="targets" class="word-list screen-only"></div><p id="print-words" class="print-only"></p>
+<div id="grid" class="letter-grid" aria-label="Woordzoeker met acht rijen en acht kolommen"></div><p id="ws-feedback" class="feedback screen-only" aria-live="polite"></p></section>
+<section class="puzzle-section" aria-labelledby="missing-title"><h2 id="missing-title">2. Welke letter mist?</h2>
+<p class="hint screen-only">Typ de ontbrekende letter. Controleer je antwoord.</p><p class="print-only">Schrijf de ontbrekende letter.</p>
+<div id="missing"></div><button class="action screen-only" type="button" id="check-missing">Controleer letters</button>
+<p id="missing-feedback" class="feedback screen-only" aria-live="polite"></p></section>
+<section class="puzzle-section" aria-labelledby="build-title"><h2 id="build-title">3. Maak het woord</h2>
+<p class="hint screen-only">Tik op de letters in de goede volgorde.</p><p class="print-only">Zet de letters in de goede volgorde. Schrijf het woord.</p>
+<div id="build"></div></section>
+<div class="note screen-only"><strong>Voor de docent</strong><p>De woordzoeker bevat alleen horizontale en verticale woorden. De printknop maakt een A4-werkblad zonder ingevulde antwoorden. Gebruik de woorden die je cursisten al hebben geleerd.</p></div>
+</main><footer class="footer"><p>Learn Dutch with confidence.</p></footer>
+<script>
+"use strict";
+const themes={
+eten:{title:"Eten en drinken",words:["BROOD","MELK","KAAS","EI"]},
+lichaam:{title:"Mijn lichaam",words:["HAND","NEUS","ARM","BEEN"]},
+kleding:{title:"Kleding",words:["JAS","SOK","TRUI","BROEK"]},
+huis:{title:"Mijn huis",words:["BED","DEUR","KAST","LAMP"]},
+vervoer:{title:"Vervoer",words:["BUS","AUTO","FIETS","TREIN"]},
+boodschappen:{title:"Boodschappen",words:["TAS","BON","GELD","PIN"]}
+};
+const $=id=>document.getElementById(id);
+let state={};
+function rng(seed){return()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296}}
+function makeGrid(words,seed){
+ const random=rng(seed),size=8,grid=Array.from({length:size},()=>Array(size).fill("")),locations={};
+ for(const word of [...words].sort((a,b)=>b.length-a.length)){
+  const choices=[];
+  for(let dir=0;dir<2;dir++)for(let r=0;r<size;r++)for(let c=0;c<size;c++){
+   const dr=dir===1?1:0,dc=dir===0?1:0;
+   if(r+dr*(word.length-1)>=size||c+dc*(word.length-1)>=size)continue;
+   const cells=Array.from({length:word.length},(_,i)=>[r+i*dr,c+i*dc]);
+   if(cells.every(([y,x],i)=>!grid[y][x]||grid[y][x]===word[i]))choices.push(cells);
+  }
+  if(!choices.length)throw Error("Geen plaats voor "+word);
+  const cells=choices[Math.floor(random()*choices.length)];
+  cells.forEach(([r,c],i)=>grid[r][c]=word[i]);
+  locations[word]=cells.map(([r,c])=>r*size+c);
+ }
+ const fill="AEIOUMNRTSLKPBDFG";
+ for(let r=0;r<size;r++)for(let c=0;c<size;c++)if(!grid[r][c])grid[r][c]=fill[Math.floor(random()*fill.length)];
+ return {grid,locations};
+}
+function setFeedback(id,text){$(id).textContent=text}
+function render(){
+ const key=$("theme").value,theme=themes[key],words=theme.words;
+ const seed=[...key].reduce((s,c)=>s+c.charCodeAt(0),1);
+ const {grid,locations}=makeGrid(words,seed);
+ state={words,grid,locations,active:words[0],progress:[],found:new Set(),build:{}};
+ $("print-title").textContent=theme.title;
+ $("print-words").textContent=words.map(w=>w.toLowerCase()).join(" · ");
+ const targets=$("targets");targets.replaceChildren();
+ words.forEach(word=>{const b=document.createElement("button");b.type="button";b.className="target";b.textContent=word.toLowerCase();b.dataset.word=word;b.addEventListener("click",()=>{state.active=word;state.progress=[];updateWordSearch()});targets.append(b)});
+ const board=$("grid");board.replaceChildren();
+ grid.flat().forEach((letter,i)=>{const b=document.createElement("button");b.type="button";b.className="cell";b.textContent=letter;b.dataset.index=i;b.setAttribute("aria-label",letter+" rij "+(Math.floor(i/8)+1)+" kolom "+(i%8+1));b.addEventListener("click",()=>tapCell(i));board.append(b)});
+ const missing=$("missing");missing.replaceChildren();
+ words.forEach((word,i)=>{
+ const index=(i+1)%word.length,shown=word.slice(0,index)+"_"+word.slice(index+1);
+ const row=document.createElement("div");row.className="exercise";
+ const label=document.createElement("label");label.htmlFor="letter-"+i;label.textContent=(i+1)+".";
+ const span=document.createElement("span");span.className="missing-word";span.textContent=shown.toLowerCase();
+ const inp=document.createElement("input");inp.className="letter-input screen-only";inp.id="letter-"+i;inp.maxLength=1;inp.autocomplete="off";inp.setAttribute("aria-label","Ontbrekende letter in "+shown);inp.dataset.answer=word[index];
+ const print=document.createElement("span");print.className="print-only";print.textContent="________";
+ row.append(label,span,inp,print);missing.append(row);
+ });
+ const build=$("build");build.replaceChildren();
+ words.forEach((word,i)=>{
+ const row=document.createElement("div");row.className="exercise";row.style.display="block";
+ const label=document.createElement("label");label.textContent=(i+1)+". Maak het woord ("+word.length+" letters)";
+ const tiles=document.createElement("div");tiles.className="letter-tiles screen-only";
+ const scrambled=word.split("").reverse();
+ if(scrambled.join("")===word)scrambled.push(scrambled.shift());
+ const answer=document.createElement("div");answer.className="build-answer screen-only";answer.setAttribute("aria-label","Gekozen letters");
+ const feedback=document.createElement("p");feedback.className="feedback screen-only";feedback.setAttribute("aria-live","polite");
+ const clear=document.createElement("button");clear.type="button";clear.className="small-button screen-only";clear.textContent="Wis letters";
+ state.build[word]={chosen:[],answer,feedback,tiles};
+ scrambled.forEach((letter,n)=>{const b=document.createElement("button");b.type="button";b.className="tile";b.textContent=letter;b.dataset.tile=n;b.addEventListener("click",()=>{if(b.disabled)return;b.disabled=true;b.style.opacity=".3";state.build[word].chosen.push({letter,button:b});updateBuild(word)});tiles.append(b)});
+ clear.addEventListener("click",()=>{state.build[word].chosen.forEach(x=>{x.button.disabled=false;x.button.style.opacity=""});state.build[word].chosen=[];updateBuild(word)});
+ const printTiles=document.createElement("div");printTiles.className="print-only print-tiles";printTiles.textContent=scrambled.join("  ");
+ const printLine=document.createElement("div");printLine.className="print-only print-line";
+ row.append(label,tiles,answer,feedback,clear,printTiles,printLine);build.append(row);
+ });
+ setFeedback("missing-feedback","");updateWordSearch();
+}
+function updateWordSearch(){
+ document.querySelectorAll(".target").forEach(b=>{b.classList.toggle("active",b.dataset.word===state.active);b.classList.toggle("found",state.found.has(b.dataset.word))});
+ document.querySelectorAll(".cell").forEach(b=>{const i=Number(b.dataset.index);b.classList.toggle("found",[...state.found].some(w=>state.locations[w].includes(i)));b.classList.toggle("selected",state.progress.includes(i))});
+ setFeedback("ws-feedback",state.found.size===state.words.length?"Goed gedaan! Je hebt alle woorden gevonden.":"Zoek: "+state.active.toLowerCase());
+}
+function tapCell(i){
+ const word=state.active;
+ if(state.found.has(word)){setFeedback("ws-feedback","Dit woord is al gevonden. Kies een ander woord.");return}
+ const next=state.locations[word][state.progress.length];
+ if(i!==next){state.progress=[];setFeedback("ws-feedback","Probeer opnieuw. Begin bij de eerste letter.");updateWordSearch();return}
+ state.progress.push(i);
+ if(state.progress.length===word.length){state.found.add(word);state.progress=[];state.active=state.words.find(w=>!state.found.has(w))||word}
+ updateWordSearch();
+}
+function updateBuild(word){
+ const s=state.build[word],answer=s.chosen.map(x=>x.letter).join("");
+ s.answer.textContent=answer||"_____";
+ if(answer.length===word.length)s.feedback.textContent=answer===word?"Goed!":"Nog niet goed. Klik op Wis letters.";
+ else s.feedback.textContent="";
+}
+$("check-missing").addEventListener("click",()=>{
+ const inputs=[...document.querySelectorAll(".letter-input")],correct=inputs.filter(i=>i.value.trim().toUpperCase()===i.dataset.answer).length;
+ inputs.forEach(i=>{i.style.borderColor=i.value.trim().toUpperCase()===i.dataset.answer?"#68618F":"#746D7D"});
+ setFeedback("missing-feedback",correct===inputs.length?"Goed gedaan! Alle letters zijn goed.":correct+" van "+inputs.length+" goed. Probeer de andere letters opnieuw.");
+});
+$("theme").addEventListener("change",()=>{const u=new URL(location.href);u.searchParams.set("thema",$("theme").value);history.replaceState(null,"",u);render()});
+$("reset").addEventListener("click",render);
+$("print").addEventListener("click",()=>window.print());
+const requested=new URLSearchParams(location.search).get("thema");if(requested&&themes[requested])$("theme").value=requested;
+render();
+</script></body></html>
