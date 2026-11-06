@@ -26,7 +26,7 @@ button{font:inherit;cursor:pointer}
 .exercise:first-child{border-top:0}
 .exercise label{display:block;font-weight:700;margin-bottom:.55rem}
 .missing-word{font:800 1.5rem Manrope,sans-serif;letter-spacing:.16em;display:inline-block;min-width:165px}
-.letter-input{width:3rem;height:3rem;text-align:center;border:2px solid var(--lavender);border-radius:10px;font:800 1.5rem Manrope,sans-serif;text-transform:uppercase;color:var(--ink);background:white}
+.letter-input{width:3rem;height:3rem;text-align:center;border:2px solid var(--lavender);border-radius:10px;font:800 1.5rem Manrope,sans-serif;text-transform:lowercase;color:var(--ink);background:white}
 .letter-tiles{display:flex;gap:.4rem;flex-wrap:wrap;margin:.6rem 0}
 .tile{width:2.7rem;height:2.9rem;border:1px solid var(--lavender);border-radius:9px;background:var(--art);font:800 1.2rem Manrope,sans-serif;color:var(--ink)}
 .build-answer{min-height:2.9rem;border-bottom:2px solid var(--purple);font:800 1.3rem Manrope,sans-serif;letter-spacing:.18em;padding:.3rem .4rem;display:inline-block;min-width:160px}
@@ -122,7 +122,7 @@ function render(){
  const targets=$("targets");targets.replaceChildren();
  words.forEach(word=>{const b=document.createElement("button");b.type="button";b.className="target";b.textContent=word.toLowerCase();b.dataset.word=word;b.addEventListener("click",()=>{state.active=word;state.progress=[];updateWordSearch()});targets.append(b)});
  const board=$("grid");board.replaceChildren();
- grid.flat().forEach((letter,i)=>{const b=document.createElement("button");b.type="button";b.className="cell";b.textContent=letter;b.dataset.index=i;b.setAttribute("aria-label",letter+" rij "+(Math.floor(i/8)+1)+" kolom "+(i%8+1));b.addEventListener("click",()=>tapCell(i));board.append(b)});
+ grid.flat().forEach((letter,i)=>{const b=document.createElement("button");b.type="button";b.className="cell";b.textContent=letter.toLowerCase();b.dataset.index=i;b.setAttribute("aria-label",letter.toLowerCase()+" rij "+(Math.floor(i/8)+1)+" kolom "+(i%8+1));b.addEventListener("click",()=>tapCell(i));board.append(b)});
  const missing=$("missing");missing.replaceChildren();
  words.forEach((word,i)=>{
  const index=(i+1)%word.length,shown=word.slice(0,index)+"_"+word.slice(index+1);
@@ -144,9 +144,9 @@ function render(){
  const feedback=document.createElement("p");feedback.className="feedback screen-only";feedback.setAttribute("aria-live","polite");
  const clear=document.createElement("button");clear.type="button";clear.className="small-button screen-only";clear.textContent="Wis letters";
  state.build[word]={chosen:[],answer,feedback,tiles};
- scrambled.forEach((letter,n)=>{const b=document.createElement("button");b.type="button";b.className="tile";b.textContent=letter;b.dataset.tile=n;b.addEventListener("click",()=>{if(b.disabled)return;b.disabled=true;b.style.opacity=".3";state.build[word].chosen.push({letter,button:b});updateBuild(word)});tiles.append(b)});
+ scrambled.forEach((letter,n)=>{const b=document.createElement("button");b.type="button";b.className="tile";b.textContent=letter.toLowerCase();b.dataset.tile=n;b.addEventListener("click",()=>{if(b.disabled)return;b.disabled=true;b.style.opacity=".3";state.build[word].chosen.push({letter,button:b});updateBuild(word)});tiles.append(b)});
  clear.addEventListener("click",()=>{state.build[word].chosen.forEach(x=>{x.button.disabled=false;x.button.style.opacity=""});state.build[word].chosen=[];updateBuild(word)});
- const printTiles=document.createElement("div");printTiles.className="print-only print-tiles";printTiles.textContent=scrambled.join("  ");
+ const printTiles=document.createElement("div");printTiles.className="print-only print-tiles";printTiles.textContent=scrambled.join("  ").toLowerCase();
  const printLine=document.createElement("div");printLine.className="print-only print-line";
  row.append(label,tiles,answer,feedback,clear,printTiles,printLine);build.append(row);
  });
@@ -168,7 +168,7 @@ function tapCell(i){
 }
 function updateBuild(word){
  const s=state.build[word],answer=s.chosen.map(x=>x.letter).join("");
- s.answer.textContent=answer||"_____";
+ s.answer.textContent=answer.toLowerCase()||"_____";
  if(answer.length===word.length)s.feedback.textContent=answer===word?"Goed!":"Nog niet goed. Klik op Wis letters.";
  else s.feedback.textContent="";
 }
