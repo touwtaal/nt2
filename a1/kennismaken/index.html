@@ -115,7 +115,7 @@ document.querySelectorAll("[data-level]").forEach(b=>b.addEventListener("click",
 $("check").addEventListener("click",check);
 $("next").addEventListener("click",()=>{if(!answered)return;if(index===bank[level].length-1)finish();else{index++;show()}});
 $("retry").addEventListener("click",()=>start(level));
-$("print").addEventListener("click",()=>window.print());
-start("basis");
+$("print").addEventListener("click",()=>{location.href="../../werkblad.html?oefening=a1-kennismaken&niveau="+encodeURIComponent(level)});
+const requested=new URLSearchParams(location.search).get("niveau");start(requested&&bank[requested]?requested:"basis");
 })();
 </script></body></html>
