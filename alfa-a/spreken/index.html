@@ -16,13 +16,13 @@
 <a class="site-label" href="../../index.html"><img src="https://touwtaal.github.io/assets/logo.jpg" alt="TouwTaal" style="height:45px;max-width:155px;object-fit:contain"> <span>NT2-oefeningen</span></a>
 <div class="navlinks"><a href="../../index.html">Alle niveaus</a><a href="https://touwtaal.github.io/">TouwTaal</a></div>
 </nav></header>
-<section class="hero"><div class="hero-inner"><div class="eyebrow">Alfa A · Praat je mee? · Luisteren en spreken</div><h1 id="topic-heading">Bij de dokter</h1><p>Luister naar de zin. Kies het plaatje. Zeg de zin na.</p></div></section>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">Alfa A · Praat je mee? · Luisteren en spreken</div><h1 id="topic-heading">Gezondheid</h1><p>Luister naar de zin. Kies het plaatje. Zeg de zin na.</p></div></section>
 <main id="inhoud" class="wrap"><div class="practice">
-<div class="breadcrumbs"><a href="../../index.html">Alle niveaus</a> / <a href="../">Alfa A</a> / Praat je mee? / <span id="topic-breadcrumb">Bij de dokter</span></div>
+<div class="breadcrumbs"><a href="../../index.html">Alle niveaus</a> / <a href="../">Alfa A</a> / Praat je mee? / <span id="topic-breadcrumb">Gezondheid</span></div>
 <section class="practice-card"><h2>Kies een thema</h2><p class="support">Kies een plaatje. Je kunt daarna 1, 2 of 3 sterren oefenen.</p><div class="theme-buttons" id="topics" role="group" aria-label="Kies een gespreksthema"></div></section>
-<section class="practice-card"><span class="pill">Luisteren en spreken</span><h2>Kies je sterren</h2><p>Begin met één ster of kies een andere moeilijkheid. Je hoeft niets te typen of te spellen.</p>
+<section class="practice-card"><span class="pill">Luisteren en spreken</span><h2>Kies je sterren</h2><p>★ Luister en begrijp · ★★ Zeg korte zinnen · ★★★ Oefen een gesprek. Je hoeft niet te schrijven of te spellen.</p>
 <div class="level-buttons" role="group" aria-label="Kies moeilijkheid">
-<button type="button" data-star="1" aria-pressed="true">★ 1 ster</button><button type="button" data-star="2" aria-pressed="false">★★ 2 sterren</button><button type="button" data-star="3" aria-pressed="false">★★★ 3 sterren</button></div>
+<button type="button" data-star="1" aria-pressed="true">★ 1 ster</button><button type="button" data-star="2" aria-pressed="false">★★ 2 sterren</button><button type="button" data-star="3" aria-pressed="false">★★★ 3 sterren</button></div><p id="star-help" class="support" aria-live="polite">★ Luister en begrijp. Zeg een woord na.</p>
 </section>
 <section class="practice-card" aria-labelledby="activity-title">
 <h2 id="activity-title">Luister en kies</h2>
@@ -88,7 +88,7 @@ const doctorLessons={
 const extra=window.touwtaalOralData||{};
 const topics={
  kennismaken:extra.kennismaken,school:extra.school,eten:extra.eten,
- dokter:{title:"Bij de dokter",emoji:"🩺",chapter:4},
+ dokter:{title:"Gezondheid",emoji:"🩺",chapter:4},
  kleding:extra.kleding,wonen:extra.wonen,vrijetijd:extra.vrijetijd,
  vervoer:extra.vervoer,werk:extra.werk,familie:extra.familie
 };
@@ -116,7 +116,7 @@ function say(rate){
 function choose(chosen){
  if(answered)return;answered=true;const item=lessons[theme][star][index],good=chosen===item[1];if(good)score++;
  [...$("options").children].forEach(b=>{b.disabled=true;if(b.dataset.key===item[1])b.classList.add("correct");if(b.dataset.key===chosen&&!good)b.classList.add("incorrect")});
- $("feedback").textContent=(good?"Goed gedaan! ":"Luister nog een keer. ")+ "Dit is: "+icons[item[1]][1]+". Zeg de zin nu hardop na.";
+ $("feedback").textContent=(good?"Goed gedaan! ":"Luister nog een keer. ")+ "Dit is: "+icons[item[1]][1]+". "+(star===1?"Zeg het woord nu hardop.":star===2?"Zeg de korte zin nu na.":"Zeg de zin na. Probeer daarna zelf te antwoorden.") ;
  $("sentence").hidden=false;$("sentence").textContent=item[0];$("reveal").textContent="Verberg de zin";$("reveal").setAttribute("aria-expanded","true");$("next").disabled=false;
 }
 function render(){
@@ -136,7 +136,7 @@ function render(){
  $("activity-title").textContent="Luister en kies";
 }
 function finish(){cancel();$("progress-fill").style.width="100%";$("progress").setAttribute("aria-valuenow","100");$("step").textContent="Klaar!";$("activity-title").textContent="Goed geoefend";$("feedback").textContent="Je had "+score+" van de "+lessons[theme][star].length+" keer meteen het goede plaatje. Je kunt de zinnen opnieuw beluisteren en nazeggen."; $("next").disabled=true;$("options").replaceChildren();$("listen").disabled=true;$("slow").disabled=true;$("sentence").hidden=true}
-function start(v){star=v;index=0;score=0;$("listen").disabled=false;$("slow").disabled=false;document.querySelectorAll("[data-star]").forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.star)===star)));render()}
+function start(v){star=v;index=0;score=0;$("star-help").textContent=star===1?"★ Luister en begrijp. Zeg het woord na.":star===2?"★★ Luister en zeg een korte zin na.":"★★★ Luister, antwoord en oefen een gesprekje.";$("listen").disabled=false;$("slow").disabled=false;document.querySelectorAll("[data-star]").forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.star)===star)));render()}
 function selectTheme(key){
  if(!topics[key])return;
  theme=key;const detail=topics[key];
@@ -149,8 +149,8 @@ function selectTheme(key){
 Object.entries(topics).forEach(([key,detail])=>{
  const b=document.createElement("button");b.type="button";b.dataset.topic=key;
  const symbol=document.createElement("span");symbol.className="theme-symbol";symbol.setAttribute("aria-hidden","true");symbol.textContent=detail.emoji;
- const name=document.createElement("strong");name.textContent=detail.title;
- b.append(symbol,name);b.addEventListener("click",()=>selectTheme(key));$("topics").append(b);
+ const name=document.createElement("strong");name.textContent=detail.chapter+". "+detail.title;
+ b.append(symbol,name);b.setAttribute("aria-label","Thema "+detail.chapter+": "+detail.title);b.addEventListener("click",()=>selectTheme(key));$("topics").append(b);
 });
 document.querySelectorAll("[data-star]").forEach(b=>b.addEventListener("click",()=>start(Number(b.dataset.star))));
 $("listen").addEventListener("click",()=>say(.95));$("slow").addEventListener("click",()=>say(.72));
