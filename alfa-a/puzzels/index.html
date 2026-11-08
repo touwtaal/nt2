@@ -73,14 +73,20 @@ section[aria-labelledby="build-title"]{break-before:page!important;margin-top:0!
 <section class="hero"><div class="hero-inner"><div class="eyebrow">Alfa A · Woordpuzzels</div><h1>Woorden oefenen</h1><p>Zoek letters. Maak woorden. Oefen in kleine stappen.</p></div></section>
 <main id="inhoud" class="wrap">
 <div class="breadcrumbs"><a href="../../">Alle niveaus</a> / <a href="../">Alfa A</a> / Woordpuzzels</div>
-<div class="puzzle-top"><div><h2>Kies een thema</h2><p class="hint">Drie oefeningen met tien woorden per thema.</p>
+<div class="puzzle-top"><div><h2>Kies een thema</h2><p class="hint">Tien woorden uit TaalCompleet – Leer lezen en schrijven (LLS) Alfa A. Kies het thema dat je al hebt geleerd.</p>
 <select class="theme-select" id="theme" aria-label="Kies een thema">
-<option value="eten">Eten en drinken</option><option value="lichaam">Mijn lichaam</option><option value="kleding">Kleding</option>
-<option value="huis">Mijn huis</option><option value="vervoer">Vervoer</option><option value="boodschappen">Boodschappen</option></select></div>
+<option value="lls1">Thema 1 · i/k, m, p, n, aa, d</option>
+<option value="lls2">Thema 2 · r, a, t, s, g</option>
+<option value="lls3">Thema 3 · z, l, e, ij, v</option>
+<option value="lls4">Thema 4 · ee, h, b, oo, oe</option>
+<option value="lls5">Thema 5 · j, ie, o, -t</option>
+<option value="lls6">Thema 6 · uu, ui, ou</option>
+<option value="lls7">Thema 7 · u, f, eu</option>
+<option value="lls8">Thema 8 · w, ei</option></select></div>
 <div class="toolbar"><button class="action light" type="button" id="reset">Opnieuw beginnen</button><button class="action" type="button" id="print">Print dit thema</button></div></div>
 <div class="print-only"><h1 style="font-size:20pt;margin:0 0 3mm">Alfa A · <span id="print-title"></span></h1><p>Naam: ___________________________________ &nbsp; Datum: _______________</p></div>
 <section class="puzzle-section" aria-labelledby="ws-title"><h2 id="ws-title">1. Woordzoeker</h2>
-<p class="hint screen-only">Tik op een woord. Tik dan de letters aan, van links naar rechts of van boven naar beneden.</p>
+<p class="hint screen-only">Tik op een woord. Tik dan de letters aan, alleen van links naar rechts.</p>
 <p class="print-only">Zoek deze woorden. Zet er een streep omheen:</p>
 <div id="targets" class="word-list screen-only"></div><p id="print-words" class="print-only"></p>
 <div id="grid" class="letter-grid" aria-label="Woordzoeker met twaalf rijen en twaalf kolommen"></div><p id="ws-feedback" class="feedback screen-only" aria-live="polite"></p></section>
@@ -91,17 +97,19 @@ section[aria-labelledby="build-title"]{break-before:page!important;margin-top:0!
 <section class="puzzle-section" aria-labelledby="build-title"><h2 id="build-title">3. Maak het woord</h2>
 <p class="hint screen-only">Tik op de letters in de goede volgorde.</p><p class="print-only">Zet de letters in de goede volgorde. Schrijf het woord.</p>
 <div id="build"></div></section>
-<div class="note screen-only"><strong>Voor de docent</strong><p>De woordzoeker bevat alleen horizontale en verticale woorden. De printknop maakt een werkblad van twee A4-pagina’s. Deze themalijsten zijn voorlopige voorbeeldwoorden; controleer voor jouw groep welke woorden al in de gebruikte methode zijn aangeboden.</p></div>
+<div class="note screen-only"><strong>Voor de docent</strong><p>Dit zijn geselecteerde lees- en schrijfwoorden uit de aangeleverde TaalCompleet-LLS-lijst Alfa A. De woordzoeker loopt alleen van links naar rechts. De themakeuze volgt de letteraanbieding; controleer dat alle letters van het gekozen thema al behandeld zijn. De Praat je mee?-lijsten (1, 2 en 3 sterren) zijn uitsluitend voor mondelinge oefeningen en niet voor spelling.</p></div>
 </main><footer class="footer"><p>Learn Dutch with confidence.</p></footer>
 <script>
 "use strict";
 const themes={
-eten:{title:"Eten en drinken",words:["BROOD","MELK","KAAS","EI","THEE","WATER","SOEP","RIJST","SAP","PEER"]},
-lichaam:{title:"Mijn lichaam",words:["HAND","NEUS","ARM","BEEN","OOG","OOR","MOND","BUIK","VOET","HAAR"]},
-kleding:{title:"Kleding",words:["JAS","SOK","TRUI","BROEK","JURK","ROK","PET","MUTS","SCHOEN","VEST"]},
-huis:{title:"Mijn huis",words:["BED","DEUR","KAST","LAMP","RAAM","DAK","TAFEL","STOEL","BANK","MUUR"]},
-vervoer:{title:"Vervoer",words:["BUS","AUTO","FIETS","TREIN","TRAM","TAXI","BOOT","WEG","HALTE","RIT"]},
-boodschappen:{title:"Boodschappen",words:["TAS","BON","GELD","PIN","KASSA","WINKEL","PRIJS","APPEL","PAK","ZAK"]}
+lls1:{title:"Thema 1 · i/k, m, p, n, aa, d",words:["KIM","KIP","KIN","MIN","PIN","NAAM","AAP","KAAK","MAAN","DAAN"]},
+lls2:{title:"Thema 2 · r, a, t, s, g",words:["RAAM","MAP","DAK","KAT","MAT","TAS","KAAS","SAP","DAG","GAS"]},
+lls3:{title:"Thema 3 · z, l, e, ij, v",words:["ZIT","ZAK","LAM","LIP","MES","PEN","PET","ZES","IJS","VIS"]},
+lls4:{title:"Thema 4 · ee, h, b, oo, oe",words:["TEEN","ZEE","ZEEP","HAAR","HEK","BEEN","OOG","BOOT","VOET","BOEK"]},
+lls5:{title:"Thema 5 · j, ie, o, -t",words:["JAS","JAAR","JIJ","RIEM","NIET","VIER","ZIEN","ZIEK","SOK","BON"]},
+lls6:{title:"Thema 6 · uu, ui, ou",words:["MUUR","UUR","HUIS","BUIK","MUIS","TUIN","UIT","HOUT","ZOUT","KOU"]},
+lls7:{title:"Thema 7 · u, f, eu",words:["BUS","ZUS","MUS","JUF","GUM","FOUT","NEEF","LIEF","NEUS","LEUK"]},
+lls8:{title:"Thema 8 · w, ei",words:["WIEL","WIT","WEG","WIJN","WIJK","WOON","BOUW","GEIT","MEI","REIS"]}
 };
 const $=id=>document.getElementById(id);
 let state={};
@@ -110,8 +118,8 @@ function makeGrid(words,seed){
  const random=rng(seed),size=12,grid=Array.from({length:size},()=>Array(size).fill("")),locations={};
  for(const word of [...words].sort((a,b)=>b.length-a.length)){
   const choices=[];
-  for(let dir=0;dir<2;dir++)for(let r=0;r<size;r++)for(let c=0;c<size;c++){
-   const dr=dir===1?1:0,dc=dir===0?1:0;
+  for(let r=0;r<size;r++)for(let c=0;c<size;c++){
+   const dr=0,dc=1;
    if(r+dr*(word.length-1)>=size||c+dc*(word.length-1)>=size)continue;
    const cells=Array.from({length:word.length},(_,i)=>[r+i*dr,c+i*dc]);
    if(cells.every(([y,x],i)=>!grid[y][x]||grid[y][x]===word[i]))choices.push(cells);
@@ -126,6 +134,26 @@ function makeGrid(words,seed){
  return {grid,locations};
 }
 function setFeedback(id,text){$(id).textContent=text}
+function shuffleWord(word,seed){
+ const random=rng(seed),original=word.toUpperCase(),reverse=[...original].reverse().join("");
+ // Echte hussel; kies niet simpelweg het oorspronkelijke of omgekeerde woord.
+ for(let attempt=0;attempt<40;attempt++){
+  const letters=[...original];
+  for(let i=letters.length-1;i>0;i--){
+   const j=Math.floor(random()*(i+1));
+   [letters[i],letters[j]]=[letters[j],letters[i]];
+  }
+  const mixed=letters.join("");
+  if(mixed!==original&&mixed!==reverse)return letters;
+ }
+ // Ook bij herhaalde letters een andere volgorde zoeken, waar mogelijk.
+ const fallback=[...original];
+ for(let i=1;i<fallback.length;i++)for(let j=0;j<i;j++){
+  const next=[...fallback];[next[i],next[j]]=[next[j],next[i]];
+  if(next.join("")!==original&&next.join("")!==reverse)return next;
+ }
+ return fallback;
+}
 function render(){
  const key=$("theme").value,theme=themes[key],words=theme.words;
  const seed=[...key].reduce((s,c)=>s+c.charCodeAt(0),1);
@@ -152,8 +180,7 @@ function render(){
  const row=document.createElement("div");row.className="exercise";row.style.display="block";
  const label=document.createElement("label");label.textContent=(i+1)+". Maak het woord ("+word.length+" letters)";
  const tiles=document.createElement("div");tiles.className="letter-tiles screen-only";
- const scrambled=word.split("").reverse();
- if(scrambled.join("")===word)scrambled.push(scrambled.shift());
+ const scrambled=shuffleWord(word,seed+37*i);
  const answer=document.createElement("div");answer.className="build-answer screen-only";answer.setAttribute("aria-label","Gekozen letters");
  const feedback=document.createElement("p");feedback.className="feedback screen-only";feedback.setAttribute("aria-live","polite");
  const clear=document.createElement("button");clear.type="button";clear.className="small-button screen-only";clear.textContent="Wis letters";
