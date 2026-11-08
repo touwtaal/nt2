@@ -34,22 +34,25 @@ button{font:inherit;cursor:pointer}
 .small-button{border:1px solid var(--line);background:var(--section);color:var(--ink);border-radius:8px;padding:.4rem .7rem;margin:.4rem 0}
 .print-only{display:none}
 @media print{
-@page{size:A4;margin:12mm}
-body{font-size:11pt}
-.puzzle-top,.toolbar,.screen-only,.hint.screen-only,.feedback,.small-button,.target,.tile,.letter-input{display:none!important}
-.print-only{display:block}
-.puzzle-section{padding:0;border:0;border-radius:0;margin:0 0 9mm;break-inside:avoid}
-.puzzle-section h2{font-size:15pt}
-.letter-grid{width:76mm;gap:0;margin:3mm 0 4mm}
-.cell{border:1px solid #333;border-radius:0;background:#fff!important;color:#000!important;font-size:12pt}
-.exercise{display:flex;align-items:center;gap:6mm;padding:2mm 0}
-.exercise label{margin:0;min-width:28mm}
-.missing-word{font-size:14pt;min-width:35mm}
-.build-answer{border:0;letter-spacing:.2em}
-.print-tiles{font:800 14pt Manrope,sans-serif;letter-spacing:.4em}
-.print-line{border-bottom:1px solid #333;width:48mm;height:8mm}
-.hero{display:none}
-.wrap{padding:0}
+@page{size:A4;margin:12mm 15mm}
+html,body{margin:0!important;padding:0!important;background:#fff!important;color:#111!important;font:11pt/1.3 Arial,sans-serif!important}
+.site-header,.footer,.hero,.breadcrumbs,.puzzle-top,.toolbar,.screen-only,.hint.screen-only,.feedback,.small-button,.target,.tile,.letter-input,.note{display:none!important}
+.wrap{margin:0!important;padding:0!important;max-width:none!important;width:100%!important}
+.print-only{display:block!important}
+main>.print-only h1{font:700 17pt/1.2 Arial,sans-serif!important;letter-spacing:0!important;margin:0 0 2mm!important}
+main>.print-only p{font-size:10pt!important;margin:0 0 4mm!important}
+.puzzle-section{padding:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;margin:0 0 5mm!important;break-inside:auto!important}
+.puzzle-section h2{font:700 13pt/1.2 Arial,sans-serif!important;letter-spacing:0!important;margin:0 0 2mm!important}
+.puzzle-section p.print-only{margin:0 0 2mm!important;font-size:10.5pt!important}
+.letter-grid{width:69mm!important;gap:0!important;margin:2mm 0 3mm!important;break-inside:avoid!important}
+.cell{border:1px solid #444!important;border-radius:0!important;background:#fff!important;color:#111!important;font:700 11pt Arial,sans-serif!important;aspect-ratio:1!important}
+.exercise{display:flex!important;align-items:center!important;gap:4mm!important;padding:1mm 0!important;break-inside:avoid!important}
+.exercise label{margin:0!important;min-width:22mm!important;font-size:10.5pt!important}
+.missing-word{font:700 12pt Arial,sans-serif!important;letter-spacing:.1em!important;min-width:28mm!important}
+#build .exercise{display:grid!important;grid-template-columns:48mm 1fr 48mm!important;column-gap:4mm!important;align-items:center!important}
+#build .exercise label{min-width:0!important;font-size:10pt!important}
+.print-tiles{font:700 12pt Arial,sans-serif!important;letter-spacing:.22em!important}
+.print-line{border-bottom:1px solid #444!important;width:46mm!important;height:7mm!important}
 }
 </style></head>
 <body><a class="skip" href="#inhoud">Ga naar inhoud</a>
