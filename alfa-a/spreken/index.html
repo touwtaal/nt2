@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#F8F4EE">
+<meta name="description" content="TouwTaal Alfa A: luisteren en spreken over een bezoek aan de dokter, op 1, 2 of 3 sterren.">
+<title>Bij de dokter · Praat je mee? | TouwTaal NT2</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.practice{max-width:840px;margin:auto}.practice-card{padding:clamp(1rem,4vw,2rem);border-radius:22px;border:1px solid var(--line);background:var(--nav);margin:1rem 0}.level-buttons,.audio-controls,.action-row{display:flex;gap:.65rem;flex-wrap:wrap}.level-buttons button,.audio-controls button,.action-row button{padding:.76rem 1rem;min-height:48px;border:2px solid var(--lavender);border-radius:13px;background:white;color:var(--ink);font:700 1rem 'DM Sans',Arial,sans-serif;cursor:pointer}.level-buttons button[aria-pressed=true],.audio-controls .primary,.action-row .primary{background:var(--purple);color:#fff;border-color:var(--purple)}.level-buttons button:focus-visible,.audio-controls button:focus-visible,.action-row button:focus-visible,.picture:focus-visible{outline:3px solid var(--deep);outline-offset:3px}.audio-controls{margin:1rem 0}.picture-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin:1rem 0}.picture{min-height:120px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.35rem;background:#fff;border:3px solid var(--lavender);border-radius:16px;font:600 1rem 'DM Sans',Arial,sans-serif;color:var(--ink);cursor:pointer;padding:.8rem .3rem}.picture .symbol{font-size:clamp(2.3rem,8vw,4rem);line-height:1.15}.picture[disabled]{cursor:default}.picture.correct{background:#e6f4eb;border-color:#438764}.picture.incorrect{background:#fceded;border-color:#b65e63}.picture-label{font-size:.9rem;line-height:1.35}.status{background:var(--art);border-left:5px solid var(--lavender);border-radius:9px;padding:1rem;margin:1rem 0}.status:empty{display:none}.step{color:var(--muted);font-weight:600}.bar{height:10px;background:var(--line);border-radius:40px;margin:.5rem 0 1.4rem;overflow:hidden}.bar span{display:block;height:100%;width:0;background:var(--purple)}.support{font-size:.9rem;color:var(--muted)}.support button{background:transparent;border:0;color:var(--deep);font-weight:700;text-decoration:underline;cursor:pointer;padding:.2rem}.sentence{padding:.8rem;background:var(--section);border-radius:12px;margin:.6rem 0 1rem}.sentence[hidden],.picture-label[hidden]{display:none!important}.progress-result{margin:1.5rem 0 0}.action-row button:disabled{opacity:.5;cursor:not-allowed}
+@media(max-width:480px){.picture-grid{gap:.45rem}.picture{min-height:104px}.picture .symbol{font-size:2.5rem}.practice-card{padding:1rem}}
+@media print{.site-header,.hero,.breadcrumbs,.footer{display:none!important}.wrap{padding:0!important}.practice-card{break-inside:avoid}}
+</style></head>
+<body>
+<a class="skip" href="#inhoud">Ga naar inhoud</a>
+<header class="site-header"><nav class="nav" aria-label="Hoofdnavigatie">
+<a class="site-label" href="../../index.html"><img src="https://touwtaal.github.io/assets/logo.jpg" alt="TouwTaal" style="height:45px;max-width:155px;object-fit:contain"> <span>NT2-oefeningen</span></a>
+<div class="navlinks"><a href="../../index.html">Alle niveaus</a><a href="https://touwtaal.github.io/">TouwTaal</a></div>
+</nav></header>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">Alfa A · Praat je mee? · Luisteren en spreken</div><h1>Bij de dokter</h1><p>Luister naar de zin. Kies het plaatje. Zeg de zin na.</p></div></section>
+<main id="inhoud" class="wrap"><div class="practice">
+<div class="breadcrumbs"><a href="../../index.html">Alle niveaus</a> / <a href="../">Alfa A</a> / Praat je mee? / Bij de dokter</div>
+<section class="practice-card"><span class="pill">Luisteren en spreken</span><h2>Kies je sterren</h2><p>Begin met één ster of kies een andere moeilijkheid. Je hoeft niets te typen of te spellen.</p>
+<div class="level-buttons" role="group" aria-label="Kies moeilijkheid">
+<button type="button" data-star="1" aria-pressed="true">★ 1 ster</button><button type="button" data-star="2" aria-pressed="false">★★ 2 sterren</button><button type="button" data-star="3" aria-pressed="false">★★★ 3 sterren</button></div>
+</section>
+<section class="practice-card" aria-labelledby="activity-title">
+<h2 id="activity-title">Luister en kies</h2>
+<p id="step" class="step">Vraag 1 van 10</p><div class="bar" role="progressbar" aria-label="Voortgang" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progress"><span id="progress-fill"></span></div>
+<div class="audio-controls"><button class="primary" type="button" id="listen">▶ Luister naar de zin</button><button type="button" id="slow">▶ Langzaam</button></div>
+<p class="support">Je kunt zo vaak luisteren als je wilt. <button type="button" id="reveal" aria-expanded="false" aria-controls="sentence">Toon de zin</button></p>
+<p class="sentence" id="sentence" hidden></p>
+<p class="support">Kies het plaatje dat het beste bij de zin past. <button type="button" id="labels" aria-pressed="false">Toon woorden bij plaatjes</button></p>
+<div id="options" class="picture-grid" role="group" aria-label="Kies het juiste plaatje"></div>
+<div id="feedback" class="status" aria-live="polite"></div>
+<div class="action-row"><button class="primary" type="button" id="next" disabled>Volgende</button><button type="button" id="again">Opnieuw beginnen</button></div>
+<p class="support" id="audio-info">Het geluid gebruikt de Nederlandse voorleesstem van je apparaat. Werkt de stem niet? Gebruik 'Toon de zin'.</p>
+</section>
+</div></main>
+<footer class="footer"><p>Learn Dutch with confidence.</p><p><a href="https://touwtaal.github.io/">TouwTaal</a></p></footer>
+<script>
+(function(){
+"use strict";
+const icons={
+hand:["✋","hand"],foot:["🦶","voet"],nose:["👃","neus"],ear:["👂","oor"],eye:["👁️","oog"],mouth:["👄","mond"],arm:["💪","arm"],leg:["🦵","been"],tooth:["🦷","tand"],head:["🤕","hoofd"],
+sneeze:["🤧","niezen"],cough:["😮‍💨","hoesten"],cold:["🥶","verkouden"],fever:["🤒","koorts"],flu:["😷","griep"],throat:["🗣️","keelpijn"],doctor:["🩺","huisarts"],calendar:["📅","afspraak"],medicine:["💊","medicijnen"],
+bus:["🚌","bus"],market:["🛒","markt"],food:["🍽️","eten"],sleep:["🛌","slapen"],nausea:["🤢","misselijk"],vomit:["🤮","overgeven"],pregnant:["🤰","zwanger"],itch:["🦟","jeuk"],stress:["😰","stress"],letter:["📄","brief"],prescription:["📋","recept"],physio:["🤸","fysiotherapie"]
+};
+const lessons={
+1:[
+["Ik heb pijn aan mijn hand.","hand","foot","ear"],
+["Mijn voet doet pijn.","foot","nose","mouth"],
+["Ik heb pijn aan mijn neus.","nose","hand","leg"],
+["Mijn oor doet pijn.","ear","foot","eye"],
+["Ik heb pijn aan mijn oog.","eye","mouth","tooth"],
+["Mijn mond doet pijn.","mouth","nose","leg"],
+["Ik heb pijn aan mijn arm.","arm","ear","foot"],
+["Mijn been doet pijn.","leg","hand","tooth"],
+["Ik heb pijn aan mijn tand.","tooth","eye","foot"],
+["Mijn hoofd doet pijn.","head","hand","nose"]
+],
+2:[
+["Ik moet niezen.","sneeze","tooth","leg"],
+["Ik moet hoesten.","cough","foot","hand"],
+["Ik ben verkouden.","cold","mouth","tooth"],
+["Ik heb keelpijn.","throat","ear","foot"],
+["Ik heb oorpijn.","ear","foot","mouth"],
+["Ik heb koorts.","fever","hand","leg"],
+["Ik heb griep.","flu","tooth","foot"],
+["Ik ga naar de huisarts.","doctor","bus","market"],
+["Ik maak een afspraak bij de huisarts.","calendar","food","bus"],
+["Ik haal mijn medicijnen.","medicine","calendar","leg"]
+],
+3:[
+["Ik voel me misselijk.","nausea","foot","calendar"],
+["Ik moet overgeven.","vomit","ear","hand"],
+["Ik ben zwanger.","pregnant","tooth","bus"],
+["Ik heb last van jeuk.","itch","calendar","food"],
+["Ik heb veel stress.","stress","foot","letter"],
+["Ik slaap de laatste tijd slecht.","sleep","medicine","market"],
+["Ik eet heel weinig.","food","doctor","bus"],
+["Ik heb een verwijsbrief.","letter","food","leg"],
+["Ik wil een herhaalrecept.","prescription","foot","bus"],
+["Ik heb een afspraak bij de fysiotherapie.","physio","market","medicine"]
+]};
+const $=id=>document.getElementById(id);
+let star=1,index=0,score=0,answered=false,showLabels=false;
+function cancel(){if("speechSynthesis" in window)window.speechSynthesis.cancel()}
+function say(rate){
+ const phrase=lessons[star][index][0];
+ if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window)){$("audio-info").textContent="Op dit apparaat is geen voorleesstem beschikbaar. Klik op 'Toon de zin'.";return}
+ cancel();const u=new SpeechSynthesisUtterance(phrase);u.lang="nl-NL";u.rate=rate;
+ const voices=window.speechSynthesis.getVoices();const dutch=voices.find(v=>v.lang.toLowerCase().startsWith("nl"));if(dutch)u.voice=dutch;
+ u.onerror=()=>{$("audio-info").textContent="Het voorlezen werkte niet. Tik op 'Toon de zin' om de zin te bekijken."};
+ window.speechSynthesis.speak(u)
+}
+function choose(chosen){
+ if(answered)return;answered=true;const item=lessons[star][index],good=chosen===item[1];if(good)score++;
+ [...$("options").children].forEach(b=>{b.disabled=true;if(b.dataset.key===item[1])b.classList.add("correct");if(b.dataset.key===chosen&&!good)b.classList.add("incorrect")});
+ $("feedback").textContent=(good?"Goed gedaan! ":"Luister nog een keer. ")+ "Dit is: "+icons[item[1]][1]+". Zeg de zin nu hardop na.";
+ $("sentence").hidden=false;$("sentence").textContent=item[0];$("reveal").textContent="Verberg de zin";$("reveal").setAttribute("aria-expanded","true");$("next").disabled=false;
+}
+function render(){
+ cancel();answered=false;const items=lessons[star],item=items[index];
+ $("step").textContent="Vraag "+(index+1)+" van "+items.length;
+ const pct=Math.round(index/items.length*100);$("progress-fill").style.width=pct+"%";$("progress").setAttribute("aria-valuenow",String(pct));
+ $("sentence").hidden=true;$("sentence").textContent=item[0];$("reveal").textContent="Toon de zin";$("reveal").setAttribute("aria-expanded","false");
+ $("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===items.length-1?"Bekijk resultaat":"Volgende";
+ $("options").replaceChildren();
+ const keys=[item[1],item[2],item[3]];const rotation=index%3;
+ for(let j=0;j<3;j++){
+  const key=keys[(j+rotation)%3],def=icons[key];const b=document.createElement("button");b.type="button";b.className="picture";b.dataset.key=key;b.setAttribute("aria-label","Plaatje: "+def[1]);
+  const symbol=document.createElement("span");symbol.className="symbol";symbol.textContent=def[0];symbol.setAttribute("aria-hidden","true");
+  const lbl=document.createElement("span");lbl.className="picture-label";lbl.textContent=def[1];lbl.hidden=!showLabels;
+  b.append(symbol,lbl);b.addEventListener("click",()=>choose(key));$("options").append(b)
+ }
+ $("activity-title").textContent="Luister en kies";
+}
+function finish(){cancel();$("progress-fill").style.width="100%";$("progress").setAttribute("aria-valuenow","100");$("step").textContent="Klaar!";$("activity-title").textContent="Goed geoefend";$("feedback").textContent="Je had "+score+" van de "+lessons[star].length+" keer meteen het goede plaatje. Je kunt de zinnen opnieuw beluisteren en nazeggen."; $("next").disabled=true;$("options").replaceChildren();$("listen").disabled=true;$("slow").disabled=true;$("sentence").hidden=true}
+function start(v){star=v;index=0;score=0;$("listen").disabled=false;$("slow").disabled=false;document.querySelectorAll("[data-star]").forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.star)===star)));render()}
+document.querySelectorAll("[data-star]").forEach(b=>b.addEventListener("click",()=>start(Number(b.dataset.star))));
+$("listen").addEventListener("click",()=>say(.95));$("slow").addEventListener("click",()=>say(.72));
+$("reveal").addEventListener("click",()=>{const wasHidden=$("sentence").hidden;$("sentence").hidden=!wasHidden;$("reveal").textContent=wasHidden?"Verberg de zin":"Toon de zin";$("reveal").setAttribute("aria-expanded",String(wasHidden))});
+$("labels").addEventListener("click",()=>{showLabels=!showLabels;$("labels").setAttribute("aria-pressed",String(showLabels));$("labels").textContent=showLabels?"Verberg woorden bij plaatjes":"Toon woorden bij plaatjes";document.querySelectorAll(".picture-label").forEach(x=>x.hidden=!showLabels)});
+$("next").addEventListener("click",()=>{if(!answered)return;if(index===lessons[star].length-1)finish();else{index++;render()}});
+$("again").addEventListener("click",()=>start(star));
+window.addEventListener("pagehide",cancel);
+render();
+})();
+</script></body></html>
