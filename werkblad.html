@@ -69,6 +69,7 @@ else{
  const theme=query.get("thema");if(theme&&/^[a-zA-Z0-9.\-]+$/.test(theme))selected.set("thema",theme);
  const lesson=query.get("les");if(lesson!==null&&/^\d{1,2}$/.test(lesson))selected.set("les",lesson);
 }
+document.getElementById("back").href=item.path+(selected.size?"?"+selected.toString():"");
 frame.src=item.path+(selected.size?"?"+selected.toString():"");
 let observer;
 function resize(){
