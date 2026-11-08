@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="../../styles.css">
 <style>
 .module{max-width:850px;margin:auto}.module-card{background:var(--nav);border:1px solid var(--line);border-radius:22px;padding:clamp(1rem,4vw,2rem);margin:1.2rem 0}.steps{color:var(--muted);font-size:.95rem}.control{display:flex;flex-wrap:wrap;gap:.55rem;margin:1rem 0}.control button,.answer,.tool{border:2px solid var(--lavender);background:white;color:var(--ink);border-radius:13px;padding:.8rem 1rem;font:700 1rem 'DM Sans',sans-serif;cursor:pointer;min-height:48px}.control button[aria-pressed=true]{background:var(--purple);border-color:var(--purple);color:white}.answer{display:block;text-align:left;width:100%;margin:.6rem 0}.answer:hover,.answer:focus-visible{border-color:var(--deep)}.answer[disabled]{opacity:.85;cursor:default}.answer.correct{border-color:#287b53;background:#e8f5ed}.answer.wrong{border-color:#ac4b56;background:#fff0f1}.feedback{border-left:5px solid var(--lavender);background:var(--art);padding:1rem;border-radius:7px;min-height:3rem;margin:1rem 0}.feedback:empty{display:none}.tool{background:var(--purple);color:white;border-color:var(--purple)}.tool.secondary{background:white;color:var(--deep)}.tool:disabled{opacity:.55;cursor:not-allowed}.question{font:800 clamp(1.2rem,3vw,1.7rem) Manrope,sans-serif;margin:1rem 0}.answer-line{display:flex;gap:.6rem;flex-wrap:wrap}.answer-line input{width:min(100%,380px);min-height:48px;border:2px solid var(--lavender);border-radius:12px;padding:.7rem;font:500 1rem 'DM Sans',sans-serif}.small{font-size:.92rem;color:var(--muted)}.progressbar{background:var(--line);height:10px;border-radius:30px;overflow:hidden}.progressbar span{display:block;height:100%;background:var(--purple);width:0;transition:width .2s}.sr-only{position:absolute;left:-10000px}.print-only{display:none}.status{padding:.5rem .8rem;background:var(--section);border-radius:10px;display:inline-block}.actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1rem}button:focus-visible,input:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
-@media print{@page{size:A4;margin:13mm 15mm}html,body{margin:0!important;padding:0!important;background:white!important;color:#222!important;font:11pt/1.4 Arial,sans-serif!important}header,.hero,.breadcrumbs,.footer,.module-card:not(.print-only){display:none!important}.wrap,.module{max-width:none!important;width:100%!important;margin:0!important;padding:0!important}.module-card.print-only{display:block!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:white!important;box-shadow:none!important;break-inside:auto!important}.print-only h2{font:700 17pt/1.2 Arial,sans-serif!important;letter-spacing:0!important;margin:0 0 7mm!important}.print-only p{margin:0 0 5mm!important}.print-question{margin:0 0 4mm!important;break-inside:avoid!important}.print-rule{height:9mm!important;border-bottom:1px solid #aaa!important}.print-only .print-question strong{font-weight:700}a{color:inherit!important;text-decoration:none!important}}
+@media print{@page{size:A4;margin:13mm 15mm}html,body{margin:0!important;padding:0!important;background:white!important;color:#222!important;font:11pt/1.4 Arial,sans-serif!important}header,.hero,.breadcrumbs,.footer,.module-card:not(.print-only){display:none!important}.wrap,.module{max-width:none!important;width:100%!important;margin:0!important;padding:0!important}.module-card.print-only{display:block!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:white!important;box-shadow:none!important;break-inside:auto!important}.print-only h2{font:700 17pt/1.2 Arial,sans-serif!important;letter-spacing:0!important;margin:0 0 7mm!important}.print-only p{margin:0 0 5mm!important}.print-question{margin:0 0 4mm!important;break-inside:avoid!important}.print-rule{height:9mm!important;border-bottom:1px solid #aaa!important}.print-only .print-question strong{font-weight:700}.print-options{margin:2mm 0 3mm 5mm;font-size:10pt;line-height:1.4}.print-options p{margin:1mm 0!important}.print-question{page-break-inside:avoid}.print-line{border-bottom:1px solid #888;height:7mm}a{color:inherit!important;text-decoration:none!important}}
 </style></head>
 <body>
 <a class="skip" href="#inhoud">Ga naar inhoud</a>
@@ -23,14 +23,7 @@
 <div class="actions"><button type="button" id="next" class="tool" disabled>Volgende vraag</button><button type="button" id="restart" class="tool secondary">Opnieuw beginnen</button><button type="button" id="print" class="tool secondary">Open A4-werkblad</button></div>
 <p class="small" id="save-info">Je laatste oefenresultaat wordt alleen op dit apparaat bewaard. Gebruik je een gedeeld apparaat? Wis dan je voortgang.</p><button type="button" id="clear" class="tool secondary">Wis mijn lokale voortgang</button>
 </section>
-<section class="module-card print-only" aria-label="Printbaar werkblad"><h2>Werkblad A1 · Kennismaken</h2><p>Naam: ______________________________ Datum: ________________</p><p>Schrijf de goede vorm van het werkwoord op.</p>
-<div class="print-question"><strong>1.</strong> Ik ______ (wonen) in Rotterdam.<div class="print-rule"></div></div>
-<div class="print-question"><strong>2.</strong> Mijn zus ______ (werken) in een winkel.<div class="print-rule"></div></div>
-<div class="print-question"><strong>3.</strong> Wij ______ (leren) Nederlands.<div class="print-rule"></div></div>
-<div class="print-question"><strong>4.</strong> Jij ______ (spreken) Nederlands.<div class="print-rule"></div></div>
-<div class="print-question"><strong>5.</strong> Hij ______ (fietsen) naar school.<div class="print-rule"></div></div>
-<p>Extra: schrijf twee zinnen over jezelf.</p><div class="print-rule"></div><div class="print-rule"></div>
-</section>
+<section class="module-card print-only" aria-label="Printbaar werkblad"><h2>Werkblad A1 · Kennismaken: werkwoorden</h2><p id="print-level">1 · Basis</p><p>Naam: ______________________________ Datum: ________________</p><p>Oefen de tegenwoordige tijd.</p><div id="print-questions"></div></section>
 <section class="module-card"><h2>Handige regel</h2><p><strong>Ik:</strong> de stam (ik werk). <strong>Hij/zij:</strong> meestal stam + t (hij werkt). <strong>Wij:</strong> het hele werkwoord (wij werken). Bij <em>jij</em> is het meestal stam + t (jij werkt), maar <em>werk jij?</em> heeft geen -t. Sommige werkwoorden zijn onregelmatig, zoals <em>zijn</em> en <em>hebben</em>.</p></section>
 </div></main>
 <footer class="footer"><p>Learn Dutch with confidence.</p><p><a href="https://touwtaal.github.io/">TouwTaal</a> · NT2-oefeningen</p></footer>
@@ -90,12 +83,24 @@ function finish(){
  $('step').textContent='Oefening afgerond';$('bar').style.width='100%';$('progress').setAttribute('aria-valuenow','100');$('question-area').hidden=true;$('next').disabled=true;
  $('feedback').replaceChildren();const h=document.createElement('h3');h.textContent='Je score: '+correct+' van '+bank[level].length;const p=document.createElement('p');p.textContent=wrong.length?'Oefen deze regels opnieuw: '+[...new Set(wrong.map(i=>bank[level][i].why))].join(' '):'Alle antwoorden goed. Probeer de volgende moeilijkheid of schrijf zelf drie zinnen over jezelf.';$('feedback').append(h,p);save();
 }
-function start(nextLevel){level=nextLevel;idx=0;correct=0;wrong=[];document.querySelectorAll('[data-level]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.level===level)));render();}
+function makePrint(){
+ const names={basis:"1 · Basis",gemiddeld:"2 · Gemiddeld",uitdaging:"3 · Uitdaging"};
+ $('print-level').textContent=names[level];$('print-questions').replaceChildren();
+ bank[level].forEach((item,n)=>{
+  const box=document.createElement('div');box.className='print-question';
+  const q=document.createElement('p');const number=document.createElement('strong');number.textContent=(n+1)+'. ';
+  q.append(number,document.createTextNode(item.q));box.append(q);
+  const choices=document.createElement('div');choices.className='print-options';
+  item.choices.forEach((text,i)=>{const p=document.createElement('p');p.textContent='☐ '+String.fromCharCode(65+i)+'. '+text;choices.append(p)});
+  box.append(choices);$('print-questions').append(box);
+ });
+}
+function start(nextLevel){level=nextLevel;idx=0;correct=0;wrong=[];document.querySelectorAll('[data-level]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.level===level)));makePrint();render();}
 document.querySelectorAll('[data-level]').forEach(b=>b.addEventListener('click',()=>start(b.dataset.level)));
 $('next').addEventListener('click',()=>{if(!answered)return;if(idx===bank[level].length-1)finish();else{idx++;render();}});
 $('restart').addEventListener('click',()=>start(level));
-$('print').addEventListener('click',()=>{window.location.href='werkblad.html';});
+$('print').addEventListener('click',()=>{window.location.href='../../werkblad.html?oefening=a1-grammatica&niveau='+encodeURIComponent(level);});
 $('clear').addEventListener('click',()=>{try{localStorage.removeItem('touwtaal-a1-kennismaken');}catch(e){}$('save-info').textContent='De opgeslagen voortgang van deze oefening is gewist.';});
-render();
+const requested=new URLSearchParams(location.search).get('niveau');start(requested&&bank[requested]?requested:'basis');
 })();
 </script></body></html>
