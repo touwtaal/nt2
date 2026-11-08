@@ -17,7 +17,7 @@
 <section class="module-card"><span class="pill">Leerdoel A1</span><h2>Wat ga je leren?</h2><p>Je gebruikt <strong>ik, jij, hij, zij en wij</strong> met een werkwoord in de tegenwoordige tijd. Je maakt korte zinnen om jezelf en anderen voor te stellen.</p><p><strong>Voorbeeld:</strong> Ik woon in Utrecht. Hij woont in Leiden. Wij wonen in Delft.</p><p class="small">Dit zijn eigen oefeningen van TouwTaal. Een koppeling met het exacte hoofdstuk van Nederlands in gang (2026) volgt na controle.</p></section>
 <section class="module-card interactive-only" aria-labelledby="train"><h2 id="train">Kies je oefening</h2><p class="small">Kies een moeilijkheid. Je kunt altijd opnieuw oefenen. Dit is oefenmateriaal, geen toets.</p>
 <div id="levels" class="control" role="group" aria-label="Moeilijkheidsgraad"><button type="button" data-level="basis" aria-pressed="true">1 · Basis</button><button type="button" data-level="gemiddeld" aria-pressed="false">2 · Gemiddeld</button><button type="button" data-level="uitdaging" aria-pressed="false">3 · Uitdaging</button></div>
-<div class="steps" id="step">Vraag 1 van 10</div><div class="progressbar" role="progressbar" aria-label="Voortgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><span id="bar"></span></div>
+<p class="small" id="person-legend"><strong>Let op:</strong> 👤 = één persoon · 👥 = meerdere personen. Bij <em>zij</em> kijk je naar het symbool.</p><div class="steps" id="step">Vraag 1 van 10</div><div class="progressbar" role="progressbar" aria-label="Voortgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><span id="bar"></span></div>
 <div id="question-area"><p class="question" id="question"></p><div id="answers"></div></div>
 <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
 <div class="actions"><button type="button" id="next" class="tool" disabled>Volgende vraag</button><button type="button" id="restart" class="tool secondary">Opnieuw beginnen</button><button type="button" id="print" class="tool secondary">Open A4-werkblad</button></div>
@@ -42,9 +42,9 @@ basis:[
 {q:'Ik ___ in Amsterdam.',choices:['woon','woont','wonen'],good:0,why:'Bij ik gebruik je de stam: ik woon.'},
 {q:'Hij ___ Nederlands.',choices:['leren','leer','leert'],good:2,why:'Bij hij komt meestal een -t: hij leert.'},
 {q:'Wij ___ in Delft.',choices:['wonen','woont','woon'],good:0,why:'Bij wij gebruik je het hele werkwoord: wij wonen.'},
-{q:'Zij ___ in een winkel.',choices:['werk','werkt','werken'],good:1,why:'Zij is hier één persoon. Daarom: zij werkt.'},
+{q:'Zij (👤) ___ in een winkel.',choices:['werk','werkt','werken'],good:1,why:'👤 betekent één persoon: zij werkt. Bij meerdere personen (👥) is het: zij werken.'},
 {q:'Ik ___ Nederlands.',choices:['spreekt','spreek','spreken'],good:1,why:'Bij ik gebruik je de stam: ik spreek.'}
-,{q:"Zij ___ in Den Haag.",choices:["woont","woon","wonen"],good:0,why:"Zij is één persoon: zij woont."},
+,{q:"Zij (👥) ___ in Den Haag.",choices:["woont","woon","wonen"],good:2,why:"👥 betekent meerdere personen: zij wonen. Bij één persoon (👤) is het: zij woont."},
 {q:"Jullie ___ Nederlands.",choices:["leert","leren","leer"],good:1,why:"Bij jullie gebruik je het hele werkwoord: jullie leren."},
 {q:"Mijn vader ___ in een ziekenhuis.",choices:["werken","werk","werkt"],good:2,why:"Mijn vader = hij: hij werkt."},
 {q:"Ik ___ vandaag thuis.",choices:["werk","werken","werkt"],good:0,why:"Bij ik gebruik je de stam: ik werk."},
