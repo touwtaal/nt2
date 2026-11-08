@@ -112,7 +112,7 @@ function renderPart(){
  progress();
  const url=new URL(location.href);url.searchParams.set("thema",String(topic+1));url.searchParams.set("les",String(part));history.replaceState(null,"",url);
 }
-$("print").addEventListener("click",()=>window.print());
+$("print").addEventListener("click",()=>{location.href="../../werkblad.html?oefening=alfa-a-lsm&thema="+String(topic+1)+"&les="+encodeURIComponent(part)});
 const q=new URLSearchParams(location.search),t=Number(q.get("thema")),p=Number(q.get("les"));
 if(Number.isInteger(t)&&t>0&&t<=chapters.length)topic=t-1;
 if(Number.isInteger(p)&&p>=0&&p<chapters[topic].parts.length)part=p;
