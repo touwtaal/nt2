@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="nl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#F8F4EE"><meta name="description" content="TouwTaal NT2 A1: interactieve grammatica over kennismaken en persoonsvormen.">
+<title>A1 – Kennismaken en werkwoorden | TouwTaal NT2</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.module{max-width:850px;margin:auto}.module-card{background:var(--nav);border:1px solid var(--line);border-radius:22px;padding:clamp(1rem,4vw,2rem);margin:1.2rem 0}.steps{color:var(--muted);font-size:.95rem}.control{display:flex;flex-wrap:wrap;gap:.55rem;margin:1rem 0}.control button,.answer,.tool{border:2px solid var(--lavender);background:white;color:var(--ink);border-radius:13px;padding:.8rem 1rem;font:700 1rem 'DM Sans',sans-serif;cursor:pointer;min-height:48px}.control button[aria-pressed=true]{background:var(--purple);border-color:var(--purple);color:white}.answer{display:block;text-align:left;width:100%;margin:.6rem 0}.answer:hover,.answer:focus-visible{border-color:var(--deep)}.answer[disabled]{opacity:.85;cursor:default}.answer.correct{border-color:#287b53;background:#e8f5ed}.answer.wrong{border-color:#ac4b56;background:#fff0f1}.feedback{border-left:5px solid var(--lavender);background:var(--art);padding:1rem;border-radius:7px;min-height:3rem;margin:1rem 0}.feedback:empty{display:none}.tool{background:var(--purple);color:white;border-color:var(--purple)}.tool.secondary{background:white;color:var(--deep)}.tool:disabled{opacity:.55;cursor:not-allowed}.question{font:800 clamp(1.2rem,3vw,1.7rem) Manrope,sans-serif;margin:1rem 0}.answer-line{display:flex;gap:.6rem;flex-wrap:wrap}.answer-line input{width:min(100%,380px);min-height:48px;border:2px solid var(--lavender);border-radius:12px;padding:.7rem;font:500 1rem 'DM Sans',sans-serif}.small{font-size:.92rem;color:var(--muted)}.progressbar{background:var(--line);height:10px;border-radius:30px;overflow:hidden}.progressbar span{display:block;height:100%;background:var(--purple);width:0;transition:width .2s}.sr-only{position:absolute;left:-10000px}.print-only{display:none}.status{padding:.5rem .8rem;background:var(--section);border-radius:10px;display:inline-block}.actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1rem}button:focus-visible,input:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+@media print{header,.hero,.breadcrumbs,.control,.actions,.feedback,.interactive-only,.footer{display:none!important}body{background:#fff}.wrap{padding:0}.module-card{break-inside:avoid;border:1px solid #888;box-shadow:none}.print-only{display:block}.answer{display:none}h1,h2{font-size:20pt}.print-question{margin:0 0 1rem;break-inside:avoid}.print-rule{border-bottom:1px solid #999;height:1.8rem}}
+</style></head>
+<body>
+<a class="skip" href="#inhoud">Ga naar inhoud</a>
+<header class="site-header"><nav class="nav" aria-label="Hoofdnavigatie"><a class="site-label" href="../../index.html"><img src="https://touwtaal.github.io/assets/logo.jpg" alt="TouwTaal" style="height:45px;max-width:155px;object-fit:contain"> <span>NT2-oefeningen</span></a><div class="navlinks"><a href="../../index.html">Alle niveaus</a><a href="../">A1</a><a href="../../alfa-a/puzzels/">Alfa A-puzzels</a></div></nav></header>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">A1 · Grammatica · Concept voor docenttest</div><h1>Kennismaken</h1><p>Ik woon, jij werkt, hij leert. Oefen de tegenwoordige tijd in eenvoudige zinnen.</p></div></section>
+<main id="inhoud" class="wrap"><div class="module">
+<div class="breadcrumbs"><a href="../../index.html">Alle niveaus</a> / <a href="../">A1</a> / Grammatica</div>
+<section class="module-card"><span class="pill">Leerdoel A1</span><h2>Wat ga je leren?</h2><p>Je gebruikt <strong>ik, jij, hij, zij en wij</strong> met een werkwoord in de tegenwoordige tijd. Je maakt korte zinnen om jezelf en anderen voor te stellen.</p><p><strong>Voorbeeld:</strong> Ik woon in Utrecht. Hij woont in Leiden. Wij wonen in Delft.</p><p class="small">Dit zijn eigen oefeningen van TouwTaal. Een koppeling met het exacte hoofdstuk van Nederlands in gang (2026) volgt na controle.</p></section>
+<section class="module-card interactive-only" aria-labelledby="train"><h2 id="train">Kies je oefening</h2><p class="small">Kies een moeilijkheid. Je kunt altijd opnieuw oefenen. Dit is oefenmateriaal, geen toets.</p>
+<div id="levels" class="control" role="group" aria-label="Moeilijkheidsgraad"><button type="button" data-level="basis" aria-pressed="true">1 · Basis</button><button type="button" data-level="gemiddeld" aria-pressed="false">2 · Gemiddeld</button><button type="button" data-level="uitdaging" aria-pressed="false">3 · Uitdaging</button></div>
+<div class="steps" id="step">Vraag 1 van 5</div><div class="progressbar" role="progressbar" aria-label="Voortgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><span id="bar"></span></div>
+<div id="question-area"><p class="question" id="question"></p><div id="answers"></div></div>
+<div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+<div class="actions"><button type="button" id="next" class="tool" disabled>Volgende vraag</button><button type="button" id="restart" class="tool secondary">Opnieuw beginnen</button><button type="button" id="print" class="tool secondary">Print werkblad</button></div>
+<p class="small" id="save-info">Je laatste oefenresultaat wordt alleen op dit apparaat bewaard. Gebruik je een gedeeld apparaat? Wis dan je voortgang.</p><button type="button" id="clear" class="tool secondary">Wis mijn lokale voortgang</button>
+</section>
+<section class="module-card print-only" aria-label="Printbaar werkblad"><h2>Werkblad A1 · Kennismaken</h2><p>Naam: ______________________________ Datum: ________________</p><p>Schrijf de goede vorm van het werkwoord op.</p>
+<div class="print-question"><strong>1.</strong> Ik ______ (wonen) in Rotterdam.<div class="print-rule"></div></div>
+<div class="print-question"><strong>2.</strong> Zij ______ (werken) in een winkel.<div class="print-rule"></div></div>
+<div class="print-question"><strong>3.</strong> Wij ______ (leren) Nederlands.<div class="print-rule"></div></div>
+<div class="print-question"><strong>4.</strong> Jij ______ (spreken) Nederlands.<div class="print-rule"></div></div>
+<div class="print-question"><strong>5.</strong> Hij ______ (fietsen) naar school.<div class="print-rule"></div></div>
+<p>Extra: schrijf twee zinnen over jezelf.</p><div class="print-rule"></div><div class="print-rule"></div>
+</section>
+<section class="module-card"><h2>Handige regel</h2><p><strong>Ik:</strong> de stam (ik werk). <strong>Hij/zij:</strong> meestal stam + t (hij werkt). <strong>Wij:</strong> het hele werkwoord (wij werken). Bij <em>jij</em> is het meestal stam + t (jij werkt), maar <em>werk jij?</em> heeft geen -t. Sommige werkwoorden zijn onregelmatig, zoals <em>zijn</em> en <em>hebben</em>.</p></section>
+</div></main>
+<footer class="footer"><p>Learn Dutch with confidence.</p><p><a href="https://touwtaal.github.io/">TouwTaal</a> · NT2-oefeningen</p></footer>
+<script>
+(function(){
+'use strict';
+const bank={
+basis:[
+{q:'Ik ___ in Amsterdam.',choices:['woon','woont','wonen'],good:0,why:'Bij ik gebruik je de stam: ik woon.'},
+{q:'Hij ___ Nederlands.',choices:['leren','leer','leert'],good:2,why:'Bij hij komt meestal een -t: hij leert.'},
+{q:'Wij ___ in Delft.',choices:['wonen','woont','woon'],good:0,why:'Bij wij gebruik je het hele werkwoord: wij wonen.'},
+{q:'Zij ___ in een winkel.',choices:['werk','werkt','werken'],good:1,why:'Zij is hier één persoon. Daarom: zij werkt.'},
+{q:'Ik ___ Nederlands.',choices:['spreekt','spreek','spreken'],good:1,why:'Bij ik gebruik je de stam: ik spreek.'}
+],
+gemiddeld:[
+{q:'Jij ___ in Utrecht.',choices:['woont','woon','wonen'],good:0,why:'Bij jij vóór de persoonsvorm komt meestal -t: jij woont.'},
+{q:'___ jij in Eindhoven?',choices:['Woont','Wonen','Woon'],good:2,why:'Staat jij achter de persoonsvorm? Dan vervalt de -t: woon jij?'},
+{q:'Mijn broer ___ Nederlands.',choices:['spreken','spreekt','spreek'],good:1,why:'Mijn broer = hij. Daarom: hij spreekt.'},
+{q:'Mijn ouders ___ in Groningen.',choices:['woont','woon','wonen'],good:2,why:'Mijn ouders = zij (meervoud). Daarom: zij wonen.'},
+{q:'Ik ___ student.',choices:['ben','bent','is'],good:0,why:'Het werkwoord zijn is onregelmatig: ik ben.'}
+],
+uitdaging:[
+{q:'Welke zin is correct?',choices:['Werk jij vandaag?','Werkt jij vandaag?','Werken jij vandaag?'],good:0,why:'Bij omkering met jij vervalt de -t: werk jij?'},
+{q:'Mijn zus en ik ___ Nederlands.',choices:['leren','leert','leer'],good:0,why:'Mijn zus en ik = wij. Daarom: wij leren.'},
+{q:'Welke zin is correct?',choices:['Hij heb een fiets.','Hij heeft een fiets.','Hij hebben een fiets.'],good:1,why:'Hebben is onregelmatig: hij heeft.'},
+{q:'Waar ___ jouw ouders?',choices:['woont','wonen','woon'],good:1,why:'Jouw ouders is meervoud. Daarom: waar wonen jouw ouders?'},
+{q:'Welke combinatie is correct?',choices:['Ik ben, jij bent, hij is','Ik is, jij bent, hij ben','Ik bent, jij is, hij zijn'],good:0,why:'Zijn is onregelmatig: ik ben, jij bent, hij is.'}
+]};
+const $=id=>document.getElementById(id);let level='basis',idx=0,correct=0,answered=false,wrong=[];
+function save(){try{localStorage.setItem('touwtaal-a1-kennismaken',JSON.stringify({level:level,correct:correct,total:bank[level].length,lastPracticed:new Date().toISOString()}));}catch(e){}}
+function render(){
+ const items=bank[level],item=items[idx];answered=false;
+ $('step').textContent='Vraag '+(idx+1)+' van '+items.length;
+ $('bar').style.width=(idx/items.length*100)+'%';$('progress').setAttribute('aria-valuenow',String(Math.round(idx/items.length*100)));
+ $('question-area').hidden=false;$('question').textContent=item.q;$('answers').replaceChildren();$('feedback').textContent='';$('next').disabled=true;$('next').textContent=idx===items.length-1?'Bekijk resultaat':'Volgende vraag';
+ item.choices.forEach((c,i)=>{const b=document.createElement('button');b.type='button';b.className='answer';b.textContent=c;b.addEventListener('click',()=>choose(i));$('answers').append(b);});
+}
+function choose(i){
+ if(answered)return;answered=true;const item=bank[level][idx];const ok=i===item.good;if(ok)correct++;else wrong.push(idx);
+ [...$('answers').children].forEach((b,j)=>{b.disabled=true;if(j===item.good)b.classList.add('correct');if(j===i&&!ok)b.classList.add('wrong');});
+ $('feedback').textContent=(ok?'Goed! ':'Nog niet goed. Het juiste antwoord is: '+item.choices[item.good]+'. ')+item.why;
+ $('next').disabled=false;save();
+}
+function finish(){
+ $('step').textContent='Oefening afgerond';$('bar').style.width='100%';$('progress').setAttribute('aria-valuenow','100');$('question-area').hidden=true;$('next').disabled=true;
+ $('feedback').replaceChildren();const h=document.createElement('h3');h.textContent='Je score: '+correct+' van '+bank[level].length;const p=document.createElement('p');p.textContent=wrong.length?'Oefen deze regels opnieuw: '+[...new Set(wrong.map(i=>bank[level][i].why))].join(' '):'Alle antwoorden goed. Probeer de volgende moeilijkheid of schrijf zelf drie zinnen over jezelf.';$('feedback').append(h,p);save();
+}
+function start(nextLevel){level=nextLevel;idx=0;correct=0;wrong=[];document.querySelectorAll('[data-level]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.level===level)));render();}
+document.querySelectorAll('[data-level]').forEach(b=>b.addEventListener('click',()=>start(b.dataset.level)));
+$('next').addEventListener('click',()=>{if(!answered)return;if(idx===bank[level].length-1)finish();else{idx++;render();}});
+$('restart').addEventListener('click',()=>start(level));
+$('print').addEventListener('click',()=>window.print());
+$('clear').addEventListener('click',()=>{try{localStorage.removeItem('touwtaal-a1-kennismaken');}catch(e){}$('save-info').textContent='De opgeslagen voortgang van deze oefening is gewist.';});
+render();
+})();
+</script></body></html>
