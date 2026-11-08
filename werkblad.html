@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="nl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#F8F4EE">
+<meta name="description" content="Bekijk je TouwTaal-werkblad voordat je het afdrukt of als PDF bewaart.">
+<title>Werkblad bekijken | TouwTaal NT2</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#F8F4EE;color:#302C39;font:15px/1.48 Arial,sans-serif}
+.toolbar{max-width:210mm;margin:16px auto 12px;display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px;background:#FBF7F3;border-radius:12px}
+.toolbar a,.toolbar button{font:700 15px Arial,sans-serif;padding:12px 16px;border:0;border-radius:9px;background:#68618F;color:white;text-decoration:none;cursor:pointer;display:inline-block}
+.toolbar button:disabled{opacity:.5;cursor:not-allowed}
+.toolbar a:focus-visible,.toolbar button:focus-visible,.level-choice a:focus-visible{outline:3px solid #38305d;outline-offset:3px}
+.toolbar-buttons{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.toolbar strong{font-size:1.05rem}
+.level-choice{max-width:210mm;margin:0 auto 12px;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.level-choice a{display:inline-block;background:#fff;padding:.5rem .8rem;border:2px solid #d9d4eb;border-radius:11px;text-decoration:none;color:#302C39;font-weight:700}
+.level-choice a[aria-current=page]{background:#ddd7f4;border-color:#68618F}
+.paper{width:min(210mm,calc(100% - 24px));min-height:297mm;margin:0 auto 24px;padding:14mm 16mm;background:#fff;box-shadow:0 4px 20px #302C3920}
+.paper iframe{display:block;width:100%;min-height:250mm;border:0;background:#fff;overflow:hidden}
+.message{color:#5e586b;font-size:14px;max-width:210mm;margin:8px auto 16px;text-align:center}
+.message[hidden],.level-choice[hidden]{display:none}
+@media(max-width:550px){.toolbar{margin:0 0 10px;border-radius:0;flex-wrap:wrap}.toolbar-buttons{width:100%}.paper{padding:18px 16px;min-height:0}.paper iframe{min-height:700px}.level-choice{padding:0 12px}}
+@media print{@page{size:A4;margin:0}html,body{background:white!important;margin:0!important}.toolbar,.level-choice,.message{display:none!important}.paper{width:100%!important;min-height:0!important;max-width:none!important;margin:0!important;padding:0!important;box-shadow:none!important}.paper iframe{width:100%!important}}
+</style></head>
+<body>
+<nav class="toolbar" aria-label="Werkblad bekijken">
+<strong id="title">Werkblad bekijken</strong>
+<div class="toolbar-buttons">
+<a id="back" href="./">Terug</a>
+<button type="button" id="print" disabled>Afdrukken / PDF</button>
+</div></nav>
+<div id="level-choice" class="level-choice" aria-label="Kies een niveau" hidden></div>
+<main class="paper" aria-label="Voorbeeld van je werkblad">
+<iframe id="preview" title="Werkblad op A4" loading="eager"></iframe>
+</main>
+<p id="message" class="message" role="status" aria-live="polite">Het werkblad wordt geopend.</p>
+<script>
+(function(){
+"use strict";
+const modules={
+ "a1-kennismaken":{title:"A1 · Kennismaken",path:"a1/kennismaken/",levels:true},
+ "a1-grammatica":{title:"A1 · Grammatica",path:"a1/grammatica/",levels:true},
+ "alfa-a-lls":{title:"Alfa A · Leer lezen en schrijven",path:"alfa-a/puzzels/"},
+ "alfa-a-themas":{title:"Alfa A · Woordpuzzels per thema",path:"alfa-a/themas/"},
+ "alfa-b-lls":{title:"Alfa B · Leer lezen en schrijven",path:"alfa-b/puzzels/"},
+ "alfa-a-lsm":{title:"Alfa A · Lees en schrijf je mee?",path:"alfa-a/lezen-schrijven/"},
+ "alfa-b-lsm":{title:"Alfa B · Lees en schrijf je mee?",path:"alfa-b/lezen-schrijven/"}
+};
+const query=new URLSearchParams(location.search),key=query.get("oefening"),item=modules[key];
+const frame=document.getElementById("preview"),print=document.getElementById("print"),message=document.getElementById("message");
+if(!item){document.getElementById("title").textContent="Werkblad niet gevonden";message.textContent="Kies eerst een oefening.";document.getElementById("back").href="index.html";frame.hidden=true;return;}
+const levelKeys=["basis","gemiddeld","uitdaging"],levelNames=["1 · Basis","2 · Gemiddeld","3 · Uitdaging"];
+let level=query.get("niveau");if(!levelKeys.includes(level))level="basis";
+document.getElementById("title").textContent=item.title;
+document.title=item.title+" · Werkblad bekijken | TouwTaal";
+document.getElementById("back").href=item.path+(item.levels?"?niveau="+encodeURIComponent(level):"");
+if(item.levels){
+ const row=document.getElementById("level-choice");row.hidden=false;
+ levelKeys.forEach((v,i)=>{
+  const a=document.createElement("a");const u=new URL(location.href);
+  u.searchParams.set("niveau",v);a.href=u.pathname+u.search;a.textContent=levelNames[i];
+  if(v===level)a.setAttribute("aria-current","page");row.append(a);
+ });
+}
+const selected=new URLSearchParams;
+if(item.levels)selected.set("niveau",level);
+else{
+ const theme=query.get("thema");if(theme&&/^[a-zA-Z0-9.\-]+$/.test(theme))selected.set("thema",theme);
+ const lesson=query.get("les");if(lesson!==null&&/^\d{1,2}$/.test(lesson))selected.set("les",lesson);
+}
+frame.src=item.path+(selected.size?"?"+selected.toString():"");
+let observer;
+function resize(){
+ try{
+  const doc=frame.contentDocument;
+  if(!doc)return;
+  const height=Math.ceil(Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight));
+  if(Number.isFinite(height)&&height>0)frame.style.height=Math.max(height+12,320)+"px";
+ }catch(e){}
+}
+frame.addEventListener("load",()=>{
+ try{
+  const doc=frame.contentDocument;
+  if(!doc)throw Error("Kan dit werkblad niet openen.");
+  let printRules="";
+  for(const sheet of [...doc.styleSheets]){
+   let rules;try{rules=sheet.cssRules}catch(e){continue}
+   if(!rules)continue;
+   for(const rule of [...rules]){
+    if(rule.type===4&&/print/.test(rule.conditionText||rule.media?.mediaText||"")){
+     for(const printRule of [...rule.cssRules])if(printRule.type===1)printRules+=printRule.cssText+"\n";
+    }
+   }
+  }
+  if(!printRules)throw Error("Het afdrukvoorbeeld is niet beschikbaar.");
+  const style=doc.createElement("style");
+  style.textContent=printRules+"\nhtml,body{background:white!important;box-shadow:none!important;overflow:visible!important}"+ 
+   "\nheader,footer{display:none!important}";
+  doc.head.append(style);
+  doc.documentElement.style.background="white";
+  if("ResizeObserver" in window){
+   if(observer)observer.disconnect();observer=new ResizeObserver(resize);
+   observer.observe(doc.body);
+  }
+  resize();print.disabled=false;
+  message.hidden=true;
+ }catch(e){
+  message.hidden=false;message.textContent="Het afdrukvoorbeeld kon niet worden geladen. Ga terug naar de oefening en probeer opnieuw.";print.disabled=true;
+ }
+});
+print.addEventListener("click",()=>{
+ if(print.disabled)return;
+ try{frame.contentWindow.focus();frame.contentWindow.print()}catch(e){window.print()}
+});
+})();
+</script></body></html>
