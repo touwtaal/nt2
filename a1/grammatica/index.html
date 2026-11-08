@@ -17,10 +17,10 @@
 <section class="module-card"><span class="pill">Leerdoel A1</span><h2>Wat ga je leren?</h2><p>Je gebruikt <strong>ik, jij, hij, zij en wij</strong> met een werkwoord in de tegenwoordige tijd. Je maakt korte zinnen om jezelf en anderen voor te stellen.</p><p><strong>Voorbeeld:</strong> Ik woon in Utrecht. Hij woont in Leiden. Wij wonen in Delft.</p><p class="small">Dit zijn eigen oefeningen van TouwTaal. Een koppeling met het exacte hoofdstuk van Nederlands in gang (2026) volgt na controle.</p></section>
 <section class="module-card interactive-only" aria-labelledby="train"><h2 id="train">Kies je oefening</h2><p class="small">Kies een moeilijkheid. Je kunt altijd opnieuw oefenen. Dit is oefenmateriaal, geen toets.</p>
 <div id="levels" class="control" role="group" aria-label="Moeilijkheidsgraad"><button type="button" data-level="basis" aria-pressed="true">1 · Basis</button><button type="button" data-level="gemiddeld" aria-pressed="false">2 · Gemiddeld</button><button type="button" data-level="uitdaging" aria-pressed="false">3 · Uitdaging</button></div>
-<div class="steps" id="step">Vraag 1 van 5</div><div class="progressbar" role="progressbar" aria-label="Voortgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><span id="bar"></span></div>
+<div class="steps" id="step">Vraag 1 van 10</div><div class="progressbar" role="progressbar" aria-label="Voortgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><span id="bar"></span></div>
 <div id="question-area"><p class="question" id="question"></p><div id="answers"></div></div>
 <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
-<div class="actions"><button type="button" id="next" class="tool" disabled>Volgende vraag</button><button type="button" id="restart" class="tool secondary">Opnieuw beginnen</button><button type="button" id="print" class="tool secondary">Print werkblad</button></div>
+<div class="actions"><button type="button" id="next" class="tool" disabled>Volgende vraag</button><button type="button" id="restart" class="tool secondary">Opnieuw beginnen</button><button type="button" id="print" class="tool secondary">Open A4-werkblad</button></div>
 <p class="small" id="save-info">Je laatste oefenresultaat wordt alleen op dit apparaat bewaard. Gebruik je een gedeeld apparaat? Wis dan je voortgang.</p><button type="button" id="clear" class="tool secondary">Wis mijn lokale voortgang</button>
 </section>
 <section class="module-card print-only" aria-label="Printbaar werkblad"><h2>Werkblad A1 · Kennismaken</h2><p>Naam: ______________________________ Datum: ________________</p><p>Schrijf de goede vorm van het werkwoord op.</p>
@@ -44,21 +44,33 @@ basis:[
 {q:'Wij ___ in Delft.',choices:['wonen','woont','woon'],good:0,why:'Bij wij gebruik je het hele werkwoord: wij wonen.'},
 {q:'Zij ___ in een winkel.',choices:['werk','werkt','werken'],good:1,why:'Zij is hier één persoon. Daarom: zij werkt.'},
 {q:'Ik ___ Nederlands.',choices:['spreekt','spreek','spreken'],good:1,why:'Bij ik gebruik je de stam: ik spreek.'}
-],
+,{q:"Zij ___ in Den Haag.",choices:["woont","woon","wonen"],good:0,why:"Zij is één persoon: zij woont."},
+{q:"Jullie ___ Nederlands.",choices:["leert","leren","leer"],good:1,why:"Bij jullie gebruik je het hele werkwoord: jullie leren."},
+{q:"Mijn vader ___ in een ziekenhuis.",choices:["werken","werk","werkt"],good:2,why:"Mijn vader = hij: hij werkt."},
+{q:"Ik ___ vandaag thuis.",choices:["werk","werken","werkt"],good:0,why:"Bij ik gebruik je de stam: ik werk."},
+{q:"De kinderen ___ buiten.",choices:["speelt","spelen","speel"],good:1,why:"De kinderen is meervoud: zij spelen."}],
 gemiddeld:[
 {q:'Jij ___ in Utrecht.',choices:['woont','woon','wonen'],good:0,why:'Bij jij vóór de persoonsvorm komt meestal -t: jij woont.'},
 {q:'___ jij in Eindhoven?',choices:['Woont','Wonen','Woon'],good:2,why:'Staat jij achter de persoonsvorm? Dan vervalt de -t: woon jij?'},
 {q:'Mijn broer ___ Nederlands.',choices:['spreken','spreekt','spreek'],good:1,why:'Mijn broer = hij. Daarom: hij spreekt.'},
 {q:'Mijn ouders ___ in Groningen.',choices:['woont','woon','wonen'],good:2,why:'Mijn ouders = zij (meervoud). Daarom: zij wonen.'},
 {q:'Ik ___ student.',choices:['ben','bent','is'],good:0,why:'Het werkwoord zijn is onregelmatig: ik ben.'}
-],
+,{q:"Mijn vriendin en ik ___ in Rotterdam.",choices:["woon","woont","wonen"],good:2,why:"Mijn vriendin en ik = wij: wij wonen."},
+{q:"___ jij Nederlands?",choices:["Spreekt","Spreken","Spreek"],good:2,why:"Bij een vraag met jij achter de persoonsvorm verdwijnt de -t: spreek jij?"},
+{q:"De docent ___ langzaam.",choices:["spreken","spreekt","spreek"],good:1,why:"De docent = hij of zij (enkelvoud): spreekt."},
+{q:"Jullie ___ vandaag les.",choices:["hebben","heeft","hebt"],good:0,why:"Bij jullie hoort: jullie hebben."},
+{q:"Mijn zus ___ vijftien jaar.",choices:["ben","is","zijn"],good:1,why:"Het onregelmatige werkwoord zijn: zij is."}],
 uitdaging:[
 {q:'Welke zin is correct?',choices:['Werk jij vandaag?','Werkt jij vandaag?','Werken jij vandaag?'],good:0,why:'Bij omkering met jij vervalt de -t: werk jij?'},
 {q:'Mijn zus en ik ___ Nederlands.',choices:['leren','leert','leer'],good:0,why:'Mijn zus en ik = wij. Daarom: wij leren.'},
 {q:'Welke zin is correct?',choices:['Hij heb een fiets.','Hij heeft een fiets.','Hij hebben een fiets.'],good:1,why:'Hebben is onregelmatig: hij heeft.'},
 {q:'Waar ___ jouw ouders?',choices:['woont','wonen','woon'],good:1,why:'Jouw ouders is meervoud. Daarom: waar wonen jouw ouders?'},
 {q:'Welke combinatie is correct?',choices:['Ik ben, jij bent, hij is','Ik is, jij bent, hij ben','Ik bent, jij is, hij zijn'],good:0,why:'Zijn is onregelmatig: ik ben, jij bent, hij is.'}
-]};
+,{q:"Welke zin is correct?",choices:["Waar werkt jij?","Waar werk jij?","Waar werken jij?"],good:1,why:"Bij een vraag met jij na de persoonsvorm schrijf je werk zonder -t."},
+{q:"Wie ___ er in jouw straat?",choices:["wonen","woont","woon"],good:1,why:"Wie is hier een vraag naar één persoon: wie woont er?"},
+{q:"Welke combinatie is correct?",choices:["Wij heeft, zij hebben","Wij hebben, hij heeft","Hij hebben, wij heeft"],good:1,why:"Bij wij gebruik je hebben; bij hij gebruik je heeft."},
+{q:"Jij ___ je naam op het formulier.",choices:["schrijven","schrijf","schrijft"],good:2,why:"Bij jij vóór de persoonsvorm hoort stam + t: jij schrijft."},
+{q:"Welke zin is correct?",choices:["Mijn vrienden woont dichtbij.","Mijn vrienden wonen dichtbij.","Mijn vrienden woon dichtbij."],good:1,why:"Mijn vrienden is meervoud; gebruik wonen."}]};
 const $=id=>document.getElementById(id);let level='basis',idx=0,correct=0,answered=false,wrong=[];
 function save(){try{localStorage.setItem('touwtaal-a1-kennismaken',JSON.stringify({level:level,correct:correct,total:bank[level].length,lastPracticed:new Date().toISOString()}));}catch(e){}}
 function render(){
@@ -82,7 +94,7 @@ function start(nextLevel){level=nextLevel;idx=0;correct=0;wrong=[];document.quer
 document.querySelectorAll('[data-level]').forEach(b=>b.addEventListener('click',()=>start(b.dataset.level)));
 $('next').addEventListener('click',()=>{if(!answered)return;if(idx===bank[level].length-1)finish();else{idx++;render();}});
 $('restart').addEventListener('click',()=>start(level));
-$('print').addEventListener('click',()=>window.print());
+$('print').addEventListener('click',()=>{window.location.href='werkblad.html';});
 $('clear').addEventListener('click',()=>{try{localStorage.removeItem('touwtaal-a1-kennismaken');}catch(e){}$('save-info').textContent='De opgeslagen voortgang van deze oefening is gewist.';});
 render();
 })();
