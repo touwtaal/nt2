@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="nl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#F8F4EE">
+<meta name="description" content="TouwTaal Alfa B - Lees en schrijf je mee? Oefen lezen en schrijven per thema en paragraaf.">
+<title>Lees en schrijf je mee? · Alfa B | TouwTaal</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.lsm{max-width:950px;margin:auto}.choose,.worksheet{background:var(--nav);border:1px solid var(--line);border-radius:22px;padding:clamp(1rem,3vw,1.8rem);margin:1.2rem 0}
+.topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:.6rem;margin:1rem 0}
+.topic-btn{display:flex;flex-direction:column;align-items:center;gap:.2rem;justify-content:center;background:#fff;border:2px solid var(--lavender);border-radius:14px;padding:.7rem;min-height:105px;font:700 .94rem/1.3 'DM Sans',Arial,sans-serif;color:var(--ink);cursor:pointer}
+.topic-btn span{font-size:2rem;line-height:1.3}.topic-btn[aria-pressed=true]{background:var(--lilac);border-color:var(--purple)}
+.topic-btn:focus-visible,.word button:focus-visible,.write-row button:focus-visible,.topic-btn:hover,.part-btn:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+.parts{display:flex;flex-wrap:wrap;gap:.6rem}.part-btn{background:white;border:2px solid var(--lavender);border-radius:12px;padding:.65rem .8rem;min-height:48px;cursor:pointer;color:var(--ink);font:700 .95rem 'DM Sans',Arial,sans-serif}.part-btn[aria-pressed=true]{background:var(--lilac);border-color:var(--purple)}
+.words{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.75rem;margin:1rem 0}
+.word{display:flex;align-items:center;justify-content:space-between;gap:.7rem;padding:.85rem 1rem;border:1px solid var(--line);border-radius:14px;background:#fff}
+.word .content{font:700 clamp(1.05rem,2.3vw,1.35rem)/1.35 Manrope,Arial,sans-serif;overflow-wrap:anywhere}
+.word button,.write-row button,.print-btn{background:var(--purple);color:white;border:0;border-radius:10px;min-width:48px;min-height:48px;padding:.65rem .85rem;font:700 1rem 'DM Sans',Arial,sans-serif;cursor:pointer}
+.word button{flex-shrink:0}.read-state{display:flex;gap:.55rem;align-items:center;font-size:.9rem;color:var(--muted);margin-top:.3rem}
+.read-state input{width:21px;height:21px}.word.completed{background:#f0f7f0;border-color:#80a68b}
+.write-grid{display:grid;gap:.9rem}.write-row{background:white;border:1px solid var(--line);border-radius:14px;padding:1rem}
+.write-row strong{display:block;font:800 1.3rem Manrope,sans-serif;margin:.35rem 0}
+.write-row .entry{display:flex;gap:.6rem;flex-wrap:wrap}.write-row input{flex:1 1 200px;width:100%;min-height:50px;border:2px solid var(--lavender);border-radius:10px;font:600 1.15rem 'DM Sans',Arial,sans-serif;padding:.6rem .8rem;background:white;color:var(--ink)}
+.response{font-weight:600;min-height:1.5rem;margin:.4rem 0 0}.help{color:var(--muted);font-size:.95rem}.part-title{margin:1rem 0 .2rem}
+.print-btn{margin-left:auto}.print-header{display:none}.no-writing{padding:1rem;background:var(--section);border-radius:10px}.progress-line{font-weight:700;color:var(--deep)}
+@media(max-width:550px){.topics{grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}.topic-btn{min-height:95px;font-size:.9rem}.choose,.worksheet{padding:1rem}.words{grid-template-columns:1fr}}
+@media print{@page{size:A4;margin:15mm}body{font-size:11pt!important;background:#fff!important}.site-header,.footer,.hero,.breadcrumbs,.choose,.print-btn,.word button,.read-state,.write-row button,.help,.response{display:none!important}
+.wrap{padding:0!important;max-width:none!important}.worksheet{border:0!important;margin:0!important;padding:0!important;background:white!important}
+.print-header{display:block!important;margin-bottom:9mm}h2{font-size:16pt!important}.words{grid-template-columns:repeat(2,minmax(0,1fr))!important}.word{break-inside:avoid;border:0;border-bottom:1px solid #bbb;border-radius:0;background:white;padding:2mm 0}.word .content{font:600 12pt/1.3 Arial,sans-serif}
+.write-grid{gap:2mm}.write-row{break-inside:avoid;border:0;padding:2mm 0}.write-row strong{font:700 12pt Arial,sans-serif}.write-row input{border:0;border-bottom:1px solid #333;border-radius:0;height:10mm;min-height:10mm}
+#write-wrap{break-before:avoid}}
+</style></head>
+<body><a class="skip" href="#inhoud">Ga naar inhoud</a>
+<header class="site-header"><nav class="nav" aria-label="Hoofdnavigatie">
+<a class="site-label" href="../../index.html"><img src="https://touwtaal.github.io/assets/logo.jpg" alt="TouwTaal" style="height:45px;max-width:155px;object-fit:contain"> <span>NT2-oefeningen</span></a>
+<div class="navlinks"><a href="../../index.html">Alle niveaus</a><a href="https://touwtaal.github.io/">TouwTaal</a></div>
+</nav></header>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">Alfa B · Lees en schrijf je mee?</div><h1>Lezen en schrijven</h1><p>Lees berichten, roosters en aanwijzingen. Schrijf alleen bij de schrijfoefeningen.</p></div></section>
+<main id="inhoud" class="wrap"><div class="lsm">
+<div class="breadcrumbs"><a href="../../index.html">Alle niveaus</a> / <a href="../index.html">Alfa B</a> / Lees en schrijf je mee?</div>
+<section class="choose"><h2>Kies een thema</h2><div class="topics" id="topics" role="group" aria-label="Thema's"></div>
+<h3>Kies een les</h3><div class="parts" id="parts" role="group" aria-label="Paragrafen"></div>
+<p class="help">Kies de les die je al hebt gehad. Je kunt bij ieder woord luisteren.</p></section>
+<section class="worksheet" aria-labelledby="lesson-title">
+<div class="print-header"><h1>Alfa B · Lees en schrijf je mee?</h1><p>Naam: ______________________________ &nbsp; Datum: ______________</p></div>
+<h2 id="lesson-title">1.1 · Adres lezen</h2>
+<div class="progress-line" id="progress" aria-live="polite"></div>
+<h3 class="part-title">1. Lees</h3><p class="help">Lees het woord. Klik op het geluid om het te horen.</p>
+<div class="words" id="readings"></div>
+<div id="write-wrap"><h3 class="part-title">2. Schrijf</h3><p class="help">Schrijf de tekst na. Je kunt je antwoord controleren.</p>
+<div class="write-grid" id="writings"></div></div>
+<button type="button" class="print-btn" id="print">Print deze les</button>
+</section></div></main>
+<footer class="footer"><p>Learn Dutch with confidence.</p><p><a href="https://touwtaal.github.io/">TouwTaal</a></p></footer>
+<script>
+(function(){
+"use strict";
+const chapters=[{"title":"Kennismaken","emoji":"👋","parts":[{"id":"1.2","title":"Berichten en wifi","read":["ik stuur","de wifi"]},{"id":"1.3","title":"Persoonsgegevens","read":["de voornaam","de achternaam","de voorletters","de man","de vrouw","de geboortedatum","de geboorteplaats","het geboorteland","het e-mailadres"],"write":[{"text":"Sara","hint":"Oefen met een verzonnen voornaam, niet met je echte gegevens."},{"text":"Bakker","hint":"Oefen met een verzonnen achternaam."},{"text":"Dordrecht","hint":"Oefen met een voorbeeldwoonplaats."}]}]},{"title":"School","emoji":"🏫","parts":[{"id":"2.2","title":"Een bericht schrijven","read":["Hoi!","Beste,","Groet,","Ik ben ziek.","Ik kom niet.","Dank je.","Ik ben te laat.","Sorry."],"write":[{"text":"Ik ben te laat.","hint":"Schrijf een voorbeeldbericht na."},{"text":"Sorry.","hint":"Schrijf het woord na."},{"text":"Ik kom niet.","hint":"Schrijf een voorbeeldzin na."}]},{"id":"2.3","title":"Het rooster lezen","read":["het rooster","de docent","de tijd","het lokaal"]},{"id":"2.4","title":"Maanden en datums","read":["januari","februari","maart","april","mei","juni","juli","augustus","september","oktober","november","december"],"write":[{"text":"nov.","hint":"Schrijf een afkorting van een maand."},{"text":"15 mei","hint":"Schrijf een voorbeelddatum."},{"text":"woensdag 4 maart","hint":"Schrijf een voorbeeld met dag en datum."}]}]},{"title":"Eten en drinken","emoji":"🛒","parts":[{"id":"3.1","title":"Aanbiedingen lezen","read":["korting","gratis","2e halve prijs","1 + 1 gratis","2e gratis","2 stuks"]},{"id":"3.2","title":"Etiketten lezen","read":["de gram (g)","de kilo (kg)","de liter (L)","openen","koel","houdbaar"]},{"id":"3.3","title":"Een bon lezen","read":["te betalen"]}]},{"title":"Gezondheid","emoji":"🩺","parts":[{"id":"4.1","title":"E-mail van de arts","read":["heer","mevrouw","de arts","de e-mail","Geachte heer/mevrouw","Met vriendelijke groet"]},{"id":"4.2","title":"Bij de medicijnen","read":["de leeftijd","de dosering","kuur afmaken","heel doorslikken","niet kauwen","½ tablet per keer","1 maal per week","de avond"]},{"id":"4.3","title":"Iemand een bericht sturen","read":["sterkte","beterschap","wat vervelend","wat leuk","hoi","groet"],"write":[{"text":"Beterschap!","hint":"Schrijf een korte wens na."},{"text":"Wat vervelend!","hint":"Schrijf een reactie na."},{"text":"Veel sterkte!","hint":"Schrijf een wens na."}]}]},{"title":"Kleding","emoji":"🧥","parts":[{"id":"5.1","title":"Kortingen en feestdagen","read":["feestdagen","t/m","50 %","sale"]},{"id":"5.2","title":"Bankgegevens lezen","read":["naam ontvanger","rekeningnummer","het saldo","de betaalrekening","overschrijven"]}]},{"title":"Wonen","emoji":"🏡","parts":[{"id":"6.1","title":"Een brief lezen","read":["belasting","betreft"]},{"id":"6.2","title":"Een account","read":["het account"]}]},{"title":"Vrije tijd","emoji":"🎉","parts":[{"id":"7.1","title":"Een kaartje schrijven","read":["overleden"],"write":[{"text":"Gefeliciteerd!","hint":"Schrijf een wens na."},{"text":"Gecondoleerd.","hint":"Schrijf een wens na."},{"text":"Fijne dag!","hint":"Schrijf een wens na."},{"text":"Wat jammer!","hint":"Schrijf een reactie na."},{"text":"Veel sterkte!","hint":"Schrijf een wens na."}]},{"id":"7.2","title":"Een afspraak bevestigen","read":["Wanneer?","Hoe laat?","Dat is goed."],"write":[{"text":"Wanneer?","hint":"Schrijf de vraag na."},{"text":"Hoe laat?","hint":"Schrijf de vraag na."},{"text":"Dat is goed.","hint":"Schrijf een reactie na."}]}]},{"title":"Reizen","emoji":"🚌","parts":[{"id":"8.1","title":"Vertrek op het station","read":["vertrek","nu","vandaag","tram","perron","metro"]},{"id":"8.2","title":"Reizen met een kaart","read":["het centrum","opladen","ingecheckt","uitgecheckt"]}]},{"title":"Werk","emoji":"👷","parts":[{"id":"9.1","title":"Een baan zoeken","read":["het contact","de ervaring","de opleiding","het rijbewijs"]},{"id":"9.2","title":"Veiligheid op het werk","read":["verboden","gevaarlijk","vrijhouden","Niet gebruiken."]},{"id":"9.3","title":"Afwezigheid doorgeven","read":["Wanneer kun je weer werken?","meneer","mevrouw"],"write":[{"text":"Ik weet het nog niet.","hint":"Schrijf een eigen voorbeeldantwoord na."},{"text":"Dank u.","hint":"Schrijf een reactie na."},{"text":"Ik ben beter.","hint":"Schrijf een korte zin na."},{"text":"Ik kom morgen.","hint":"Schrijf een bericht na."}]}]},{"title":"Kinderen","emoji":"👨‍👩‍👧","parts":[{"id":"10.1","title":"Helpen op school","read":["de hulp","de ouders","de verzorgers"],"write":[{"text":"Ik wil graag helpen.","hint":"Schrijf de zin na."}]},{"id":"10.2","title":"Schoolinformatie","read":["de leerling","klik","typen","kies"]}]}];
+const $=id=>document.getElementById(id);
+let topic=0,part=0,done=new Set();
+function say(text){
+ if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window)){alert("Op dit apparaat kun je het geluid niet afspelen.");return}
+ window.speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang="nl-NL";u.rate=.85;
+ let voice=window.speechSynthesis.getVoices().find(x=>x.lang.toLowerCase().startsWith("nl"));if(voice)u.voice=voice;window.speechSynthesis.speak(u);
+}
+function normalize(s){return s.trim().toLocaleLowerCase("nl-NL").replace(/\s+/g," ").replace(/[.,!?]+$/g,"")}
+function progress(){ $("progress").textContent=done.size+" van "+chapters[topic].parts[part].read.length+" gelezen"; }
+function renderTopic(){
+ $("topics").replaceChildren();
+ chapters.forEach((ch,i)=>{
+  const b=document.createElement("button");b.type="button";b.className="topic-btn";b.setAttribute("aria-pressed",String(topic===i));
+  const img=document.createElement("span");img.textContent=ch.emoji;img.setAttribute("aria-hidden","true");
+  const txt=document.createElement("strong");txt.textContent=(i+1)+". "+ch.title;b.append(img,txt);
+  b.addEventListener("click",()=>{topic=i;part=0;done=new Set();renderTopic();renderPart();});
+  $("topics").append(b);
+ });
+}
+function renderPart(){
+ const ch=chapters[topic];$("parts").replaceChildren();
+ ch.parts.forEach((p,i)=>{
+  const b=document.createElement("button");b.type="button";b.className="part-btn";b.textContent=p.id+" · "+p.title;b.setAttribute("aria-pressed",String(part===i));
+  b.addEventListener("click",()=>{part=i;done=new Set();renderPart()});$("parts").append(b)
+ });
+ const item=ch.parts[part];$("lesson-title").textContent=item.id+" · "+item.title;$("readings").replaceChildren();
+ item.read.forEach((word,i)=>{
+  const row=document.createElement("div");row.className="word";
+  const container=document.createElement("div");const strong=document.createElement("div");strong.className="content";strong.textContent=word;
+  const label=document.createElement("label");label.className="read-state";const cb=document.createElement("input");cb.type="checkbox";cb.checked=done.has(i);
+  cb.addEventListener("change",()=>{if(cb.checked)done.add(i);else done.delete(i);row.classList.toggle("completed",cb.checked);progress()});
+  label.append(cb,document.createTextNode("Gelezen"));container.append(strong,label);
+  const btn=document.createElement("button");btn.type="button";btn.textContent="🔊";btn.setAttribute("aria-label","Luister: "+word);btn.addEventListener("click",()=>say(word));
+  row.classList.toggle("completed",cb.checked);row.append(container,btn);$("readings").append(row);
+ });
+ const words=$("writings");words.replaceChildren();const writes=item.write||[];
+ $("write-wrap").hidden=false;
+ if(!writes.length){
+  const msg=document.createElement("p");msg.className="no-writing";msg.textContent="In deze les oefen je lezen. Er zijn geen schrijfwoorden.";words.append(msg);$("write-wrap").hidden=true;
+ }else{
+  writes.forEach((task,i)=>{
+   const row=document.createElement("div");row.className="write-row";
+   const lab=document.createElement("label");lab.htmlFor="answer-"+i;lab.textContent=(i+1)+". Schrijf over:";
+   const prompt=document.createElement("strong");prompt.textContent=task.text;
+   const hint=document.createElement("p");hint.className="help";hint.textContent=task.hint;
+   const entry=document.createElement("div");entry.className="entry";
+   const input=document.createElement("input");input.id="answer-"+i;input.type="text";input.autocomplete="off";input.setAttribute("aria-label","Schrijf over: "+task.text);
+   const button=document.createElement("button");button.type="button";button.textContent="Controleer";
+   const result=document.createElement("p");result.className="response";result.setAttribute("aria-live","polite");
+   button.addEventListener("click",()=>{result.textContent=normalize(input.value)===normalize(task.text)?"Goed geschreven!":"Kijk nog eens naar het voorbeeld. Probeer opnieuw.";});
+   entry.append(input,button);row.append(lab,prompt,hint,entry,result);words.append(row);
+  });
+ }
+ progress();
+ const url=new URL(location.href);url.searchParams.set("thema",String(topic+1));url.searchParams.set("les",String(part));history.replaceState(null,"",url);
+}
+$("print").addEventListener("click",()=>window.print());
+const q=new URLSearchParams(location.search),t=Number(q.get("thema")),p=Number(q.get("les"));
+if(Number.isInteger(t)&&t>0&&t<=chapters.length)topic=t-1;
+if(Number.isInteger(p)&&p>=0&&p<chapters[topic].parts.length)part=p;
+renderTopic();renderPart();
+window.addEventListener("pagehide",()=>{if("speechSynthesis" in window)window.speechSynthesis.cancel()});
+})();
+</script></body></html>
