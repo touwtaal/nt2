@@ -244,7 +244,7 @@ const themes={
   ]
  }
 };
-const wordEmojis={"AAP":"🐒","KIP":"🐔","KAT":"🐈","RAT":"🐀","VIS":"🐟","KOE":"🐄","MUIS":"🐁","MUS":"🐦","DUIF":"🕊️","GEIT":"🐐","OOG":"👁️","NEUS":"👃","VOET":"🦶","TEEN":"🦶","BEEN":"🦵","LIP":"👄","HAAR":"💇","KAAS":"🧀","SAP":"🧃","IJS":"🍦","HAM":"🥩","KOEK":"🍪","SOEP":"🍲","NOOT":"🌰","PAP":"🥣","JAS":"🧥","SOK":"🧦","ROK":"👗","PET":"🧢","RIEM":"👖","DAS":"🧣","BOEK":"📖","PEN":"🖊️","GUM":"🧽","JUF":"👩‍🏫","LES":"📚","RAAM":"🪟","DAK":"🏠","HUIS":"🏡","MUUR":"🧱","TUIN":"🌳","PAN":"🍳","DOOS":"📦","BUS":"🚌","BOOT":"⛵","WIEL":"🛞","WEG":"🛣️","REIS":"🧳","BON":"🧾","TAS":"🛍️","ZAK":"🛍️"};
+const wordEmojis={"AAP":"🐒","KIP":"🐔","KAT":"🐈","RAT":"🐀","VIS":"🐟","KOE":"🐄","MUIS":"🐁","MUS":"🐦","DUIF":"🕊️","GEIT":"🐐","OOG":"👁️","NEUS":"👃","VOET":"🦶","TEEN":"🦶","BEEN":"🦵","LIP":"👄","HAAR":"💇","KAAS":"🧀","SAP":"🧃","IJS":"🍦","KOEK":"🍪","SOEP":"🍲","NOOT":"🌰","PAP":"🥣","JAS":"🧥","SOK":"🧦","PET":"🧢","BOEK":"📖","PEN":"🖊️","JUF":"👩‍🏫","LES":"📚","RAAM":"🪟","DAK":"🏠","HUIS":"🏡","MUUR":"🧱","TUIN":"🌳","PAN":"🍳","DOOS":"📦","BUS":"🚌","BOOT":"⛵","WIEL":"🛞","WEG":"🛣️","REIS":"🧳","BON":"🧾","TAS":"🛍️","ZAK":"🛍️"};
 const $=id=>document.getElementById(id);
 let state={};
 function rng(seed){return()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296}}
@@ -356,7 +356,7 @@ $("check-missing").addEventListener("click",()=>{
  setFeedback("missing-feedback",correct===inputs.length?"Goed gedaan! Alle letters zijn goed.":correct+" van "+inputs.length+" goed. Probeer de andere letters opnieuw.");
 });
 $("theme").addEventListener("change",()=>{const u=new URL(location.href);u.searchParams.set("thema",$("theme").value);history.replaceState(null,"",u);render()});
-document.querySelectorAll("[data-theme]").forEach(b=>b.addEventListener("click",()=>{$("theme").value=b.dataset.theme;const u=new URL(location.href);u.searchParams.set("thema",b.dataset.theme);history.replaceState(null,"",u);render();$("theme-info").scrollIntoView({block:"nearest",behavior:"smooth"})}));
+document.querySelectorAll("[data-theme]").forEach(b=>b.addEventListener("click",()=>{$("theme").value=b.dataset.theme;const u=new URL(location.href);u.searchParams.set("thema",b.dataset.theme);history.replaceState(null,"",u);render()}));
 $("reset").addEventListener("click",render);
 $("print").addEventListener("click",()=>window.print());
 const requested=new URLSearchParams(location.search).get("thema");if(requested&&themes[requested])$("theme").value=requested;
