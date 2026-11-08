@@ -18,7 +18,7 @@ button{font:inherit;cursor:pointer}
 .target{padding:.45rem .85rem;border:1px solid var(--lavender);border-radius:100px;background:var(--art);color:var(--ink);font-weight:700}
 .target.active{background:var(--purple);color:white}
 .target.found{background:var(--section);text-decoration:line-through}
-.letter-grid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:3px;width:min(100%,365px);margin:1rem 0}
+.letter-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px;width:min(100%,444px);margin:1rem 0}
 .cell{display:grid;place-items:center;aspect-ratio:1;background:#fff;border:1px solid var(--line);border-radius:6px;font:800 clamp(.9rem,3vw,1.3rem) Manrope,sans-serif;color:var(--ink);padding:0}
 .cell.selected{background:var(--lilac);border-color:var(--purple)}
 .cell.found{background:var(--art);border-color:var(--purple)}
@@ -44,7 +44,7 @@ main>.print-only p{font-size:10pt!important;margin:0 0 4mm!important}
 .puzzle-section{padding:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;margin:0 0 5mm!important;break-inside:auto!important}
 .puzzle-section h2{font:700 13pt/1.2 Arial,sans-serif!important;letter-spacing:0!important;margin:0 0 2mm!important}
 .puzzle-section p.print-only{margin:0 0 2mm!important;font-size:10.5pt!important}
-.letter-grid{width:69mm!important;gap:0!important;margin:2mm 0 3mm!important;break-inside:avoid!important}
+.letter-grid{width:99mm!important;gap:0!important;margin:2mm 0 3mm!important;break-inside:avoid!important}
 .cell{border:1px solid #444!important;border-radius:0!important;background:#fff!important;color:#111!important;font:700 11pt Arial,sans-serif!important;aspect-ratio:1!important}
 .exercise{display:flex!important;align-items:center!important;gap:4mm!important;padding:1mm 0!important;break-inside:avoid!important}
 .exercise label{margin:0!important;min-width:22mm!important;font-size:10.5pt!important}
@@ -53,6 +53,17 @@ main>.print-only p{font-size:10pt!important;margin:0 0 4mm!important}
 #build .exercise label{min-width:0!important;font-size:10pt!important}
 .print-tiles{font:700 12pt Arial,sans-serif!important;letter-spacing:.22em!important}
 .print-line{border-bottom:1px solid #444!important;width:46mm!important;height:7mm!important}
+/* Pagina 1: woordzoeker en twee kolommen met letters. Pagina 2: woorden bouwen. */
+#missing{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;column-gap:9mm!important;row-gap:1mm!important}
+#missing .exercise{min-width:0!important;gap:2mm!important;padding:1.5mm 0!important;border:0!important}
+#missing .exercise label{min-width:6mm!important}
+#missing .missing-word{font-size:11pt!important;min-width:17mm!important}
+#missing .print-only{font-size:10pt!important;white-space:nowrap!important}
+#build-title{break-after:avoid!important}
+section[aria-labelledby="build-title"]{break-before:page!important;margin-top:0!important}
+#build .exercise{grid-template-columns:60mm 1fr 48mm!important;padding:4mm 0!important;border-bottom:1px solid #dedede!important}
+#build .print-line{width:48mm!important;height:10mm!important}
+
 }
 </style></head>
 <body><a class="skip" href="#inhoud">Ga naar inhoud</a>
@@ -62,7 +73,7 @@ main>.print-only p{font-size:10pt!important;margin:0 0 4mm!important}
 <section class="hero"><div class="hero-inner"><div class="eyebrow">Alfa A · Woordpuzzels</div><h1>Woorden oefenen</h1><p>Zoek letters. Maak woorden. Oefen in kleine stappen.</p></div></section>
 <main id="inhoud" class="wrap">
 <div class="breadcrumbs"><a href="../../">Alle niveaus</a> / <a href="../">Alfa A</a> / Woordpuzzels</div>
-<div class="puzzle-top"><div><h2>Kies een thema</h2><p class="hint">Drie oefeningen met dezelfde woorden.</p>
+<div class="puzzle-top"><div><h2>Kies een thema</h2><p class="hint">Drie oefeningen met tien woorden per thema.</p>
 <select class="theme-select" id="theme" aria-label="Kies een thema">
 <option value="eten">Eten en drinken</option><option value="lichaam">Mijn lichaam</option><option value="kleding">Kleding</option>
 <option value="huis">Mijn huis</option><option value="vervoer">Vervoer</option><option value="boodschappen">Boodschappen</option></select></div>
@@ -72,7 +83,7 @@ main>.print-only p{font-size:10pt!important;margin:0 0 4mm!important}
 <p class="hint screen-only">Tik op een woord. Tik dan de letters aan, van links naar rechts of van boven naar beneden.</p>
 <p class="print-only">Zoek deze woorden. Zet er een streep omheen:</p>
 <div id="targets" class="word-list screen-only"></div><p id="print-words" class="print-only"></p>
-<div id="grid" class="letter-grid" aria-label="Woordzoeker met acht rijen en acht kolommen"></div><p id="ws-feedback" class="feedback screen-only" aria-live="polite"></p></section>
+<div id="grid" class="letter-grid" aria-label="Woordzoeker met twaalf rijen en twaalf kolommen"></div><p id="ws-feedback" class="feedback screen-only" aria-live="polite"></p></section>
 <section class="puzzle-section" aria-labelledby="missing-title"><h2 id="missing-title">2. Welke letter mist?</h2>
 <p class="hint screen-only">Typ de ontbrekende letter. Controleer je antwoord.</p><p class="print-only">Schrijf de ontbrekende letter.</p>
 <div id="missing"></div><button class="action screen-only" type="button" id="check-missing">Controleer letters</button>
@@ -80,23 +91,23 @@ main>.print-only p{font-size:10pt!important;margin:0 0 4mm!important}
 <section class="puzzle-section" aria-labelledby="build-title"><h2 id="build-title">3. Maak het woord</h2>
 <p class="hint screen-only">Tik op de letters in de goede volgorde.</p><p class="print-only">Zet de letters in de goede volgorde. Schrijf het woord.</p>
 <div id="build"></div></section>
-<div class="note screen-only"><strong>Voor de docent</strong><p>De woordzoeker bevat alleen horizontale en verticale woorden. De printknop maakt een A4-werkblad zonder ingevulde antwoorden. Gebruik de woorden die je cursisten al hebben geleerd.</p></div>
+<div class="note screen-only"><strong>Voor de docent</strong><p>De woordzoeker bevat alleen horizontale en verticale woorden. De printknop maakt een werkblad van twee A4-pagina’s. Deze themalijsten zijn voorlopige voorbeeldwoorden; controleer voor jouw groep welke woorden al in de gebruikte methode zijn aangeboden.</p></div>
 </main><footer class="footer"><p>Learn Dutch with confidence.</p></footer>
 <script>
 "use strict";
 const themes={
-eten:{title:"Eten en drinken",words:["BROOD","MELK","KAAS","EI"]},
-lichaam:{title:"Mijn lichaam",words:["HAND","NEUS","ARM","BEEN"]},
-kleding:{title:"Kleding",words:["JAS","SOK","TRUI","BROEK"]},
-huis:{title:"Mijn huis",words:["BED","DEUR","KAST","LAMP"]},
-vervoer:{title:"Vervoer",words:["BUS","AUTO","FIETS","TREIN"]},
-boodschappen:{title:"Boodschappen",words:["TAS","BON","GELD","PIN"]}
+eten:{title:"Eten en drinken",words:["BROOD","MELK","KAAS","EI","THEE","WATER","SOEP","RIJST","SAP","PEER"]},
+lichaam:{title:"Mijn lichaam",words:["HAND","NEUS","ARM","BEEN","OOG","OOR","MOND","BUIK","VOET","HAAR"]},
+kleding:{title:"Kleding",words:["JAS","SOK","TRUI","BROEK","JURK","ROK","PET","MUTS","SCHOEN","VEST"]},
+huis:{title:"Mijn huis",words:["BED","DEUR","KAST","LAMP","RAAM","DAK","TAFEL","STOEL","BANK","MUUR"]},
+vervoer:{title:"Vervoer",words:["BUS","AUTO","FIETS","TREIN","TRAM","TAXI","BOOT","WEG","HALTE","RIT"]},
+boodschappen:{title:"Boodschappen",words:["TAS","BON","GELD","PIN","KASSA","WINKEL","PRIJS","APPEL","PAK","ZAK"]}
 };
 const $=id=>document.getElementById(id);
 let state={};
 function rng(seed){return()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296}}
 function makeGrid(words,seed){
- const random=rng(seed),size=8,grid=Array.from({length:size},()=>Array(size).fill("")),locations={};
+ const random=rng(seed),size=12,grid=Array.from({length:size},()=>Array(size).fill("")),locations={};
  for(const word of [...words].sort((a,b)=>b.length-a.length)){
   const choices=[];
   for(let dir=0;dir<2;dir++)for(let r=0;r<size;r++)for(let c=0;c<size;c++){
@@ -125,7 +136,7 @@ function render(){
  const targets=$("targets");targets.replaceChildren();
  words.forEach(word=>{const b=document.createElement("button");b.type="button";b.className="target";b.textContent=word.toLowerCase();b.dataset.word=word;b.addEventListener("click",()=>{state.active=word;state.progress=[];updateWordSearch()});targets.append(b)});
  const board=$("grid");board.replaceChildren();
- grid.flat().forEach((letter,i)=>{const b=document.createElement("button");b.type="button";b.className="cell";b.textContent=letter.toLowerCase();b.dataset.index=i;b.setAttribute("aria-label",letter.toLowerCase()+" rij "+(Math.floor(i/8)+1)+" kolom "+(i%8+1));b.addEventListener("click",()=>tapCell(i));board.append(b)});
+ grid.flat().forEach((letter,i)=>{const b=document.createElement("button");b.type="button";b.className="cell";b.textContent=letter.toLowerCase();b.dataset.index=i;b.setAttribute("aria-label",letter.toLowerCase()+" rij "+(Math.floor(i/12)+1)+" kolom "+(i%12+1));b.addEventListener("click",()=>tapCell(i));board.append(b)});
  const missing=$("missing");missing.replaceChildren();
  words.forEach((word,i)=>{
  const index=(i+1)%word.length,shown=word.slice(0,index)+"_"+word.slice(index+1);
