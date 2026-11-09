@@ -62,7 +62,7 @@
 <p class="print-name">Naam: _____________________________ &nbsp; Datum: ________________</p>
 <h2 id="title">Begroeten</h2>
 <p class="hint">Zoek woorden. Kies de eerste en laatste letter. Kijk ook omhoog, omlaag en schuin.</p>
-<p id="count" class="progress" aria-live="polite">0 van 10 gevonden</p>
+<p id="count" class="progress" aria-live="polite">Zoek de woorden in het raster.</p>
 <div class="puzzle-flex"><div id="grid" class="letter-grid" role="group" aria-label="Woordzoeker"></div>
 <div><h3>Zoek deze woorden</h3><ul id="words" class="words"></ul></div></div>
 <p id="status" class="feedback" aria-live="polite"></p>
@@ -121,7 +121,7 @@ function path(a,b){
  return Array.from({length:len},(_,i)=>(ar+sr*i)*N+ac+sc*i);
 }
 function update(){
- $("count").textContent=found.size+" van "+themes[theme].words.length+" gevonden";
+ $("count").textContent=found.size===themes[theme].words.length?"Alle zoekwoorden gevonden!":found.size?"Goed bezig! Zoek verder.":"Zoek de woorden in het raster.";
  for(const item of wordItems)item.classList.toggle("found",found.has(item.dataset.word));
  const used=new Set([...found.values()].flat());
  for(const [i,c]of [...$("grid").children].entries()){c.classList.toggle("selected",start===i);c.classList.toggle("found",used.has(i));}
