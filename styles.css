@@ -20,3 +20,20 @@ h1,h2,h3{font-family:Manrope,Arial,sans-serif;letter-spacing:-.055em;line-height
 @media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.feature-list{grid-template-columns:1fr}}
 @media(max-width:560px){.nav{flex-direction:column;align-items:flex-start}.site-label{gap:.55rem;font-size:1.16rem}.site-label img{max-width:108px!important}.grid{grid-template-columns:1fr}.hero-inner{padding:3.2rem 1.5rem}.card{min-height:0}.panel{padding:1.4rem}}
 @media print{@page{size:A4;margin:15mm}body{background:#fff;color:#000;font-size:12pt}.site-header,.footer,.btn,.breadcrumbs{display:none!important}.hero{background:none;border:0}.hero::before,.hero::after{display:none}.hero-inner{padding:0 0 12mm}.wrap{padding:0}.card,.panel,.note{box-shadow:none;break-inside:avoid}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* A1 input- en knoplay-out: geen overlap */
+.practice .practice-card{min-width:0}
+.practice #answer-area{display:flex;flex-direction:column;align-items:stretch;gap:.65rem;width:100%;min-width:0;max-width:100%}
+.practice #answer-area>label{display:block;width:100%;line-height:1.4;margin:0}
+.practice #answer-area>.fill{display:block;align-self:flex-start;flex:none;width:min(100%,360px);max-width:100%;min-width:0;margin:0}
+.practice #answer-area>.answer{margin:.15rem 0;max-width:100%}
+.practice #answer-area>.ordered,.practice #answer-area>.tiles{min-width:0;max-width:100%;width:100%;overflow-wrap:anywhere}
+.practice .prompt{overflow-wrap:anywhere}
+.practice .actions{min-width:0;align-items:stretch}
+.practice .actions>button{flex:0 1 auto;min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+@media(max-width:560px){
+ .practice .actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.55rem}
+ .practice .actions>button{width:100%;min-width:0;min-height:52px;padding:.65rem .5rem}
+ .practice #answer-area>.fill{width:100%}
+}
+@media(max-width:350px){.practice .actions{grid-template-columns:1fr}}
