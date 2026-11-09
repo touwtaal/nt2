@@ -7,9 +7,9 @@
 .buttons{display:flex;gap:.5rem;flex-wrap:wrap;margin:.8rem 0}.action{border:0;border-radius:10px;padding:.8rem 1rem;min-height:46px;background:var(--purple);color:#fff;font:700 1rem 'DM Sans',Arial,sans-serif;cursor:pointer}
 .action.secondary{background:#fff;border:2px solid var(--lavender);color:var(--deep)}
 .hint{color:var(--muted);font-size:.94rem}.puzzle-flex{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,245px);align-items:start;gap:1.1rem}
-.letter-grid{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));width:100%;max-width:510px;aspect-ratio:1/1;border:2px solid var(--purple);border-radius:7px;overflow:hidden;background:white}
+.letter-grid{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));width:100%;max-width:510px;aspect-ratio:1/1;border:2px solid var(--purple);border-radius:7px;overflow:hidden;background:white}
 .cell{display:flex;align-items:center;justify-content:center;min-width:0;aspect-ratio:1/1;padding:0;border:1px solid #eae6ed;background:#fff;color:var(--ink);font:800 clamp(.58rem,1.65vw,1.05rem)/1 Arial,sans-serif;cursor:pointer}
-.cell.selected{background:#c3b7eb!important;box-shadow:inset 0 0 0 1.5px var(--purple)}.cell.found{background:#e0efdf;color:#215236}.cell.secret-cell{background:#f3e6ca;border-color:#bfa06a}
+.cell.selected{background:#c3b7eb!important;box-shadow:inset 0 0 0 1.5px var(--purple)}.cell.found{background:#e0efdf;color:#215236}
 .words{display:grid;gap:.25rem;margin:.3rem 0;padding:0;list-style:none}.words li{padding:.35rem .5rem;background:#fff;border-radius:8px;font:750 .96rem/1.32 'DM Sans',Arial,sans-serif;overflow-wrap:anywhere}
 .words li.found{background:#edf5eb;color:#39714b;text-decoration:line-through}
 .feedback{min-height:1.7rem;font-weight:700;color:var(--deep);margin:.7rem 0}
@@ -19,7 +19,7 @@
 .choices{display:grid;gap:.35rem}.answer{min-height:42px;padding:.55rem .65rem;text-align:left;border:1px solid var(--lavender);border-radius:8px;background:#faf8fd;color:var(--ink);font:600 .95rem 'DM Sans',Arial,sans-serif;cursor:pointer}
 .answer.correct{background:#e5f3e9;border-color:#4c8961}.answer.wrong{background:#f8e9eb;border-color:#b55c64}.answer:disabled{opacity:.85;cursor:default}
 .result{min-height:1rem;font-size:.87rem;color:var(--deep);margin:.4rem 0 0}
-.print-title,.print-name,.print-options,.secret-print{display:none}.secret-line{margin:.7rem 0;font-weight:700;color:var(--deep)}.progress{font-weight:700;color:var(--deep)}
+.print-title,.print-name,.print-options{display:none}.progress{font-weight:700;color:var(--deep)}
 @media(max-width:670px){.puzzle-flex{grid-template-columns:1fr}.letter-grid{margin:auto}.words{grid-template-columns:repeat(2,minmax(0,1fr))}.quiz{grid-template-columns:1fr}}
 @media(max-width:370px){.topic{font-size:.84rem}.cell{font-size:clamp(.53rem,2.45vw,.83rem)}.words li{font-size:.85rem}}
 @media print{
@@ -28,7 +28,7 @@
  .site-header,.hero,.footer,.breadcrumbs,.topic-picker,.buttons,.hint,#status,.choices,.result{display:none!important}
  .wrap,.app{max-width:none!important;width:auto!important;margin:0!important;padding:0!important}
  .panel{padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:#fff!important;box-shadow:none!important}
- .print-title,.print-name,.print-options{display:block!important}.secret-print{display:inline!important}#secret-answer{display:none!important}.cell.secret-cell{background:#fff!important;border-color:#bbb!important}
+ .print-title,.print-name,.print-options{display:block!important}
  .print-title{font:bold 16pt/1.2 Arial,sans-serif!important;margin:0 0 3mm!important}
  .print-name{font:10pt Arial,sans-serif!important;margin:0 0 4mm!important}
  #title{font:bold 13pt Arial,sans-serif!important;margin:0 0 3mm!important}
@@ -61,12 +61,11 @@
 <h2 class="print-title">TouwTaal · A1 · Woordzoeker</h2>
 <p class="print-name">Naam: _____________________________ &nbsp; Datum: ________________</p>
 <h2 id="title">Begroeten</h2>
-<p class="hint">Zoek de woorden horizontaal of verticaal, ook achterstevoren. Kies telkens de eerste en laatste letter.</p>
-<p id="count" class="progress" aria-live="polite">0 van 16 gevonden</p>
+<p class="hint">Zoek woorden. Kies de eerste en laatste letter. Kijk ook omhoog, omlaag en schuin.</p>
+<p id="count" class="progress" aria-live="polite">0 van 10 gevonden</p>
 <div class="puzzle-flex"><div id="grid" class="letter-grid" role="group" aria-label="Woordzoeker"></div>
 <div><h3>Zoek deze woorden</h3><ul id="words" class="words"></ul></div></div>
 <p id="status" class="feedback" aria-live="polite"></p>
-<p class="secret-line"><strong>Geheim woord:</strong> <span id="secret-answer">_ _ _ _ _ _ _ _</span><span class="secret-print" id="secret-print">_ _ _ _ _ _ _ _</span></p>
 <div class="buttons">
 <button id="restart" type="button" class="action secondary">Opnieuw zoeken</button>
 <button id="new-grid" type="button" class="action secondary">Nieuwe puzzel</button>
@@ -78,51 +77,41 @@
 <footer class="footer"><p>Learn Dutch with confidence.</p><p><a href="https://touwtaal.github.io/">TouwTaal</a></p></footer><script>
 (function(){
 "use strict";
-const themes={"groeten":{"title":"Begroeten","emoji":"👋","words":["HALLO","HOI","DAG","DOEI","GOEDEMORGEN","GOEDEMIDDAG","GOEDENAVOND","WELKOM","BEDANKT","SORRY","TOTZIENS","ALSTUBLIEFT","TOTZO","GOEDENACHT","TOTSNEL","DANKJE"],"questions":[{"q":"👤 Aya komt in de les. Wat zeg je?","options":["Hallo Aya!","Tot ziens Aya!","Doei Aya!"],"good":0,"why":"Aya komt binnen. Je begroet haar met hallo."},{"q":"👋 De les is afgelopen. Je gaat naar huis. Wat zeg je?","options":["Welkom!","Doei!","Goedemorgen!"],"good":1,"why":"Je neemt afscheid met doei."},{"q":"🤝 Sam helpt je. Wat zeg je?","options":["Sorry!","Welkom!","Bedankt!"],"good":2,"why":"Als Sam je helpt, zeg je bedankt."},{"q":"👤 Sam begint de cursus. Wat zegt de docent?","options":["Welkom!","Doei!","Tot morgen!"],"good":0,"why":"De docent verwelkomt Sam bij de cursus."}],"secret":"GROETJES"},"gegevens":{"title":"Naam en adres","emoji":"🏠","words":["NAAM","VOORNAAM","ACHTERNAAM","ADRES","POSTCODE","NUMMER","LAND","TAAL","NEDERLAND","STRAATNAAM","NEDERLANDS","MOBIEL","GEBOREN","NUMMERS","HUISNUMMER","MAN"],"questions":[{"q":"✍️ Sara de Vries vult haar voornaam in. Wat schrijft ze?","options":["de Vries","Sara","Nederland"],"good":1,"why":"Sara is haar voornaam."},{"q":"✍️ Omar Bakker vult zijn achternaam in. Wat schrijft hij?","options":["Omar","Utrecht","Bakker"],"good":2,"why":"Bakker is zijn achternaam."},{"q":"✍️ Op een formulier staat: 3311 AA.\nWat is 3311 AA?","options":["Een postcode","Een voornaam","Een land"],"good":0,"why":"Een Nederlandse postcode bestaat uit vier cijfers en twee letters."},{"q":"🌍 Noor komt uit Engeland. Ze spreekt Engels.\nMoedertaal: ...","options":["Engeland","Engels","Nederland"],"good":1,"why":"Engels is de taal. Engeland is het land."}],"secret":"WOONPLAATS"},"les":{"title":"In de les","emoji":"📚","words":["LES","DOCENT","CURSUS","BOEK","VRAAG","ANTWOORD","OPDRACHT","HUISWERK","LUISTEREN","SPREKEN","PAUZE","UITSPRAAK","KLASLOKAAL","OEFENINGEN","PEN","GRAMMATICA"],"questions":[{"q":"👂 De docent praat. Wat doe je?","options":["Luisteren","Spreken","Schrijven"],"good":0,"why":"Je luistert als de docent praat."},{"q":"🗣️ De docent vraagt: 'Wat is je naam?' Jij zegt: 'Noor.' Wat doe je?","options":["Lezen","Schrijven","Spreken"],"good":2,"why":"Je zegt je antwoord. Dat is spreken."},{"q":"🏠 De docent geeft een opdracht voor na de les. Wat is dat?","options":["Een pauze","Huiswerk","Een antwoord"],"good":1,"why":"Werk voor na de les is huiswerk."},{"q":"📄 Op papier staat: 'Schrijf je naam op.' Wat is dit?","options":["Een opdracht","Een antwoord","Een pauze"],"good":0,"why":"De tekst zegt wat je moet doen. Dat is een opdracht."}],"secret":"TAALCURSUS"}};
-const N=11;
-const wordLabels={"TOTZO":"tot zo","TOTSNEL":"tot snel","TOTZIENS":"tot ziens","DANKJE":"dank je"};
-function wordLabel(word){return wordLabels[word]||word.toLowerCase();}
+const themes={"groeten":{"title":"Begroeten","emoji":"👋","words":["HALLO","HOI","DAG","DOEI","GOEDEMORGEN","GOEDEMIDDAG","GOEDENAVOND","WELKOM","BEDANKT","SORRY"],"questions":[{"q":"👤 Aya komt in de les. Wat zeg je?","options":["Hallo Aya!","Tot ziens Aya!","Doei Aya!"],"good":0,"why":"Aya komt binnen. Je begroet haar met hallo."},{"q":"👋 De les is afgelopen. Je gaat naar huis. Wat zeg je?","options":["Welkom!","Doei!","Goedemorgen!"],"good":1,"why":"Je neemt afscheid met doei."},{"q":"🤝 Sam helpt je. Wat zeg je?","options":["Sorry!","Welkom!","Bedankt!"],"good":2,"why":"Als Sam je helpt, zeg je bedankt."},{"q":"👤 Sam begint de cursus. Wat zegt de docent?","options":["Welkom!","Doei!","Tot morgen!"],"good":0,"why":"De docent verwelkomt Sam bij de cursus."}]},"gegevens":{"title":"Naam en adres","emoji":"🏠","words":["NAAM","VOORNAAM","ACHTERNAAM","ADRES","POSTCODE","NUMMER","LAND","NATIONALITEIT","TAAL","NEDERLAND"],"questions":[{"q":"✍️ Sara de Vries vult haar voornaam in. Wat schrijft ze?","options":["de Vries","Sara","Nederland"],"good":1,"why":"Sara is de voornaam."},{"q":"✍️ Omar Bakker vult zijn achternaam in. Wat schrijft hij?","options":["Omar","Utrecht","Bakker"],"good":2,"why":"Bakker is de achternaam."},{"q":"✉️ Op het formulier staat een code: 3311 AA. Wat is dat?","options":["Een postcode.","Een voornaam.","Een land."],"good":0,"why":"Een Nederlandse postcode bestaat uit vier cijfers en twee letters."},{"q":"🌍 Noor komt uit Engeland en spreekt Engels.\nMoedertaal: ...","options":["Engeland","Engels","Nederland"],"good":1,"why":"Engels is haar taal. Engeland is een land."}]},"les":{"title":"In de les","emoji":"📚","words":["LES","DOCENT","CURSUS","BOEK","VRAAG","ANTWOORD","OPDRACHT","HUISWERK","LUISTEREN","SPREKEN"],"questions":[{"q":"👂 De docent praat. Wat doe je?","options":["Luisteren.","Spreken.","Schrijven."],"good":0,"why":"Je luistert als iemand praat."},{"q":"🗣️ De docent vraagt: 'Wat is je naam?' Je zegt: 'Noor.' Wat doe je?","options":["Lezen.","Schrijven.","Spreken."],"good":2,"why":"Je zegt het antwoord hardop: je spreekt."},{"q":"🏠 De docent geeft een opdracht voor thuis. Wat is dat?","options":["Een pauze.","Huiswerk.","Een antwoord."],"good":1,"why":"Een opdracht die je thuis maakt heet huiswerk."},{"q":"📄 Op papier staat: 'Schrijf je naam op.' Wat is dit?","options":["Een opdracht.","Een antwoord.","Een pauze."],"good":0,"why":"Een opdracht zegt wat je moet doen."}]}};
+const N=15,dirs=[[0,1],[1,0],[1,1],[1,-1],[0,-1],[-1,0],[-1,-1],[-1,1]];
 const $=id=>document.getElementById(id);
-let theme="groeten",round=1,grid=[],placed={},secretCells=[],found=new Map(),start=-1,answered=new Set(),wordItems=[];
+let theme="groeten",round=1,grid=[],placed={},found=new Map(),start=-1,answered=new Set(),wordItems=[];
 function seeded(seed){let x=seed>>>0;return()=>{x=(Math.imul(1664525,x)+1013904223)>>>0;return x/4294967296}}
 function hash(s){let x=2166136261;for(const c of s)x=Math.imul(x^c.charCodeAt(0),16777619)>>>0;return x}
-const groups={"groeten":[["HALLO","WELKOM"],["HOI","BEDANKT"],["DAG","TOTSNEL"],["DOEI","DANKJE"],["GOEDEMORGEN"],["GOEDEMIDDAG"],["GOEDENAVOND"],["SORRY","TOTZO"],["TOTZIENS"],["ALSTUBLIEFT"],["GOEDENACHT"]],"gegevens":[["NAAM","GEBOREN"],["VOORNAAM","MAN"],["ACHTERNAAM"],["ADRES","NUMMER"],["POSTCODE"],["LAND","NUMMERS"],["TAAL","MOBIEL"],["NEDERLAND"],["STRAATNAAM"],["NEDERLANDS"],["HUISNUMMER"]],"les":[["LES","ANTWOORD"],["DOCENT","VRAAG"],["CURSUS","PAUZE"],["BOEK","SPREKEN"],["OPDRACHT","PEN"],["HUISWERK"],["LUISTEREN"],["UITSPRAAK"],["KLASLOKAAL"],["OEFENINGEN"],["GRAMMATICA"]]};
-function makeGrid(theme,round){
- const data=themes[theme],rand=seeded(hash(theme+":"+round)),board=[],positions={};
- const rows=groups[theme].map(group=>[...group]);
- for(let i=rows.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[rows[i],rows[j]]=[rows[j],rows[i]]}
- for(const row of rows){
-  if(rand()<.5)row.reverse();
-  const used=row.reduce((n,w)=>n+w.length,0),slack=N-used;
-  const gaps=Array(row.length+1).fill(0);
-  for(let i=0;i<slack;i++)gaps[Math.floor(rand()*gaps.length)]++;
-  for(let i=0;i<row.length;i++){
-   for(let j=0;j<gaps[i];j++)board.push("");
-   const word=row[i],reversed=rand()<.5,chars=reversed?[...word].reverse():[...word],ids=[];
-   for(const letter of chars){ids.push(board.length);board.push(letter)}
-   positions[word]=reversed?ids.reverse():ids;
+function makeGrid(words,seed){
+ const sorted=[...words].sort((a,b)=>b.length-a.length);
+ for(let attempt=0;attempt<120;attempt++){
+  const rand=seeded(seed+Math.imul(attempt+1,2654435761));
+  let board=Array(N*N).fill(""),positions={},orientations=new Set(),success=true;
+  for(const word of sorted){
+   const opts=[];
+   for(let d=0;d<dirs.length;d++){
+    const [dr,dc]=dirs[d];
+    for(let row=0;row<N;row++)for(let col=0;col<N;col++){
+     if(row+dr*(word.length-1)<0||row+dr*(word.length-1)>=N||col+dc*(word.length-1)<0||col+dc*(word.length-1)>=N)continue;
+     const ids=Array.from({length:word.length},(_,i)=>(row+dr*i)*N+col+dc*i);
+     if(ids.every((id,i)=>!board[id]||board[id]===word[i])){
+      const overlap=ids.filter(id=>board[id]).length;
+      opts.push({ids,d,score:rand()+overlap*.13+(orientations.has(d)?0:.27)});
+     }
+    }
+   }
+   if(!opts.length){success=false;break}
+   opts.sort((a,b)=>b.score-a.score);
+   const chosen=opts[Math.floor(rand()*Math.min(12,opts.length))];
+   chosen.ids.forEach((id,i)=>board[id]=word[i]);positions[word]=chosen.ids;orientations.add(chosen.d);
   }
-  for(let j=0;j<gaps[row.length];j++)board.push("");
+  if(!success||orientations.size<3)continue;
+  const letters="AAEEEIIIOONNRRSTTKLMDPGHUVWZB";
+  for(let i=0;i<board.length;i++)if(!board[i])board[i]=letters[Math.floor(rand()*letters.length)];
+  return{board,positions,orientations:orientations.size};
  }
- if(board.length!==N*N)throw Error("Puzzelafmetingen kloppen niet");
- const mirrored=rand()<.5,rotations=Math.floor(rand()*4);
- function transform(id){
-  let r=Math.floor(id/N),c=id%N;
-  if(mirrored)c=N-1-c;
-  for(let i=0;i<rotations;i++){const old=r;r=c;c=N-1-old}
-  return r*N+c;
- }
- const transformed=Array(N*N).fill("");
- board.forEach((letter,i)=>{transformed[transform(i)]=letter});
- for(const word of data.words)positions[word]=positions[word].map(transform);
- const secretCells=[];
- for(let i=0;i<transformed.length;i++)if(!transformed[i])secretCells.push(i);
- if(secretCells.length!==data.secret.length)throw Error("Geheimwoordlengte klopt niet");
- secretCells.forEach((id,i)=>{transformed[id]=data.secret[i]});
- for(const word of data.words){
-  if(positions[word].map(id=>transformed[id]).join("")!==word)throw Error("Woordplaatsing klopt niet: "+word);
- }
- return{board:transformed,positions,secretCells};
+ throw Error("Puzzel maken mislukt");
 }
 function path(a,b){
  const ar=Math.floor(a/N),ac=a%N,br=Math.floor(b/N),bc=b%N;
@@ -135,12 +124,7 @@ function update(){
  $("count").textContent=found.size+" van "+themes[theme].words.length+" gevonden";
  for(const item of wordItems)item.classList.toggle("found",found.has(item.dataset.word));
  const used=new Set([...found.values()].flat());
- const complete=found.size===themes[theme].words.length;
- $("secret-answer").textContent=complete?themes[theme].secret:Array(themes[theme].secret.length).fill("_").join(" ");
- for(const [i,c]of [...$("grid").children].entries()){
-  c.classList.toggle("selected",start===i);c.classList.toggle("found",used.has(i));
-  c.classList.toggle("secret-cell",complete&&secretCells.includes(i));
- }
+ for(const [i,c]of [...$("grid").children].entries()){c.classList.toggle("selected",start===i);c.classList.toggle("found",used.has(i));}
 }
 function status(t){$("status").textContent=t}
 function tap(i){
@@ -148,15 +132,13 @@ function tap(i){
  const indices=path(start,i);start=-1;
  let matched;
  if(indices){
-  matched=themes[theme].words.find(w=>!found.has(w)&&placed[w]&&(
-   indices.length===placed[w].length&&
-   (indices.every((id,k)=>id===placed[w][k])||indices.every((id,k)=>id===placed[w][placed[w].length-1-k]))
-  ));
+  const letters=indices.map(id=>grid[id]).join("");
+  matched=themes[theme].words.find(w=>!found.has(w)&&(letters===w||[...letters].reverse().join("")===w));
  }
- if(matched){found.set(matched,indices);status("Goed! "+wordLabel(matched)+" gevonden.");}
+ if(matched){found.set(matched,indices);status("Goed! "+matched.toLowerCase()+" gevonden.");}
  else status("Nog niet. Zoek de eerste en laatste letter van één woord.");
  update();
- if(found.size===themes[theme].words.length)status("Alle woorden gevonden! Het geheime woord is "+themes[theme].secret+". Maak ook de vragen.");
+ if(found.size===themes[theme].words.length)status("Alle woorden gevonden! Maak ook de vragen.");
 }
 function drawQuiz(){
  answered=new Set();const root=$("quiz");root.replaceChildren();
@@ -181,9 +163,8 @@ function drawQuiz(){
 }
 function draw(){
  found=new Map();start=-1;
- const data=themes[theme],puzzle=makeGrid(theme,round);
- grid=puzzle.board;placed=puzzle.positions;secretCells=puzzle.secretCells;$("title").textContent=data.title;
- $("secret-print").textContent=Array(data.secret.length).fill("_").join(" ");
+ const data=themes[theme],puzzle=makeGrid(data.words,hash(theme+":"+round));
+ grid=puzzle.board;placed=puzzle.positions;$("title").textContent="1 · "+data.title;
  const root=$("grid");root.replaceChildren();
  grid.forEach((letter,i)=>{
   const button=document.createElement("button");button.type="button";button.className="cell";button.textContent=letter.toLowerCase();
@@ -202,7 +183,7 @@ function draw(){
  });
  wordItems=[];$("words").replaceChildren();
  data.words.forEach(word=>{
-  const li=document.createElement("li");li.dataset.word=word;li.textContent=wordLabel(word);
+  const li=document.createElement("li");li.dataset.word=word;li.textContent=word.toLowerCase();
   $("words").append(li);wordItems.push(li);
  });
  update();status("Kies de eerste en laatste letter van een woord.");drawQuiz();
@@ -217,7 +198,7 @@ Object.entries(themes).forEach(([key,value])=>{
 });
 $("restart").addEventListener("click",()=>draw());
 $("new-grid").addEventListener("click",()=>{round=round%99+1;draw()});
-$("print").addEventListener("click",()=>window.print());
+$("print").addEventListener("click",()=>{location.href="../../werkblad.html?oefening=a1-woordzoeker&thema="+encodeURIComponent(theme)+"&les="+round});
 const query=new URLSearchParams(location.search),requested=query.get("thema"),version=Number(query.get("les"));
 if(requested&&themes[requested])theme=requested;
 if(Number.isInteger(version)&&version>=1&&version<=99)round=version;
