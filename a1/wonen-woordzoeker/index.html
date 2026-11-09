@@ -1,0 +1,207 @@
+<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#F8F4EE"><meta name="description" content="A1 woordzoekers bij Wonen. Zoek woorden uit hoofdstuk 8 en oefen hun betekenis. Printbaar op A4."><title>A1 · Woordzoekers Wonen | TouwTaal NT2</title><link rel="stylesheet" href="../../styles.css"><style>
+.app{max-width:950px;margin:auto}.panel{background:var(--nav);border:1px solid var(--line);border-radius:20px;padding:clamp(1rem,2.8vw,1.6rem);margin:1rem 0}
+.topics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem;margin:1rem 0}
+.topic{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;min-height:90px;padding:.7rem .4rem;background:#fff;border:2px solid var(--lavender);border-radius:13px;color:var(--ink);font:700 .98rem/1.3 'DM Sans',Arial,sans-serif;cursor:pointer}
+.topic .emoji{font-size:1.75rem}.topic[aria-pressed=true]{border-color:var(--purple);background:var(--lilac)}
+.topic:focus-visible,.cell:focus-visible,.action:focus-visible,.answer:focus-visible{outline:3px solid var(--deep);outline-offset:2px}
+.buttons{display:flex;gap:.5rem;flex-wrap:wrap;margin:.8rem 0}.action{border:0;border-radius:10px;padding:.8rem 1rem;min-height:46px;background:var(--purple);color:#fff;font:700 1rem 'DM Sans',Arial,sans-serif;cursor:pointer}
+.action.secondary{background:#fff;border:2px solid var(--lavender);color:var(--deep)}
+.hint{color:var(--muted);font-size:.94rem}.puzzle-flex{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,245px);align-items:start;gap:1.1rem}
+.letter-grid{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));width:100%;max-width:510px;aspect-ratio:1/1;border:2px solid var(--purple);border-radius:7px;overflow:hidden;background:white}
+.cell{display:flex;align-items:center;justify-content:center;min-width:0;aspect-ratio:1/1;padding:0;border:1px solid #eae6ed;background:#fff;color:var(--ink);font:800 clamp(.58rem,1.65vw,1.05rem)/1 Arial,sans-serif;cursor:pointer}
+.cell.selected{background:#c3b7eb!important;box-shadow:inset 0 0 0 1.5px var(--purple)}.cell.found{background:#e0efdf;color:#215236}
+.words{display:grid;gap:.25rem;margin:.3rem 0;padding:0;list-style:none}.words li{padding:.35rem .5rem;background:#fff;border-radius:8px;font:750 .96rem/1.32 'DM Sans',Arial,sans-serif;overflow-wrap:anywhere}
+.words li.found{background:#edf5eb;color:#39714b;text-decoration:line-through}
+.feedback{min-height:1.7rem;font-weight:700;color:var(--deep);margin:.7rem 0}
+.quiz{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin:.7rem 0}
+.question{padding:1rem;background:#fff;border:1px solid var(--line);border-radius:12px;break-inside:avoid}
+.question strong{display:block;white-space:pre-line;margin:0 0 .6rem;line-height:1.45}
+.choices{display:grid;gap:.35rem}.answer{min-height:42px;padding:.55rem .65rem;text-align:left;border:1px solid var(--lavender);border-radius:8px;background:#faf8fd;color:var(--ink);font:600 .95rem 'DM Sans',Arial,sans-serif;cursor:pointer}
+.answer.correct{background:#e5f3e9;border-color:#4c8961}.answer.wrong{background:#f8e9eb;border-color:#b55c64}.answer:disabled{opacity:.85;cursor:default}
+.result{min-height:1rem;font-size:.87rem;color:var(--deep);margin:.4rem 0 0}
+.print-title,.print-name,.print-options{display:none}.progress{font-weight:700;color:var(--deep)}
+@media(max-width:670px){.puzzle-flex{grid-template-columns:1fr}.letter-grid{margin:auto}.words{grid-template-columns:repeat(2,minmax(0,1fr))}.quiz{grid-template-columns:1fr}}
+@media(max-width:370px){.topic{font-size:.84rem}.cell{font-size:clamp(.53rem,2.45vw,.83rem)}.words li{font-size:.85rem}}
+@media print{
+ @page{size:A4;margin:12mm 14mm}
+ html,body{margin:0!important;padding:0!important;background:#fff!important;color:#171717!important;font:10pt/1.28 Arial,sans-serif!important}
+ .site-header,.hero,.footer,.breadcrumbs,.topic-picker,.buttons,.hint,#status,.choices,.result{display:none!important}
+ .wrap,.app{max-width:none!important;width:auto!important;margin:0!important;padding:0!important}
+ .panel{padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:#fff!important;box-shadow:none!important}
+ .print-title,.print-name,.print-options{display:block!important}
+ .print-title{font:bold 16pt/1.2 Arial,sans-serif!important;margin:0 0 3mm!important}
+ .print-name{font:10pt Arial,sans-serif!important;margin:0 0 4mm!important}
+ #title{font:bold 13pt Arial,sans-serif!important;margin:0 0 3mm!important}
+ .puzzle-flex{grid-template-columns:102mm 1fr!important;gap:5mm!important}
+ .letter-grid{width:96mm!important;height:96mm!important;max-width:none!important;aspect-ratio:1!important;border:1px solid #555!important;border-radius:0!important;box-shadow:none!important}
+ .cell{width:auto!important;height:auto!important;min-height:0!important;aspect-ratio:1!important;border:.4px solid #bbb!important;border-radius:0!important;background:#fff!important;color:#111!important;font:bold 11.5pt/1 Arial,sans-serif!important}
+ .words{display:grid!important;grid-template-columns:1fr!important;gap:0!important;margin:0!important}
+ .words li{font:11pt/1.4 Arial,sans-serif!important;padding:.5mm 0!important;background:transparent!important;color:#111!important;text-decoration:none!important}
+ .progress{display:none!important}
+ .quiz-heading{font:bold 12pt Arial,sans-serif!important;margin:4mm 0 2mm!important}
+ .quiz{grid-template-columns:1fr 1fr!important;gap:2mm 5mm!important;margin:0!important}
+ .question{border:0!important;border-bottom:1px solid #bbb!important;border-radius:0!important;padding:1mm 0!important;margin:0!important;break-inside:avoid!important}
+ .question strong{font:10pt/1.32 Arial,sans-serif!important;margin:0 0 1mm!important;white-space:pre-line!important}
+ .print-options{font:9pt/1.35 Arial,sans-serif!important}
+ .print-options span{display:block!important;margin-bottom:.5mm!important}
+}
+</style></head><body>
+<a class="skip" href="#inhoud">Ga naar inhoud</a>
+<header class="site-header"><nav class="nav" aria-label="Hoofdnavigatie">
+<a class="site-label" href="../../index.html"><img src="https://touwtaal.github.io/assets/logo.jpg" alt="TouwTaal" style="height:45px;max-width:155px;object-fit:contain"><span>NT2-oefeningen</span></a>
+<div class="navlinks"><a href="../../index.html">Alle niveaus</a><a href="https://touwtaal.github.io/">TouwTaal</a></div>
+</nav></header>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">A1 · Hoofdstuk 8</div><h1>Woordzoekers · Wonen</h1><p>Zoek woorden. Oefen wat ze betekenen.</p></div></section>
+<main id="inhoud" class="wrap"><div class="app">
+<div class="breadcrumbs"><a href="../../index.html">Alle niveaus</a> / <a href="../index.html">A1</a> / Woordzoekers</div>
+<section class="panel topic-picker" aria-labelledby="choose"><h2 id="choose">Kies woorden</h2>
+<div class="topics" id="topics" role="group" aria-label="Kies een woordgroep"></div>
+<p class="hint">De woorden komen uit hoofdstuk 8. Kies een groep.</p></section>
+<section class="panel" aria-labelledby="title">
+<h2 class="print-title">TouwTaal · A1 · Woordzoeker</h2>
+<p class="print-name">Naam: _____________________________ &nbsp; Datum: ________________</p>
+<h2 id="title">Begroeten</h2>
+<p class="hint">Zoek woorden. Kies de eerste en laatste letter. Kijk ook omhoog, omlaag en schuin.</p>
+<p id="count" class="progress" aria-live="polite">0 van 10 gevonden</p>
+<div class="puzzle-flex"><div id="grid" class="letter-grid" role="group" aria-label="Woordzoeker"></div>
+<div><h3>Zoek deze woorden</h3><ul id="words" class="words"></ul></div></div>
+<p id="status" class="feedback" aria-live="polite"></p>
+<div class="buttons">
+<button id="restart" type="button" class="action secondary">Opnieuw zoeken</button>
+<button id="new-grid" type="button" class="action secondary">Nieuwe puzzel</button>
+<button id="print" type="button" class="action">Print werkblad</button></div>
+<h3 class="quiz-heading">Wat past?</h3>
+<p class="hint">Kies bij elke situatie een antwoord.</p>
+<div id="quiz" class="quiz"></div>
+</section></div></main>
+<footer class="footer"><p>Learn Dutch with confidence.</p><p><a href="https://touwtaal.github.io/">TouwTaal</a></p></footer><script>
+(function(){
+"use strict";
+const themes={"kamers":{"title":"Kamers in huis","emoji":"🏠","words":["KEUKEN","BADKAMER","SLAAPKAMER","WOONKAMER","WERKKAMER","KELDER","ZOLDER","GANG","HAL","GARAGE"],"questions":[{"q":"🍳 Je maakt soep klaar voor het avondeten. In welke kamer ben je?","options":["In de keuken.","In de badkamer.","In de slaapkamer."],"good":0,"why":"In de keuken kun je koken."},{"q":"🚿 Noor wil douchen. Naar welke kamer gaat ze?","options":["Naar de woonkamer.","Naar de badkamer.","Naar de garage."],"good":1,"why":"In de badkamer kun je douchen."},{"q":"💻 Sam heeft thuis een aparte kamer om te werken. Welke kamer is dat?","options":["De hal.","De kelder.","De werkkamer."],"good":2,"why":"Een werkkamer is een kamer waar je werkt."},{"q":"📦 De dozen staan helemaal boven in huis, direct onder het dak. Waar staan ze?","options":["Op zolder.","In de kelder.","In de gang."],"good":0,"why":"De zolder ligt vaak boven in huis onder het dak."}]},"woningen":{"title":"Soorten woningen","emoji":"🏘️","words":["APPARTEMENT","FLAT","WONING","STUDIO","WOONBOOT","BENEDENWONING","BOVENWONING","STUDENTENHUIS","BALKON","TUIN"],"questions":[{"q":"🏢 Aya woont in één kamer waarin ze slaapt én kookt. Wat voor woning is dat?","options":["Een studio.","Een groot herenhuis.","Een boerderij."],"good":0,"why":"Een studio heeft meestal één hoofdruimte."},{"q":"🚤 Noor woont op een boot, op het water. Hoe heet haar woning?","options":["Een bovenwoning.","Een woonboot.","Een studentenhuis."],"good":1,"why":"Een woonboot is een woning op het water."},{"q":"🏡 Sam woont beneden in een huis dat in twee woningen is verdeeld. Hoe heet zijn woning?","options":["Een bovenwoning.","Een studio.","Een benedenwoning."],"good":2,"why":"Hij woont in de woning beneden."},{"q":"☀️ Noor heeft geen tuin. Ze wil wel buiten zitten aan haar appartement. Waar kan dat?","options":["Op een balkon.","In een kelder.","In een garage."],"good":0,"why":"Een balkon is buiten en hoort bij een woning."}]},"meubels":{"title":"Dingen in huis","emoji":"🪑","words":["BED","KAST","STOEL","BUREAU","MEUBELS","MUUR","DEUR","TRAP","SLEUTEL","DAK"],"questions":[{"q":"🔑 Sam staat voor zijn huis. Wat gebruikt hij om de deur open te maken?","options":["Een sleutel.","Een stoel.","Een bureau."],"good":0,"why":"Een sleutel gebruik je om een deur open te maken."},{"q":"😴 Je bent moe en wilt gaan slapen. Waar ga je liggen?","options":["Op het bureau.","Op het bed.","Op een kast."],"good":1,"why":"Je slaapt in een bed."},{"q":"🏠 De slaapkamer is boven. Je staat beneden. Wat gebruik je om boven te komen?","options":["De deur.","De garage.","De trap."],"good":2,"why":"Met de trap ga je van beneden naar boven."},{"q":"🖼️ Je hangt een schilderij op. Waar komt het?","options":["Aan de muur.","Op een bed.","In een stoel."],"good":0,"why":"Een schilderij kan aan de muur hangen."}]}};
+const N=15,dirs=[[0,1],[1,0],[1,1],[1,-1],[0,-1],[-1,0],[-1,-1],[-1,1]];
+const $=id=>document.getElementById(id);
+let theme="kamers",round=1,grid=[],placed={},found=new Map(),start=-1,answered=new Set(),wordItems=[];
+function seeded(seed){let x=seed>>>0;return()=>{x=(Math.imul(1664525,x)+1013904223)>>>0;return x/4294967296}}
+function hash(s){let x=2166136261;for(const c of s)x=Math.imul(x^c.charCodeAt(0),16777619)>>>0;return x}
+function makeGrid(words,seed){
+ const sorted=[...words].sort((a,b)=>b.length-a.length);
+ for(let attempt=0;attempt<120;attempt++){
+  const rand=seeded(seed+Math.imul(attempt+1,2654435761));
+  let board=Array(N*N).fill(""),positions={},orientations=new Set(),success=true;
+  for(const word of sorted){
+   const opts=[];
+   for(let d=0;d<dirs.length;d++){
+    const [dr,dc]=dirs[d];
+    for(let row=0;row<N;row++)for(let col=0;col<N;col++){
+     if(row+dr*(word.length-1)<0||row+dr*(word.length-1)>=N||col+dc*(word.length-1)<0||col+dc*(word.length-1)>=N)continue;
+     const ids=Array.from({length:word.length},(_,i)=>(row+dr*i)*N+col+dc*i);
+     if(ids.every((id,i)=>!board[id]||board[id]===word[i])){
+      const overlap=ids.filter(id=>board[id]).length;
+      opts.push({ids,d,score:rand()+overlap*.13+(orientations.has(d)?0:.27)});
+     }
+    }
+   }
+   if(!opts.length){success=false;break}
+   opts.sort((a,b)=>b.score-a.score);
+   const chosen=opts[Math.floor(rand()*Math.min(12,opts.length))];
+   chosen.ids.forEach((id,i)=>board[id]=word[i]);positions[word]=chosen.ids;orientations.add(chosen.d);
+  }
+  if(!success||orientations.size<3)continue;
+  const letters="AAEEEIIIOONNRRSTTKLMDPGHUVWZB";
+  for(let i=0;i<board.length;i++)if(!board[i])board[i]=letters[Math.floor(rand()*letters.length)];
+  return{board,positions,orientations:orientations.size};
+ }
+ throw Error("Puzzel maken mislukt");
+}
+function path(a,b){
+ const ar=Math.floor(a/N),ac=a%N,br=Math.floor(b/N),bc=b%N;
+ const rd=br-ar,cd=bc-ac,len=Math.max(Math.abs(rd),Math.abs(cd))+1;
+ if(a===b||!(rd===0||cd===0||Math.abs(rd)===Math.abs(cd)))return null;
+ const sr=Math.sign(rd),sc=Math.sign(cd);
+ return Array.from({length:len},(_,i)=>(ar+sr*i)*N+ac+sc*i);
+}
+function update(){
+ $("count").textContent=found.size+" van "+themes[theme].words.length+" gevonden";
+ for(const item of wordItems)item.classList.toggle("found",found.has(item.dataset.word));
+ const used=new Set([...found.values()].flat());
+ for(const [i,c]of [...$("grid").children].entries()){c.classList.toggle("selected",start===i);c.classList.toggle("found",used.has(i));}
+}
+function status(t){$("status").textContent=t}
+function tap(i){
+ if(start<0){start=i;update();status("Kies nu de laatste letter.");return}
+ const indices=path(start,i);start=-1;
+ let matched;
+ if(indices){
+  const letters=indices.map(id=>grid[id]).join("");
+  matched=themes[theme].words.find(w=>!found.has(w)&&(letters===w||[...letters].reverse().join("")===w));
+ }
+ if(matched){found.set(matched,indices);status("Goed! "+matched.toLowerCase()+" gevonden.");}
+ else status("Nog niet. Zoek de eerste en laatste letter van één woord.");
+ update();
+ if(found.size===themes[theme].words.length)status("Alle woorden gevonden! Maak ook de vragen.");
+}
+function drawQuiz(){
+ answered=new Set();const root=$("quiz");root.replaceChildren();
+ themes[theme].questions.forEach((q,i)=>{
+  const card=document.createElement("div");card.className="question";
+  const heading=document.createElement("strong");heading.textContent=(i+1)+". "+q.q;card.append(heading);
+  const options=document.createElement("div");options.className="choices";
+  const printChoices=document.createElement("div");printChoices.className="print-options";
+  const result=document.createElement("p");result.className="result";result.setAttribute("aria-live","polite");
+  q.options.forEach((value,n)=>{
+   const button=document.createElement("button");button.type="button";button.className="answer";button.textContent=String.fromCharCode(65+n)+". "+value;
+   button.addEventListener("click",()=>{
+    if(answered.has(i))return;answered.add(i);
+    [...options.children].forEach((other,k)=>{other.disabled=true;other.classList.toggle("correct",k===q.good);other.classList.toggle("wrong",k===n&&k!==q.good)});
+    result.textContent=n===q.good?"Goed! "+q.why:"Nog niet. Goed is: "+q.options[q.good]+". "+q.why;
+   });
+   options.append(button);
+   const span=document.createElement("span");span.textContent="◯ "+String.fromCharCode(65+n)+". "+value;printChoices.append(span);
+  });
+  card.append(options,printChoices,result);root.append(card);
+ });
+}
+function draw(){
+ found=new Map();start=-1;
+ const data=themes[theme],puzzle=makeGrid(data.words,hash(theme+":"+round));
+ grid=puzzle.board;placed=puzzle.positions;$("title").textContent="8 · "+data.title;
+ const root=$("grid");root.replaceChildren();
+ grid.forEach((letter,i)=>{
+  const button=document.createElement("button");button.type="button";button.className="cell";button.textContent=letter.toLowerCase();
+  const row=Math.floor(i/N),col=i%N;
+  button.setAttribute("aria-label","Letter "+letter+", rij "+(row+1)+", kolom "+(col+1));
+  button.tabIndex=i===0?0:-1;
+  button.addEventListener("click",()=>tap(i));
+  button.addEventListener("keydown",e=>{
+   const steps={ArrowLeft:-1,ArrowRight:1,ArrowUp:-N,ArrowDown:N};
+   if(!(e.key in steps))return;
+   const target=i+steps[e.key];
+   if(target<0||target>=N*N||(e.key==="ArrowLeft"&&col===0)||(e.key==="ArrowRight"&&col===N-1))return;
+   e.preventDefault();[...root.children].forEach(child=>child.tabIndex=-1);root.children[target].tabIndex=0;root.children[target].focus();
+  });
+  root.append(button);
+ });
+ wordItems=[];$("words").replaceChildren();
+ data.words.forEach(word=>{
+  const li=document.createElement("li");li.dataset.word=word;li.textContent=word.toLowerCase();
+  $("words").append(li);wordItems.push(li);
+ });
+ update();status("Kies de eerste en laatste letter van een woord.");drawQuiz();
+ const u=new URL(location.href);u.searchParams.set("thema",theme);u.searchParams.set("les",String(round));history.replaceState(null,"",u);
+}
+function choose(t){theme=t;round=1;document.querySelectorAll(".topic").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.theme===theme)));draw();}
+Object.entries(themes).forEach(([key,value])=>{
+ const button=document.createElement("button");button.type="button";button.className="topic";button.dataset.theme=key;button.setAttribute("aria-pressed",String(key===theme));
+ const icon=document.createElement("span");icon.className="emoji";icon.textContent=value.emoji;icon.setAttribute("aria-hidden","true");
+ const label=document.createElement("span");label.textContent=value.title;button.append(icon,label);
+ button.addEventListener("click",()=>choose(key));$("topics").append(button);
+});
+$("restart").addEventListener("click",()=>draw());
+$("new-grid").addEventListener("click",()=>{round=round%99+1;draw()});
+$("print").addEventListener("click",()=>{location.href="../../werkblad.html?oefening=a1-wonen-woordzoeker&thema="+encodeURIComponent(theme)+"&les="+round});
+const query=new URLSearchParams(location.search),requested=query.get("thema"),version=Number(query.get("les"));
+if(requested&&themes[requested])theme=requested;
+if(Number.isInteger(version)&&version>=1&&version<=99)round=version;
+document.querySelectorAll(".topic").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.theme===theme)));
+draw();
+})();</script></body></html>
