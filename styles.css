@@ -40,3 +40,9 @@ h1,h2,h3{font-family:Manrope,Arial,sans-serif;letter-spacing:-.055em;line-height
 
 /* Mobiele woordzoekers: lange woorden volledig leesbaar */
 @media (max-width:400px){.app .puzzle-flex .words{grid-template-columns:1fr;gap:.15rem}.app .puzzle-flex .words li{overflow-wrap:normal;word-break:normal}}
+
+/* Ook Alfa-schrijfvelden mogen niet buiten hun kaart vallen */
+.write-row .entry{min-width:0;max-width:100%;align-items:stretch}
+.write-row .entry input{min-width:0;max-width:100%;box-sizing:border-box}
+.write-row .entry button{min-width:0;max-width:100%;white-space:normal}
+@media(max-width:460px){.write-row .entry{flex-direction:column}.write-row .entry input{width:100%;flex:0 0 auto}.write-row .entry button{width:100%}}
