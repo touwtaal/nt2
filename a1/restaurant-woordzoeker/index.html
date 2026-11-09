@@ -9,7 +9,7 @@
 .hint{color:var(--muted);font-size:.94rem}.puzzle-flex{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,245px);align-items:start;gap:1.1rem}
 .letter-grid{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));width:100%;max-width:510px;aspect-ratio:1/1;border:2px solid var(--purple);border-radius:7px;overflow:hidden;background:white}
 .cell{display:flex;align-items:center;justify-content:center;min-width:0;aspect-ratio:1/1;padding:0;border:1px solid #eae6ed;background:#fff;color:var(--ink);font:800 clamp(.58rem,1.65vw,1.05rem)/1 Arial,sans-serif;cursor:pointer}
-.cell.selected{background:#c3b7eb!important;box-shadow:inset 0 0 0 1.5px var(--purple)}.cell.found{background:#e0efdf;color:#215236}
+.cell.selected{background:#c3b7eb!important;box-shadow:inset 0 0 0 1.5px var(--purple)}.cell.found{background:#e0efdf;color:#215236}.cell.secret-cell{background:#f4e6ce!important;border-color:#bda16b!important}.secret-instruction{color:var(--muted);font-size:.92rem}.secret-line{font-weight:750;color:var(--deep)}.secret-print{display:none}
 .words{display:grid;gap:.25rem;margin:.3rem 0;padding:0;list-style:none}.words li{padding:.35rem .5rem;background:#fff;border-radius:8px;font:750 .96rem/1.32 'DM Sans',Arial,sans-serif;overflow-wrap:anywhere}
 .words li.found{background:#edf5eb;color:#39714b;text-decoration:line-through}
 .feedback{min-height:1.7rem;font-weight:700;color:var(--deep);margin:.7rem 0}
@@ -28,12 +28,12 @@
  .site-header,.hero,.footer,.breadcrumbs,.topic-picker,.buttons,.hint,#status,.choices,.result{display:none!important}
  .wrap,.app{max-width:none!important;width:auto!important;margin:0!important;padding:0!important}
  .panel{padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:#fff!important;box-shadow:none!important}
- .print-title,.print-name,.print-options{display:block!important}
+ .print-title,.print-name,.print-options{display:block!important}.secret-print{display:inline!important}#secret-answer{display:none!important}.cell.secret-cell{background:#fff!important;border-color:#bbb!important}
  .print-title{font:bold 16pt/1.2 Arial,sans-serif!important;margin:0 0 3mm!important}
  .print-name{font:10pt Arial,sans-serif!important;margin:0 0 4mm!important}
  #title{font:bold 13pt Arial,sans-serif!important;margin:0 0 3mm!important}
  .puzzle-flex{grid-template-columns:102mm 1fr!important;gap:5mm!important}
- .letter-grid{width:96mm!important;height:96mm!important;max-width:none!important;aspect-ratio:1!important;border:1px solid #555!important;border-radius:0!important;box-shadow:none!important}
+ .letter-grid{width:96mm!important;height:auto!important;max-width:none!important;aspect-ratio:auto!important;border:1px solid #555!important;border-radius:0!important;box-shadow:none!important}
  .cell{width:auto!important;height:auto!important;min-height:0!important;aspect-ratio:1!important;border:.4px solid #bbb!important;border-radius:0!important;background:#fff!important;color:#111!important;font:bold 11.5pt/1 Arial,sans-serif!important}
  .words{display:grid!important;grid-template-columns:1fr!important;gap:0!important;margin:0!important}
  .words li{font:11pt/1.4 Arial,sans-serif!important;padding:.5mm 0!important;background:transparent!important;color:#111!important;text-decoration:none!important}
@@ -65,6 +65,8 @@
 <p id="count" class="progress" aria-live="polite">Zoek de woorden in het raster.</p>
 <div class="puzzle-flex"><div id="grid" class="letter-grid" role="group" aria-label="Woordzoeker"></div>
 <div><h3>Zoek deze woorden</h3><ul id="words" class="words"></ul></div></div>
+<p class="secret-instruction">Lees de overgebleven letters van links naar rechts, van boven naar beneden.</p>
+<p class="secret-line"><strong>Geheim woord:</strong> <span id="secret-answer" aria-live="polite"></span><span id="secret-print" class="secret-print"></span></p>
 <p id="status" class="feedback" aria-live="polite"></p>
 <div class="buttons">
 <button id="restart" type="button" class="action secondary">Opnieuw zoeken</button>
@@ -77,41 +79,40 @@
 <footer class="footer"><p>Learn Dutch with confidence.</p><p><a href="https://touwtaal.github.io/">TouwTaal</a></p></footer><script>
 (function(){
 "use strict";
-const themes={"eten":{"title":"Gerechten","emoji":"🍽️","words":["SOEP","SALADE","KIP","RIJST","VLEES","ZALM","FRIET","TOETJE","SLAGROOM","MOSTERD"],"questions":[{"q":"🥗 Aya eet geen vlees of vis. Wat kan ze bestellen?","options":["Een salade zonder vlees.","Kip met rijst.","Gebakken zalm."],"good":0,"why":"In een salade zonder vlees zit geen vlees of vis."},{"q":"🍨 Sam wil iets kouds en zoets na het eten. Wat kiest hij?","options":["Warme soep.","IJs met slagroom.","Een salade."],"good":1,"why":"IJs met slagroom is een koud en zoet toetje."},{"q":"🐟 Noor eet liever vis dan vlees. Wat kiest ze?","options":["Kip.","Vlees.","Zalm."],"good":2,"why":"Zalm is vis."},{"q":"🥣 De kok doet veel zout in de soep. Wat kan de gast zeggen?","options":["De soep is te zout.","De soep is erg zoet.","De soep is helemaal niet warm."],"good":0,"why":"Veel zout maakt de soep zout."}]},"menu":{"title":"In het restaurant","emoji":"📖","words":["RESTAURANT","SERVEERSTER","MENUKAART","VOORGERECHT","HOOFDGERECHT","NAGERECHT","DAGSCHOTEL","BESTEK","LEPEL","VORK"],"questions":[{"q":"📖 Je wilt weten wat je kunt bestellen. Wat vraag je?","options":["Mag ik de menukaart?","Mag ik de rekening?","Mag ik een jas passen?"],"good":0,"why":"Op de menukaart staan gerechten en drankjes."},{"q":"🍽️ Je eet eerst soep, dan zalm en daarna ijs. Wat is de zalm?","options":["Het voorgerecht.","Het hoofdgerecht.","Het nagerecht."],"good":1,"why":"Zalm is in dit menu het hoofdgerecht."},{"q":"🍨 Na het eten wil Noor nog iets zoets. Wat bestelt ze?","options":["Een voorgerecht.","Een dagschotel.","Een nagerecht."],"good":2,"why":"Een nagerecht eet je na de hoofdmaaltijd."},{"q":"🥄 Voor je eten krijg je een mes, vork en lepel. Hoe heet dat samen?","options":["Bestek.","Een menukaart.","Een rekening."],"good":0,"why":"Mes, vork en lepel zijn bestek."}]},"smaak":{"title":"Smaak en eten","emoji":"🌶️","words":["HONGER","DORST","PROEVEN","SMAAK","PITTIG","ZOET","ZOUT","VIES","VEGETARISCH","FOOI"],"questions":[{"q":"🌶️ De kok heeft veel peper gebruikt. Hoe smaakt het gerecht?","options":["Pittig.","Zoet.","Zuur."],"good":0,"why":"Een gerecht met veel peper kan pittig zijn."},{"q":"🍽️ Sam heeft sinds vanochtend niets gegeten. Wat zegt hij?","options":["Ik heb dorst.","Ik heb honger.","Ik ben klaar."],"good":1,"why":"Als je wilt eten omdat je lang niet hebt gegeten, heb je honger."},{"q":"🥤 Noor heeft lang gefietst in de zon. Ze wil water drinken. Wat heeft ze?","options":["Honger.","Slaap.","Dorst."],"good":2,"why":"Als je wilt drinken, heb je dorst."},{"q":"🥕 Aya wil een gerecht zonder vlees of vis. Wat vraagt ze?","options":["Hebt u iets vegetarisch?","Hebt u extra kip?","Hebt u zalm?"],"good":0,"why":"Vegetarisch eten bevat geen vlees of vis."}]}};
-const N=15,dirs=[[0,1],[1,0],[1,1],[1,-1],[0,-1],[-1,0],[-1,-1],[-1,1]];
+const themes={"eten":{"title":"Gerechten","emoji":"🍽️","words":["SOEP","SALADE","KIP","RIJST","VLEES","ZALM","FRIET","TOETJE","SLAGROOM","MOSTERD"],"questions":[{"q":"🥗 Aya eet geen vlees of vis. Wat kan ze bestellen?","options":["Een salade zonder vlees.","Kip met rijst.","Gebakken zalm."],"good":0,"why":"In een salade zonder vlees zit geen vlees of vis."},{"q":"🍨 Sam wil iets kouds en zoets na het eten. Wat kiest hij?","options":["Warme soep.","IJs met slagroom.","Een salade."],"good":1,"why":"IJs met slagroom is een koud en zoet toetje."},{"q":"🐟 Noor eet liever vis dan vlees. Wat kiest ze?","options":["Kip.","Vlees.","Zalm."],"good":2,"why":"Zalm is vis."},{"q":"🥣 De kok doet veel zout in de soep. Wat kan de gast zeggen?","options":["De soep is te zout.","De soep is erg zoet.","De soep is helemaal niet warm."],"good":0,"why":"Veel zout maakt de soep zout."}],"secret":"KIPGERECHTEN"},"menu":{"title":"In het restaurant","emoji":"📖","words":["RESTAURANT","SERVEERSTER","MENUKAART","VOORGERECHT","HOOFDGERECHT","NAGERECHT","DAGSCHOTEL","BESTEK","LEPEL","VORK"],"questions":[{"q":"📖 Je wilt weten wat je kunt bestellen. Wat vraag je?","options":["Mag ik de menukaart?","Mag ik de rekening?","Mag ik een jas passen?"],"good":0,"why":"Op de menukaart staan gerechten en drankjes."},{"q":"🍽️ Je eet eerst soep, dan zalm en daarna ijs. Wat is de zalm?","options":["Het voorgerecht.","Het hoofdgerecht.","Het nagerecht."],"good":1,"why":"Zalm is in dit menu het hoofdgerecht."},{"q":"🍨 Na het eten wil Noor nog iets zoets. Wat bestelt ze?","options":["Een voorgerecht.","Een dagschotel.","Een nagerecht."],"good":2,"why":"Een nagerecht eet je na de hoofdmaaltijd."},{"q":"🥄 Voor je eten krijg je een mes, vork en lepel. Hoe heet dat samen?","options":["Bestek.","Een menukaart.","Een rekening."],"good":0,"why":"Mes, vork en lepel zijn bestek."}],"secret":"RESTAURANTREKENING"},"smaak":{"title":"Smaak en eten","emoji":"🌶️","words":["HONGER","DORST","PROEVEN","SMAAK","PITTIG","ZOET","ZOUT","VIES","VEGETARISCH","FOOI"],"questions":[{"q":"🌶️ De kok heeft veel peper gebruikt. Hoe smaakt het gerecht?","options":["Pittig.","Zoet.","Zuur."],"good":0,"why":"Een gerecht met veel peper kan pittig zijn."},{"q":"🍽️ Sam heeft sinds vanochtend niets gegeten. Wat zegt hij?","options":["Ik heb dorst.","Ik heb honger.","Ik ben klaar."],"good":1,"why":"Als je wilt eten omdat je lang niet hebt gegeten, heb je honger."},{"q":"🥤 Noor heeft lang gefietst in de zon. Ze wil water drinken. Wat heeft ze?","options":["Honger.","Slaap.","Dorst."],"good":2,"why":"Als je wilt drinken, heb je dorst."},{"q":"🥕 Aya wil een gerecht zonder vlees of vis. Wat vraagt ze?","options":["Hebt u iets vegetarisch?","Hebt u extra kip?","Hebt u zalm?"],"good":0,"why":"Vegetarisch eten bevat geen vlees of vis."}],"secret":"SMAAKTEST"}};
+const layouts={"eten":{"cols":13,"rows":5,"bins":[["SLAGROOM","RIJST"],["MOSTERD","SALADE"],["TOETJE","VLEES"],["FRIET","SOEP","ZALM"],["KIP"]]},"menu":{"cols":15,"rows":7,"bins":[["HOOFDGERECHT"],["SERVEERSTER","VORK"],["VOORGERECHT"],["RESTAURANT","LEPEL"],["DAGSCHOTEL"],["MENUKAART","BESTEK"],["NAGERECHT"]]},"smaak":{"cols":13,"rows":5,"bins":[["VEGETARISCH"],["PROEVEN","HONGER"],["PITTIG","DORST"],["SMAAK","ZOET","ZOUT"],["VIES","FOOI"]]}};
+let N=15,R=15;
 const $=id=>document.getElementById(id);
-let theme="eten",round=1,grid=[],placed={},found=new Map(),start=-1,answered=new Set(),wordItems=[];
+let theme="eten",round=1,grid=[],placed={},secretCells=[],found=new Map(),start=-1,answered=new Set(),wordItems=[];
 function seeded(seed){let x=seed>>>0;return()=>{x=(Math.imul(1664525,x)+1013904223)>>>0;return x/4294967296}}
 function hash(s){let x=2166136261;for(const c of s)x=Math.imul(x^c.charCodeAt(0),16777619)>>>0;return x}
-function makeGrid(words,seed){
- const sorted=[...words].sort((a,b)=>b.length-a.length);
- for(let attempt=0;attempt<120;attempt++){
-  const rand=seeded(seed+Math.imul(attempt+1,2654435761));
-  let board=Array(N*N).fill(""),positions={},orientations=new Set(),success=true;
-  for(const word of sorted){
-   const opts=[];
-   for(let d=0;d<dirs.length;d++){
-    const [dr,dc]=dirs[d];
-    for(let row=0;row<N;row++)for(let col=0;col<N;col++){
-     if(row+dr*(word.length-1)<0||row+dr*(word.length-1)>=N||col+dc*(word.length-1)<0||col+dc*(word.length-1)>=N)continue;
-     const ids=Array.from({length:word.length},(_,i)=>(row+dr*i)*N+col+dc*i);
-     if(ids.every((id,i)=>!board[id]||board[id]===word[i])){
-      const overlap=ids.filter(id=>board[id]).length;
-      opts.push({ids,d,score:rand()+overlap*.13+(orientations.has(d)?0:.27)});
-     }
-    }
-   }
-   if(!opts.length){success=false;break}
-   opts.sort((a,b)=>b.score-a.score);
-   const chosen=opts[Math.floor(rand()*Math.min(12,opts.length))];
-   chosen.ids.forEach((id,i)=>board[id]=word[i]);positions[word]=chosen.ids;orientations.add(chosen.d);
+function makeGrid(key,version){
+ const cfg=layouts[key],rng=seeded(hash(key+":"+version)),board=[],positions={},cols=cfg.cols,rows=cfg.rows;
+ function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+ const bins=shuffle(cfg.bins.map(a=>[...a]));
+ for(const bin of bins){
+  shuffle(bin);const free=cols-bin.reduce((n,w)=>n+w.length,0),gaps=Array(bin.length+1).fill(0);
+  for(let i=0;i<free;i++)gaps[Math.floor(rng()*gaps.length)]++;
+  for(let i=0;i<bin.length;i++){
+   for(let j=0;j<gaps[i];j++)board.push("");
+   const word=bin[i],rev=rng()<.5,letters=rev?[...word].reverse():[...word],ids=[];
+   for(const ch of letters){ids.push(board.length);board.push(ch)}
+   positions[word]=rev?ids.reverse():ids;
   }
-  if(!success||orientations.size<3)continue;
-  const letters="AAEEEIIIOONNRRSTTKLMDPGHUVWZB";
-  for(let i=0;i<board.length;i++)if(!board[i])board[i]=letters[Math.floor(rand()*letters.length)];
-  return{board,positions,orientations:orientations.size};
+  for(let j=0;j<gaps[bin.length];j++)board.push("");
  }
- throw Error("Puzzel maken mislukt");
+ if(board.length!==cols*rows)throw Error("Onjuist aantal vakjes");
+ const flipX=rng()<.5,flipY=rng()<.5,final=Array(cols*rows).fill("");
+ function convert(i){const r=Math.floor(i/cols),c=i%cols;return (flipY?rows-1-r:r)*cols+(flipX?cols-1-c:c)}
+ board.forEach((ch,i)=>{final[convert(i)]=ch});
+ for(const word of themes[key].words)positions[word]=positions[word].map(convert);
+ const secretCells=[];
+ final.forEach((ch,i)=>{if(!ch)secretCells.push(i)});
+ const secret=themes[key].secret;
+ if(secretCells.length!==secret.length)throw Error("Aantal geheime letters klopt niet");
+ secretCells.forEach((id,i)=>final[id]=secret[i]);
+ for(const word of themes[key].words)if(positions[word].map(i=>final[i]).join("")!==word)throw Error("Fout woord: "+word);
+ return{board:final,positions,secretCells,cols,rows};
 }
 function path(a,b){
  const ar=Math.floor(a/N),ac=a%N,br=Math.floor(b/N),bc=b%N;
@@ -123,8 +124,9 @@ function path(a,b){
 function update(){
  $("count").textContent=found.size===themes[theme].words.length?"Alle zoekwoorden gevonden!":found.size?"Goed bezig! Zoek verder.":"Zoek de woorden in het raster.";
  for(const item of wordItems)item.classList.toggle("found",found.has(item.dataset.word));
- const used=new Set([...found.values()].flat());
- for(const [i,c]of [...$("grid").children].entries()){c.classList.toggle("selected",start===i);c.classList.toggle("found",used.has(i));}
+ const used=new Set([...found.values()].flat()),complete=found.size===themes[theme].words.length;
+ $("secret-answer").textContent=complete?themes[theme].secret:Array(themes[theme].secret.length).fill("_").join(" ");
+ for(const [i,c]of [...$("grid").children].entries()){c.classList.toggle("selected",start===i);c.classList.toggle("found",used.has(i));c.classList.toggle("secret-cell",complete&&secretCells.includes(i));}
 }
 function status(t){$("status").textContent=t}
 function tap(i){
@@ -132,13 +134,12 @@ function tap(i){
  const indices=path(start,i);start=-1;
  let matched;
  if(indices){
-  const letters=indices.map(id=>grid[id]).join("");
-  matched=themes[theme].words.find(w=>!found.has(w)&&(letters===w||[...letters].reverse().join("")===w));
+  matched=themes[theme].words.find(w=>!found.has(w)&&placed[w]&&indices.length===placed[w].length&&(indices.every((id,i)=>id===placed[w][i])||indices.every((id,i)=>id===placed[w][placed[w].length-1-i])));
  }
  if(matched){found.set(matched,indices);status("Goed! "+matched.toLowerCase()+" gevonden.");}
  else status("Nog niet. Zoek de eerste en laatste letter van één woord.");
  update();
- if(found.size===themes[theme].words.length)status("Alle woorden gevonden! Maak ook de vragen.");
+ if(found.size===themes[theme].words.length)status("Alle woorden gevonden! Het geheime woord is "+themes[theme].secret+". Maak ook de vragen.");
 }
 function drawQuiz(){
  answered=new Set();const root=$("quiz");root.replaceChildren();
@@ -163,8 +164,11 @@ function drawQuiz(){
 }
 function draw(){
  found=new Map();start=-1;
- const data=themes[theme],puzzle=makeGrid(data.words,hash(theme+":"+round));
- grid=puzzle.board;placed=puzzle.positions;$("title").textContent="6 · "+data.title;
+ const data=themes[theme],puzzle=makeGrid(theme,round);
+ grid=puzzle.board;placed=puzzle.positions;secretCells=puzzle.secretCells;N=puzzle.cols;R=puzzle.rows;
+ $("grid").style.gridTemplateColumns="repeat("+N+",minmax(0,1fr))";$("grid").style.aspectRatio=N+"/"+R;
+ $("grid").setAttribute("aria-label","Woordzoeker met "+R+" rijen en "+N+" kolommen");
+ $("secret-print").textContent=Array(data.secret.length).fill("_").join(" ");$("title").textContent="6 · "+data.title;
  const root=$("grid");root.replaceChildren();
  grid.forEach((letter,i)=>{
   const button=document.createElement("button");button.type="button";button.className="cell";button.textContent=letter.toLowerCase();
