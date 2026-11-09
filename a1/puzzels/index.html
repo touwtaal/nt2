@@ -28,7 +28,7 @@
  .site-header,.hero,.footer,.breadcrumbs,.topic-picker,.buttons,.hint,#status,.choices,.result{display:none!important}
  .wrap,.app{max-width:none!important;width:auto!important;margin:0!important;padding:0!important}
  .panel{padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:#fff!important;box-shadow:none!important}
- .print-title,.print-name,.print-options,.secret-print{display:block!important}#secret-answer{display:none!important}.cell.secret-cell{background:#fff!important;border-color:#bbb!important}
+ .print-title,.print-name,.print-options{display:block!important}.secret-print{display:inline!important}#secret-answer{display:none!important}.cell.secret-cell{background:#fff!important;border-color:#bbb!important}
  .print-title{font:bold 16pt/1.2 Arial,sans-serif!important;margin:0 0 3mm!important}
  .print-name{font:10pt Arial,sans-serif!important;margin:0 0 4mm!important}
  #title{font:bold 13pt Arial,sans-serif!important;margin:0 0 3mm!important}
@@ -66,7 +66,7 @@
 <div class="puzzle-flex"><div id="grid" class="letter-grid" role="group" aria-label="Woordzoeker"></div>
 <div><h3>Zoek deze woorden</h3><ul id="words" class="words"></ul></div></div>
 <p id="status" class="feedback" aria-live="polite"></p>
-<p class="secret-line"><strong>Geheim woord:</strong> <span id="secret-answer">_ _ _ _ _ _ _ _</span><span class="secret-print">_ _ _ _ _ _ _ _</span></p>
+<p class="secret-line"><strong>Geheim woord:</strong> <span id="secret-answer">_ _ _ _ _ _ _ _</span><span class="secret-print" id="secret-print">_ _ _ _ _ _ _ _</span></p>
 <div class="buttons">
 <button id="restart" type="button" class="action secondary">Opnieuw zoeken</button>
 <button id="new-grid" type="button" class="action secondary">Nieuwe puzzel</button>
