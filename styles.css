@@ -37,3 +37,6 @@ h1,h2,h3{font-family:Manrope,Arial,sans-serif;letter-spacing:-.055em;line-height
  .practice #answer-area>.fill{width:100%}
 }
 @media(max-width:350px){.practice .actions{grid-template-columns:1fr}}
+
+/* Mobiele woordzoekers: lange woorden volledig leesbaar */
+@media (max-width:400px){.app .puzzle-flex .words{grid-template-columns:1fr;gap:.15rem}.app .puzzle-flex .words li{overflow-wrap:normal;word-break:normal}}
