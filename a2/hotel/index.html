@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="nl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#F8F4EE">
+<meta name="description" content="A2 woordenschat: Oefen inchecken, de weg wijzen en klachten in een hotel. Drie niveaus en printbaar werkblad.">
+<title>A2 · In het hotel | TouwTaal NT2</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.practice{max-width:860px;margin:0 auto}.practice-card{background:var(--nav);border:1px solid var(--line);border-radius:22px;padding:clamp(1rem,3.8vw,2rem);margin:1.2rem 0}
+.levels,.actions{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0}.levels button,.actions button,.answer,.tiles button{min-height:48px;padding:.75rem 1rem;border:2px solid var(--lavender);border-radius:12px;background:white;color:var(--ink);font:700 1rem 'DM Sans',Arial,sans-serif;cursor:pointer}
+.levels button[aria-pressed=true],.actions .primary{background:var(--purple);border-color:var(--purple);color:white}
+.levels button:focus-visible,.actions button:focus-visible,.answer:focus-visible,.tiles button:focus-visible,.fill:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+.levels button:hover,.answer:hover:not(:disabled),.tiles button:hover:not(:disabled){border-color:var(--purple)}
+.answer{display:block;width:100%;text-align:left;margin:.65rem 0}.answer.correct{background:#e7f4eb;border-color:#42845c}.answer.wrong{background:#f9e8eb;border-color:#b65e63}.answer:disabled,.tiles button:disabled{cursor:default;opacity:.85}
+.prompt{white-space:pre-line;font:800 clamp(1.12rem,3vw,1.45rem)/1.4 Manrope,Arial,sans-serif;margin:1.25rem 0}
+.steps{font-weight:700;color:var(--muted)}.bar{height:11px;background:var(--line);border-radius:100px;overflow:hidden;margin:.55rem 0 1rem}.bar span{display:block;width:0;height:100%;background:var(--purple);transition:width .2s}
+.feedback{padding:1rem;background:var(--art);border-left:5px solid var(--purple);border-radius:10px;margin-top:1rem;min-height:3rem}.feedback:empty{display:none}
+.fill{width:min(100%,360px);border:2px solid var(--lavender);border-radius:12px;padding:.75rem;font:600 1.12rem 'DM Sans',Arial,sans-serif;min-height:48px}.tiles,.ordered{display:flex;gap:.5rem;flex-wrap:wrap;margin:.65rem 0}
+.ordered{min-height:54px;padding:.65rem;border:2px dashed var(--lavender);border-radius:12px;background:white;align-items:center;font-weight:700;overflow-wrap:anywhere}.tiles button{background:var(--art);padding:.6rem .85rem}
+.actions button:disabled{opacity:.52;cursor:not-allowed}.hint{color:var(--muted);font-size:.95rem}.icon-label{font-size:1.2rem;margin-right:.35rem}.print-only{display:none}
+@media print{
+ @page{size:A4;margin:14mm 16mm}
+ html,body{margin:0!important;padding:0!important;background:white!important;color:#111!important;font:11pt/1.3 Arial,sans-serif!important}
+ .site-header,.hero,.footer,.breadcrumbs,.practice-card:not(.print-only){display:none!important}
+ .wrap,.practice{margin:0!important;padding:0!important;max-width:none!important;width:100%!important}
+ .practice-card.print-only{display:block!important;padding:0!important;margin:0!important;background:white!important;border:0!important;border-radius:0!important}
+ .print-only h2{font:700 17pt Arial,sans-serif!important;margin:0 0 3mm!important}
+ .print-only .print-detail{margin:0 0 3mm!important}
+ .print-question{break-inside:avoid!important;margin:0 0 2.1mm!important}
+ .print-question p{white-space:pre-line!important;font-size:10.5pt!important;margin:0 0 2mm!important}
+ .print-options{font:10pt/1.45 Arial,sans-serif!important;margin-left:5mm}
+ .print-options span{display:inline-block;margin-right:6mm}
+ .print-line{border-bottom:1px solid #777;height:8mm}
+}
+#answer-area label{display:block;margin:0 0 .8rem;font-weight:700}#answer-area .fill{display:block;max-width:100%;margin:0 0 .4rem 0}
+</style></head>
+<body>
+<a class="skip" href="#inhoud">Ga naar inhoud</a>
+<header class="site-header"><nav class="nav" aria-label="Hoofdnavigatie"><a class="site-label" href="../../index.html"><img src="https://touwtaal.github.io/assets/logo.jpg" alt="TouwTaal" style="height:45px;max-width:155px;object-fit:contain"> <span>NT2-oefeningen</span></a><div class="navlinks"><a href="../../index.html">Alle niveaus</a><a href="https://touwtaal.github.io/">TouwTaal</a></div></nav></header>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">Niveau A2</div><h1>In het hotel</h1><p>Oefen inchecken, de weg wijzen en klachten in een hotel.</p></div></section>
+<main class="wrap" id="inhoud"><div class="practice"><div class="breadcrumbs"><a href="../../index.html">Alle niveaus</a> / <a href="../index.html">A2</a> / In het hotel</div>
+<section class="practice-card"><span class="pill">A2 · Woordenschat</span><h2>Wat ga je oefenen?</h2><p>Je vraagt de weg, begrijpt aanwijzingen bij het hotel en legt een probleem met je kamer uit.</p><h3>Kies een moeilijkheid</h3><div id="levels" class="levels" role="group" aria-label="Kies moeilijkheid"><button type="button" data-level="basis" aria-pressed="true">1 · Basis</button><button type="button" data-level="gemiddeld" aria-pressed="false">2 · Gemiddeld</button><button type="button" data-level="uitdaging" aria-pressed="false">3 · Uitdaging</button></div>
+<p class="hint">10 vragen per niveau. Kies het antwoord, vul een woord in of maak een zin.</p></section>
+<section class="practice-card" aria-label="Interactieve oefening"><div class="steps" id="step">Vraag 1 van 10</div>
+<div class="bar" id="progress" role="progressbar" aria-label="Voortgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fillbar"></span></div>
+<p class="prompt" id="prompt"></p><div id="answer-area"></div>
+<div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+<div class="actions"><button type="button" id="check" class="primary" hidden>Controleer</button><button type="button" id="next" class="primary" disabled>Volgende vraag</button><button type="button" id="retry">Opnieuw beginnen</button><button type="button" id="print">Print werkblad</button></div>
+</section>
+<section class="practice-card print-only" aria-label="Printbaar werkblad"><h2>Werkblad A2 · In het hotel</h2><p class="print-detail" id="print-level">Basis</p><p class="print-detail">Naam: _________________________________ Datum: ________________</p><div id="print-questions"></div></section>
+</div></main>
+<footer class="footer"><p>Learn Dutch with confidence.</p><p><a href="https://touwtaal.github.io/">TouwTaal</a></p></footer>
+<script>
+(function(){
+"use strict";
+const bank={"basis":[{"type":"choice","q":"Waar meld je je als je aankomt bij een hotel?","options":["Bij de receptie.","Bij de apotheek.","Bij de fietsenmaker."],"good":0,"why":"Bij de receptie kun je inchecken."},{"type":"choice","q":"Wie helpt gasten aan de balie van een hotel?","options":["De huisarts.","De receptionist.","De accountant."],"good":1,"why":"Een receptionist werkt aan de receptie."},{"type":"choice","q":"Hoe noem je het wanneer je je bij aankomst in een hotel aanmeldt?","options":["Fietsen.","Feliciteren.","Inchecken."],"good":2,"why":"Inchecken doe je als je aankomt in een hotel."},{"type":"choice","q":"Wat neem je mee wanneer je op reis gaat?","options":["Bagage.","Een huisarts.","Een fietsbel."],"good":0,"why":"Bagage zijn spullen die je meeneemt op reis."},{"type":"choice","q":"Wat gebruik je om naar een hogere verdieping te gaan zonder trap?","options":["Het stuur.","De lift.","De rem."],"good":1,"why":"Een lift brengt je naar een andere verdieping."},{"type":"choice","q":"Welke richting is het tegenovergestelde van rechts?","options":["Rechtdoor.","Boven.","Links."],"good":2,"why":"Links is het tegenovergestelde van rechts."},{"type":"choice","q":"Je loopt verder zonder af te slaan. Je loopt ...","options":["Rechtdoor.","Rechtsaf.","Linksaf."],"good":0,"why":"Rechtdoor betekent verder in dezelfde richting."},{"type":"choice","q":"Waar wacht je op de trein op het station?","options":["Bij de apotheek.","Op het perron.","In de badkamer."],"good":1,"why":"Het perron is de plek om op een trein te wachten."},{"type":"choice","q":"Je hotelkamer is niet schoon. Wat heb je?","options":["Een hobby.","Een recept.","Een klacht."],"good":2,"why":"Een klacht is iets waarover je niet tevreden bent."},{"type":"choice","q":"Wat kun je bij een hotel vooraf vastleggen voor je verblijf?","options":["Een hotelkamer reserveren.","Een band oppompen.","Een knie onderzoeken."],"good":0,"why":"Reserveren betekent vooraf een plek vastleggen."}],"gemiddeld":[{"type":"choice","q":"Je komt laat in het hotel en je hebt een reservering. Wat zeg je bij de balie?","options":["Goedenavond, ik wil graag inchecken.","Ik heb een lekke band.","Ik ben allergisch voor crème."],"good":0,"why":"Bij aankomst met een reservering kun je inchecken."},{"type":"choice","q":"Je zoekt je kamer op de vierde verdieping. Je wilt niet met de trap. Waar vraag je naar?","options":["Naar het slot van een fiets.","Naar de lift.","Naar de apotheek."],"good":1,"why":"De lift brengt je naar een andere verdieping."},{"type":"choice","q":"De receptionist zegt: 'Loop rechtdoor en ga daarna linksaf.' Wat doe je eerst?","options":["Meteen naar rechts lopen.","Meteen de trap op gaan.","Rechtdoor lopen."],"good":2,"why":"Eerst loop je rechtdoor, daarna ga je linksaf."},{"type":"choice","q":"In de hotelkamer doet de airco het niet. Wat is het probleem?","options":["De airco is stuk.","De kamer heeft uitzicht.","De trein vertrekt later."],"good":0,"why":"Stuk betekent dat iets niet meer werkt."},{"type":"choice","q":"Je wilt melden dat de douche niet werkt. Wat zeg je?","options":["Ik heb een hobby in de douche.","Ik heb een klacht over de douche.","Ik heb mijn koffers gepakt."],"good":1,"why":"Met een klacht vertel je wat niet goed is."},{"type":"choice","q":"Je vindt de route naar het station niet. Wat kun je vragen?","options":["Wilt u mijn fietsband repareren?","Hebt u een recept voor medicijnen?","Kunt u mij de weg naar het station wijzen?"],"good":2,"why":"Je vraagt de weg als je een locatie zoekt."},{"type":"choice","q":"Een receptionist zegt: 'Uw kamer is naast de lift.' Waar is de kamer?","options":["Direct naast de lift.","Buiten het hotel.","Op het perron."],"good":0,"why":"Naast betekent direct aan de zijkant."},{"type":"choice","q":"Je hebt bagage en de hotelkamer is nog niet klaar. Wat vraag je?","options":["Mag ik de fiets op slot zetten?","Mag ik mijn bagage hier laten staan?","Kan ik de zalf smeren?"],"good":1,"why":"Je vraagt waar je je bagage mag bewaren."},{"type":"choice","q":"Je wilt uitleggen dat iets in je kamer niet werkt. Bij wie meldt de receptie dit vaak?","options":["Bij de huisarts.","Bij de supermarkt.","Bij de technische dienst."],"good":2,"why":"De technische dienst helpt bij kapotte voorzieningen."},{"type":"choice","q":"Je hotelkamer kijkt uit op zee. Wat vind je mooi?","options":["Het uitzicht.","Het recept.","De bagagedrager."],"good":0,"why":"Het uitzicht is wat je vanuit een plek kunt zien."}],"uitdaging":[{"type":"fill","q":"Je arriveert in een hotel. Aan de balie zeg je: 'Ik wil graag ____.'","answers":["inchecken"],"show":"inchecken","why":"Inchecken doe je bij aankomst in het hotel."},{"type":"fill","q":"De persoon die achter de balie van een hotel gasten helpt, heet de ____.","answers":["receptionist"],"show":"receptionist","why":"Een receptionist werkt aan de balie."},{"type":"fill","q":"Je wilt niet met de trap naar boven. Je neemt de ____.","answers":["lift"],"show":"lift","why":"Een lift brengt je naar boven of beneden."},{"type":"fill","q":"Je moet zonder af te slaan verder lopen. Je loopt ____.","answers":["rechtdoor"],"show":"rechtdoor","why":"Rechtdoor betekent dat je niet afslaat."},{"type":"fill","q":"Je draait naar de kant tegenover links. Je slaat ____.","answers":["rechtsaf"],"show":"rechtsaf","why":"Rechtsaf betekent naar rechts afslaan."},{"type":"fill","q":"Je bent ontevreden over je kamer. Je wilt een ____ indienen.","answers":["klacht"],"show":"klacht","why":"Een klacht indienen betekent officieel vertellen wat er niet goed is."},{"type":"fill","q":"Je wilt op het station wachten op de trein. Je gaat naar het ____.","answers":["perron"],"show":"perron","why":"Op het perron wacht je op de trein."},{"type":"fill","q":"De koeling in je kamer werkt niet. De ____ is stuk.","answers":["airco"],"show":"airco","why":"Een airco kan een kamer koelen."},{"type":"fill","q":"Je hebt een mooie kamer met zicht op zee. Je geniet van het ____.","answers":["uitzicht"],"show":"uitzicht","why":"Het uitzicht is wat je vanaf je kamer kunt zien."},{"type":"fill","q":"Je wilt zeker weten dat je volgende week een kamer hebt. Je gaat een kamer ____.","answers":["reserveren"],"show":"reserveren","why":"Reserveren betekent vooraf vastleggen."}]};
+const $=id=>document.getElementById(id);
+let level="basis",index=0,correct=0,answered=false,chosenTiles=[];
+function norm(v){return v.trim().toLocaleLowerCase("nl-NL").replace(/[.!?]+$/,"").replace(/\s+/g," ")}
+function showProgress(value){const pct=Math.round(value/bank[level].length*100);$("fillbar").style.width=pct+"%";$("progress").setAttribute("aria-valuenow",String(pct))}
+function valid(item){if(item.type==="choice")return item.options[item.good];if(item.type==="fill")return item.show;return item.answer.join(" ")}
+function mark(ok,item){
+ if(answered)return;answered=true;if(ok)correct++;
+ $("feedback").textContent=(ok?"Goed! ":"Nog niet. Goed is: "+valid(item)+". ")+item.why;
+ $("next").disabled=false;$("check").hidden=true;
+}
+function show(){
+ const items=bank[level],item=items[index];answered=false;chosenTiles=[];
+ $("step").textContent="Vraag "+(index+1)+" van "+items.length;showProgress(index);
+ $("prompt").textContent=item.q;$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===items.length-1?"Bekijk resultaat":"Volgende vraag";$("check").hidden=true;
+ const zone=$("answer-area");zone.replaceChildren();
+ if(item.type==="choice"){
+  item.options.forEach((option,n)=>{const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=option;
+   b.addEventListener("click",()=>{if(answered)return;const ok=n===item.good;[...zone.children].forEach((k,i)=>{k.disabled=true;k.classList.toggle("correct",i===item.good);k.classList.toggle("wrong",i===n&&!ok)});mark(ok,item)});zone.append(b)});
+ }else if(item.type==="fill"){
+  const label=document.createElement("label");label.htmlFor="written-answer";label.textContent="Vul het woord in:";zone.append(label);
+  const input=document.createElement("input");input.id="written-answer";input.className="fill";input.type="text";input.autocomplete="off";input.spellcheck=false;zone.append(input);
+  $("check").hidden=false;$("check").disabled=false;
+  input.addEventListener("keydown",ev=>{if(ev.key==="Enter"&&!answered){ev.preventDefault();$("check").click()}});
+ }else{
+  const label=document.createElement("p");label.className="hint";label.textContent="Tik op de woorden. Maak de zin of vraag.";zone.append(label);
+  const out=document.createElement("div");out.className="ordered";out.id="ordered-text";out.textContent="Tik op de woorden.";zone.append(out);
+  const tiles=document.createElement("div");tiles.className="tiles";zone.append(tiles);
+  item.tiles.forEach((word,i)=>{const b=document.createElement("button");b.type="button";b.textContent=word;b.addEventListener("click",()=>{if(answered||b.disabled)return;b.disabled=true;chosenTiles.push({word,button:b});out.textContent=chosenTiles.map(x=>x.word).join(" ");});tiles.append(b)});
+  const reset=document.createElement("button");reset.className="answer";reset.type="button";reset.textContent="Wis de zin";reset.addEventListener("click",()=>{if(answered)return;chosenTiles.forEach(x=>x.button.disabled=false);chosenTiles=[];out.textContent="Tik op de woorden."});zone.append(reset);
+  $("check").hidden=false;$("check").disabled=false;
+ }
+}
+function check(){if(answered)return;const item=bank[level][index];if(item.type==="choice")return;
+ let ok=false;
+ if(item.type==="fill"){const input=$("written-answer");if(!input.value.trim()){$("feedback").textContent="Vul eerst een woord in.";return}ok=item.answers.map(norm).includes(norm(input.value));input.disabled=true}
+ else{if(chosenTiles.length!==item.tiles.length){$("feedback").textContent="Gebruik eerst alle woorden.";return}ok=chosenTiles.map(x=>x.word).join(" ")===item.answer.join(" ");}
+ mark(ok,item);
+}
+function finish(){
+ $("step").textContent="Klaar!";showProgress(bank[level].length);
+ $("prompt").textContent="Je hebt "+correct+" van de "+bank[level].length+" vragen goed beantwoord.";
+ $("answer-area").replaceChildren();$("feedback").textContent="Wil je verder oefenen? Kies een andere moeilijkheid of begin opnieuw.";
+ $("next").disabled=true;$("check").hidden=true;
+}
+function start(next){level=next;index=0;correct=0;answered=false;document.querySelectorAll("[data-level]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.level===next)));makePrint();show();}
+function makePrint(){
+ const titles={basis:"1 · Basis",gemiddeld:"2 · Gemiddeld",uitdaging:"3 · Uitdaging"};
+ $("print-level").textContent=titles[level];$("print-questions").replaceChildren();
+ bank[level].forEach((item,n)=>{
+  const block=document.createElement("div");block.className="print-question";
+  const q=document.createElement("p");const strong=document.createElement("strong");strong.textContent=(n+1)+". ";q.append(strong,document.createTextNode(item.q));block.append(q);
+  if(item.type==="choice"){const options=document.createElement("div");options.className="print-options";item.options.forEach((c,i)=>{const span=document.createElement("span");span.textContent="◯ "+c;options.append(span)});block.append(options)}
+  else if(item.type==="order"){const text=document.createElement("p");text.textContent=item.tiles.join(" · ");block.append(text);const line=document.createElement("div");line.className="print-line";block.append(line)}
+  else{const line=document.createElement("div");line.className="print-line";block.append(line)}
+  $("print-questions").append(block);
+ });
+}
+document.querySelectorAll("[data-level]").forEach(b=>b.addEventListener("click",()=>start(b.dataset.level)));
+$("check").addEventListener("click",check);
+$("next").addEventListener("click",()=>{if(!answered)return;if(index===bank[level].length-1)finish();else{index++;show()}});
+$("retry").addEventListener("click",()=>start(level));
+$("print").addEventListener("click",()=>{location.href="../../werkblad.html?oefening=a2-hotel&niveau="+encodeURIComponent(level)});
+const requested=new URLSearchParams(location.search).get("niveau");start(requested&&bank[requested]?requested:"basis");
+})();
+</script></body></html>
