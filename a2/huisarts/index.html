@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="nl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#F8F4EE">
+<meta name="description" content="A2 woordenschat: Oefen lichaamsdelen, klachten en een gesprek bij de huisarts. Drie niveaus en printbaar werkblad.">
+<title>A2 · Bij de huisarts | TouwTaal NT2</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.practice{max-width:860px;margin:0 auto}.practice-card{background:var(--nav);border:1px solid var(--line);border-radius:22px;padding:clamp(1rem,3.8vw,2rem);margin:1.2rem 0}
+.levels,.actions{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0}.levels button,.actions button,.answer,.tiles button{min-height:48px;padding:.75rem 1rem;border:2px solid var(--lavender);border-radius:12px;background:white;color:var(--ink);font:700 1rem 'DM Sans',Arial,sans-serif;cursor:pointer}
+.levels button[aria-pressed=true],.actions .primary{background:var(--purple);border-color:var(--purple);color:white}
+.levels button:focus-visible,.actions button:focus-visible,.answer:focus-visible,.tiles button:focus-visible,.fill:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+.levels button:hover,.answer:hover:not(:disabled),.tiles button:hover:not(:disabled){border-color:var(--purple)}
+.answer{display:block;width:100%;text-align:left;margin:.65rem 0}.answer.correct{background:#e7f4eb;border-color:#42845c}.answer.wrong{background:#f9e8eb;border-color:#b65e63}.answer:disabled,.tiles button:disabled{cursor:default;opacity:.85}
+.prompt{white-space:pre-line;font:800 clamp(1.12rem,3vw,1.45rem)/1.4 Manrope,Arial,sans-serif;margin:1.25rem 0}
+.steps{font-weight:700;color:var(--muted)}.bar{height:11px;background:var(--line);border-radius:100px;overflow:hidden;margin:.55rem 0 1rem}.bar span{display:block;width:0;height:100%;background:var(--purple);transition:width .2s}
+.feedback{padding:1rem;background:var(--art);border-left:5px solid var(--purple);border-radius:10px;margin-top:1rem;min-height:3rem}.feedback:empty{display:none}
+.fill{width:min(100%,360px);border:2px solid var(--lavender);border-radius:12px;padding:.75rem;font:600 1.12rem 'DM Sans',Arial,sans-serif;min-height:48px}.tiles,.ordered{display:flex;gap:.5rem;flex-wrap:wrap;margin:.65rem 0}
+.ordered{min-height:54px;padding:.65rem;border:2px dashed var(--lavender);border-radius:12px;background:white;align-items:center;font-weight:700;overflow-wrap:anywhere}.tiles button{background:var(--art);padding:.6rem .85rem}
+.actions button:disabled{opacity:.52;cursor:not-allowed}.hint{color:var(--muted);font-size:.95rem}.icon-label{font-size:1.2rem;margin-right:.35rem}.print-only{display:none}
+@media print{
+ @page{size:A4;margin:14mm 16mm}
+ html,body{margin:0!important;padding:0!important;background:white!important;color:#111!important;font:11pt/1.3 Arial,sans-serif!important}
+ .site-header,.hero,.footer,.breadcrumbs,.practice-card:not(.print-only){display:none!important}
+ .wrap,.practice{margin:0!important;padding:0!important;max-width:none!important;width:100%!important}
+ .practice-card.print-only{display:block!important;padding:0!important;margin:0!important;background:white!important;border:0!important;border-radius:0!important}
+ .print-only h2{font:700 17pt Arial,sans-serif!important;margin:0 0 3mm!important}
+ .print-only .print-detail{margin:0 0 3mm!important}
+ .print-question{break-inside:avoid!important;margin:0 0 2.1mm!important}
+ .print-question p{white-space:pre-line!important;font-size:10.5pt!important;margin:0 0 2mm!important}
+ .print-options{font:10pt/1.45 Arial,sans-serif!important;margin-left:5mm}
+ .print-options span{display:inline-block;margin-right:6mm}
+ .print-line{border-bottom:1px solid #777;height:8mm}
+}
+#answer-area label{display:block;margin:0 0 .8rem;font-weight:700}#answer-area .fill{display:block;max-width:100%;margin:0 0 .4rem 0}
+</style></head>
+<body>
+<a class="skip" href="#inhoud">Ga naar inhoud</a>
+<header class="site-header"><nav class="nav" aria-label="Hoofdnavigatie"><a class="site-label" href="../../index.html"><img src="https://touwtaal.github.io/assets/logo.jpg" alt="TouwTaal" style="height:45px;max-width:155px;object-fit:contain"> <span>NT2-oefeningen</span></a><div class="navlinks"><a href="../../index.html">Alle niveaus</a><a href="https://touwtaal.github.io/">TouwTaal</a></div></nav></header>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">Niveau A2</div><h1>Bij de huisarts</h1><p>Oefen lichaamsdelen, klachten en een gesprek bij de huisarts.</p></div></section>
+<main class="wrap" id="inhoud"><div class="practice"><div class="breadcrumbs"><a href="../../index.html">Alle niveaus</a> / <a href="../index.html">A2</a> / Bij de huisarts</div>
+<section class="practice-card"><span class="pill">A2 · Woordenschat</span><h2>Wat ga je oefenen?</h2><p>Je herkent klachten, benoemt lichaamsdelen en reageert op vragen van de huisarts.</p><h3>Kies een moeilijkheid</h3><div id="levels" class="levels" role="group" aria-label="Kies moeilijkheid"><button type="button" data-level="basis" aria-pressed="true">1 · Basis</button><button type="button" data-level="gemiddeld" aria-pressed="false">2 · Gemiddeld</button><button type="button" data-level="uitdaging" aria-pressed="false">3 · Uitdaging</button></div>
+<p class="hint">10 vragen per niveau. Kies het antwoord, vul een woord in of maak een zin.</p></section>
+<section class="practice-card" aria-label="Interactieve oefening"><div class="steps" id="step">Vraag 1 van 10</div>
+<div class="bar" id="progress" role="progressbar" aria-label="Voortgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fillbar"></span></div>
+<p class="prompt" id="prompt"></p><div id="answer-area"></div>
+<div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+<div class="actions"><button type="button" id="check" class="primary" hidden>Controleer</button><button type="button" id="next" class="primary" disabled>Volgende vraag</button><button type="button" id="retry">Opnieuw beginnen</button><button type="button" id="print">Print werkblad</button></div>
+</section>
+<section class="practice-card print-only" aria-label="Printbaar werkblad"><h2>Werkblad A2 · Bij de huisarts</h2><p class="print-detail" id="print-level">Basis</p><p class="print-detail">Naam: _________________________________ Datum: ________________</p><div id="print-questions"></div></section>
+</div></main>
+<footer class="footer"><p>Learn Dutch with confidence.</p><p><a href="https://touwtaal.github.io/">TouwTaal</a></p></footer>
+<script>
+(function(){
+"use strict";
+const bank={"basis":[{"type":"choice","q":"Je bent ziek en wilt hulp van een dokter. Wie bel je?","options":["De huisarts.","De fietsenmaker.","De receptionist."],"good":0,"why":"De huisarts onderzoekt en behandelt patiënten."},{"type":"choice","q":"Je hebt 39 graden. Wat heb je?","options":["Jeuk.","Koorts.","Een bult."],"good":1,"why":"Een hoge lichaamstemperatuur heet koorts."},{"type":"choice","q":"Je krijgt van de arts een briefje voor medicijnen. Wat is dat?","options":["Een rekening.","Een uitnodiging.","Een recept."],"good":2,"why":"Met een recept haal je medicijnen."},{"type":"choice","q":"Je huid jeukt. Wat kun je erop smeren?","options":["Zalf.","Parfum.","Tandpasta."],"good":0,"why":"Zalf kun je op de huid smeren."},{"type":"choice","q":"Waar haal je medicijnen met een recept?","options":["Bij de bakker.","Bij de apotheek.","Bij de fietsenmaker."],"good":1,"why":"Medicijnen op recept haal je bij de apotheek."},{"type":"choice","q":"Je hebt pijn aan je hoofd. Hoe heet de klacht?","options":["Buikpijn.","Oorpijn.","Hoofdpijn."],"good":2,"why":"Pijn aan je hoofd heet hoofdpijn."},{"type":"choice","q":"Welk lichaamsdeel gebruik je om te zien?","options":["Het oog.","De neus.","Het oor."],"good":0,"why":"Je ziet met je ogen."},{"type":"choice","q":"Je huid is dik geworden op één plek. Wat zie je?","options":["Een recept.","Een bult.","Een knie."],"good":1,"why":"Een bult is een plaatselijke verdikking van de huid."},{"type":"choice","q":"Je hebt koorts en veel spierpijn. Welke ziekte kan daarbij passen?","options":["Een lekke band.","Een gebroken fietsbel.","De griep."],"good":2,"why":"Koorts en spierpijn kunnen bij griep horen."},{"type":"choice","q":"Je bent ziek. Wat zegt je collega?","options":["Beterschap!","Gefeliciteerd!","Eet smakelijk!"],"good":0,"why":"Beterschap wens je iemand die ziek is."}],"gemiddeld":[{"type":"choice","q":"Je niest vaak en je neus loopt. Wat zeg je tegen de arts?","options":["Ik ben verkouden.","Ik heb pijn aan mijn enkel.","Ik heb een recept nodig."],"good":0,"why":"Niezen en een loopneus passen bij verkoudheid."},{"type":"choice","q":"Je hebt sinds maandag pijn in je buik. De arts vraagt: 'Hoelang al?'","options":["In mijn buik.","Sinds maandag.","Bij de apotheek."],"good":1,"why":"Sinds maandag geeft aan wanneer de klacht begon."},{"type":"choice","q":"Je huid is rood en je wilt steeds krabben. Welk woord beschrijft dit?","options":["Koorts.","Misselijkheid.","Jeuk."],"good":2,"why":"Jeuk veroorzaakt de neiging om te krabben."},{"type":"choice","q":"De dokter wil weten waar je last van hebt. Wat zeg je bij een pijnlijke knie?","options":["Mijn knie doet pijn.","Ik wil graag een kaartje.","Mijn fiets is kapot."],"good":0,"why":"Je vertelt precies waar de pijn zit."},{"type":"choice","q":"Iemand zegt: 'Ik ben misselijk.' Wat bedoelt die persoon?","options":["Ik heb een nieuw medicijn gekocht.","Ik heb het gevoel dat ik moet overgeven.","Mijn pols doet pijn."],"good":1,"why":"Misselijk betekent dat je het gevoel hebt dat je moet overgeven."},{"type":"choice","q":"Je krijgt een recept mee. Wat doe je daarna?","options":["Ik ga naar de kapper.","Ik meld mij bij de fietsenmaker.","Ik ga naar de apotheek."],"good":2,"why":"Je haalt medicijnen op bij de apotheek."},{"type":"choice","q":"Je bent gevallen. Je voelt pijn tussen je hand en je onderarm. Waar heb je pijn?","options":["Aan mijn pols.","Aan mijn enkel.","Aan mijn oor."],"good":0,"why":"De pols zit tussen hand en onderarm."},{"type":"choice","q":"Je klachten zijn gisteren begonnen. Wat antwoord je op 'Wanneer is dat begonnen?'","options":["Het doet pijn.","Gisteren.","Bij de huisarts."],"good":1,"why":"Gisteren is het moment waarop de klacht begon."},{"type":"choice","q":"Na een nieuwe crème krijg je rode bultjes en jeuk. Wat kan een mogelijke oorzaak zijn?","options":["Een beter zicht.","Een gezond gebit.","Een allergische reactie."],"good":2,"why":"Jeuk en bultjes kunnen bij een allergische reactie passen."},{"type":"choice","q":"De arts vraagt: 'Wat is er aan de hand?' Wat vertel je eerst?","options":["Mijn belangrijkste klacht.","Mijn favoriete kleur.","De naam van mijn hotel."],"good":0,"why":"De arts wil eerst weten waarom je komt."}],"uitdaging":[{"type":"fill","q":"Je hebt 39 graden. De huisarts zegt: 'U hebt ____.'","answers":["koorts"],"show":"koorts","why":"Een hoge lichaamstemperatuur heet koorts."},{"type":"fill","q":"Je krijgt van de huisarts een briefje om medicijnen te halen. Dat heet een ____.","answers":["recept"],"show":"recept","why":"Een recept is een voorschrift voor medicijnen."},{"type":"fill","q":"Je huid jeukt en je wilt krabben. Je hebt ____.","answers":["jeuk"],"show":"jeuk","why":"Jeuk is het gevoel waardoor je wilt krabben."},{"type":"fill","q":"Je hebt medicijnen nodig. Je gaat naar de ____.","answers":["apotheek"],"show":"apotheek","why":"Bij de apotheek haal je medicijnen."},{"type":"fill","q":"Je wordt wakker met pijn aan je hoofd. Je hebt ____.","answers":["hoofdpijn"],"show":"hoofdpijn","why":"Pijn aan het hoofd heet hoofdpijn."},{"type":"fill","q":"Een klein dik plekje op je huid heet een ____.","answers":["bult"],"show":"bult","why":"Een bult is een zwelling op je huid."},{"type":"fill","q":"Je voelt je ziek en moet vaak niezen. Je bent waarschijnlijk ____.","answers":["verkouden"],"show":"verkouden","why":"Bij verkoudheid kun je niezen en een loopneus hebben."},{"type":"fill","q":"Je hebt een zere arm en de dokter wil hem onderzoeken. Hij vraagt: 'Waar hebt u ____?'","answers":["pijn"],"show":"pijn","why":"Pijn is het woord voor wat zeer doet."},{"type":"fill","q":"De dokter geeft je een crème om op de huid te smeren. Dat is een ____.","answers":["zalf"],"show":"zalf","why":"Een zalf smeer je op de huid."},{"type":"fill","q":"Je vriendin is ziek. Je wenst haar: '____!'","answers":["Beterschap"],"show":"Beterschap","why":"Beterschap is een wens aan iemand die ziek is."}]};
+const $=id=>document.getElementById(id);
+let level="basis",index=0,correct=0,answered=false,chosenTiles=[];
+function norm(v){return v.trim().toLocaleLowerCase("nl-NL").replace(/[.!?]+$/,"").replace(/\s+/g," ")}
+function showProgress(value){const pct=Math.round(value/bank[level].length*100);$("fillbar").style.width=pct+"%";$("progress").setAttribute("aria-valuenow",String(pct))}
+function valid(item){if(item.type==="choice")return item.options[item.good];if(item.type==="fill")return item.show;return item.answer.join(" ")}
+function mark(ok,item){
+ if(answered)return;answered=true;if(ok)correct++;
+ $("feedback").textContent=(ok?"Goed! ":"Nog niet. Goed is: "+valid(item)+". ")+item.why;
+ $("next").disabled=false;$("check").hidden=true;
+}
+function show(){
+ const items=bank[level],item=items[index];answered=false;chosenTiles=[];
+ $("step").textContent="Vraag "+(index+1)+" van "+items.length;showProgress(index);
+ $("prompt").textContent=item.q;$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===items.length-1?"Bekijk resultaat":"Volgende vraag";$("check").hidden=true;
+ const zone=$("answer-area");zone.replaceChildren();
+ if(item.type==="choice"){
+  item.options.forEach((option,n)=>{const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=option;
+   b.addEventListener("click",()=>{if(answered)return;const ok=n===item.good;[...zone.children].forEach((k,i)=>{k.disabled=true;k.classList.toggle("correct",i===item.good);k.classList.toggle("wrong",i===n&&!ok)});mark(ok,item)});zone.append(b)});
+ }else if(item.type==="fill"){
+  const label=document.createElement("label");label.htmlFor="written-answer";label.textContent="Vul het woord in:";zone.append(label);
+  const input=document.createElement("input");input.id="written-answer";input.className="fill";input.type="text";input.autocomplete="off";input.spellcheck=false;zone.append(input);
+  $("check").hidden=false;$("check").disabled=false;
+  input.addEventListener("keydown",ev=>{if(ev.key==="Enter"&&!answered){ev.preventDefault();$("check").click()}});
+ }else{
+  const label=document.createElement("p");label.className="hint";label.textContent="Tik op de woorden. Maak de zin of vraag.";zone.append(label);
+  const out=document.createElement("div");out.className="ordered";out.id="ordered-text";out.textContent="Tik op de woorden.";zone.append(out);
+  const tiles=document.createElement("div");tiles.className="tiles";zone.append(tiles);
+  item.tiles.forEach((word,i)=>{const b=document.createElement("button");b.type="button";b.textContent=word;b.addEventListener("click",()=>{if(answered||b.disabled)return;b.disabled=true;chosenTiles.push({word,button:b});out.textContent=chosenTiles.map(x=>x.word).join(" ");});tiles.append(b)});
+  const reset=document.createElement("button");reset.className="answer";reset.type="button";reset.textContent="Wis de zin";reset.addEventListener("click",()=>{if(answered)return;chosenTiles.forEach(x=>x.button.disabled=false);chosenTiles=[];out.textContent="Tik op de woorden."});zone.append(reset);
+  $("check").hidden=false;$("check").disabled=false;
+ }
+}
+function check(){if(answered)return;const item=bank[level][index];if(item.type==="choice")return;
+ let ok=false;
+ if(item.type==="fill"){const input=$("written-answer");if(!input.value.trim()){$("feedback").textContent="Vul eerst een woord in.";return}ok=item.answers.map(norm).includes(norm(input.value));input.disabled=true}
+ else{if(chosenTiles.length!==item.tiles.length){$("feedback").textContent="Gebruik eerst alle woorden.";return}ok=chosenTiles.map(x=>x.word).join(" ")===item.answer.join(" ");}
+ mark(ok,item);
+}
+function finish(){
+ $("step").textContent="Klaar!";showProgress(bank[level].length);
+ $("prompt").textContent="Je hebt "+correct+" van de "+bank[level].length+" vragen goed beantwoord.";
+ $("answer-area").replaceChildren();$("feedback").textContent="Wil je verder oefenen? Kies een andere moeilijkheid of begin opnieuw.";
+ $("next").disabled=true;$("check").hidden=true;
+}
+function start(next){level=next;index=0;correct=0;answered=false;document.querySelectorAll("[data-level]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.level===next)));makePrint();show();}
+function makePrint(){
+ const titles={basis:"1 · Basis",gemiddeld:"2 · Gemiddeld",uitdaging:"3 · Uitdaging"};
+ $("print-level").textContent=titles[level];$("print-questions").replaceChildren();
+ bank[level].forEach((item,n)=>{
+  const block=document.createElement("div");block.className="print-question";
+  const q=document.createElement("p");const strong=document.createElement("strong");strong.textContent=(n+1)+". ";q.append(strong,document.createTextNode(item.q));block.append(q);
+  if(item.type==="choice"){const options=document.createElement("div");options.className="print-options";item.options.forEach((c,i)=>{const span=document.createElement("span");span.textContent="◯ "+c;options.append(span)});block.append(options)}
+  else if(item.type==="order"){const text=document.createElement("p");text.textContent=item.tiles.join(" · ");block.append(text);const line=document.createElement("div");line.className="print-line";block.append(line)}
+  else{const line=document.createElement("div");line.className="print-line";block.append(line)}
+  $("print-questions").append(block);
+ });
+}
+document.querySelectorAll("[data-level]").forEach(b=>b.addEventListener("click",()=>start(b.dataset.level)));
+$("check").addEventListener("click",check);
+$("next").addEventListener("click",()=>{if(!answered)return;if(index===bank[level].length-1)finish();else{index++;show()}});
+$("retry").addEventListener("click",()=>start(level));
+$("print").addEventListener("click",()=>{location.href="../../werkblad.html?oefening=a2-huisarts&niveau="+encodeURIComponent(level)});
+const requested=new URLSearchParams(location.search).get("niveau");start(requested&&bank[requested]?requested:"basis");
+})();
+</script></body></html>
