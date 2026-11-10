@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="nl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#F8F4EE">
+<meta name="description" content="A2 oefenen: Oefen iets, niets, wat en woorden zoals 'iets warms'. Drie niveaus en printbaar werkblad.">
+<title>A2 · Iets en niets | TouwTaal NT2</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.practice{max-width:860px;margin:0 auto}.practice-card{background:var(--nav);border:1px solid var(--line);border-radius:22px;padding:clamp(1rem,3.8vw,2rem);margin:1.2rem 0}
+.levels,.actions{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0}.levels button,.actions button,.answer,.tiles button{min-height:48px;padding:.75rem 1rem;border:2px solid var(--lavender);border-radius:12px;background:white;color:var(--ink);font:700 1rem 'DM Sans',Arial,sans-serif;cursor:pointer}
+.levels button[aria-pressed=true],.actions .primary{background:var(--purple);border-color:var(--purple);color:white}
+.levels button:focus-visible,.actions button:focus-visible,.answer:focus-visible,.tiles button:focus-visible,.fill:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+.levels button:hover,.answer:hover:not(:disabled),.tiles button:hover:not(:disabled){border-color:var(--purple)}
+.answer{display:block;width:100%;text-align:left;margin:.65rem 0}.answer.correct{background:#e7f4eb;border-color:#42845c}.answer.wrong{background:#f9e8eb;border-color:#b65e63}.answer:disabled,.tiles button:disabled{cursor:default;opacity:.85}
+.prompt{white-space:pre-line;font:800 clamp(1.12rem,3vw,1.45rem)/1.4 Manrope,Arial,sans-serif;margin:1.25rem 0}
+.steps{font-weight:700;color:var(--muted)}.bar{height:11px;background:var(--line);border-radius:100px;overflow:hidden;margin:.55rem 0 1rem}.bar span{display:block;width:0;height:100%;background:var(--purple);transition:width .2s}
+.feedback{padding:1rem;background:var(--art);border-left:5px solid var(--purple);border-radius:10px;margin-top:1rem;min-height:3rem}.feedback:empty{display:none}
+.fill{width:min(100%,360px);border:2px solid var(--lavender);border-radius:12px;padding:.75rem;font:600 1.12rem 'DM Sans',Arial,sans-serif;min-height:48px}.tiles,.ordered{display:flex;gap:.5rem;flex-wrap:wrap;margin:.65rem 0}
+.ordered{min-height:54px;padding:.65rem;border:2px dashed var(--lavender);border-radius:12px;background:white;align-items:center;font-weight:700;overflow-wrap:anywhere}.tiles button{background:var(--art);padding:.6rem .85rem}
+.actions button:disabled{opacity:.52;cursor:not-allowed}.hint{color:var(--muted);font-size:.95rem}.icon-label{font-size:1.2rem;margin-right:.35rem}.print-only{display:none}
+@media print{
+ @page{size:A4;margin:14mm 16mm}
+ html,body{margin:0!important;padding:0!important;background:white!important;color:#111!important;font:11pt/1.3 Arial,sans-serif!important}
+ .site-header,.hero,.footer,.breadcrumbs,.practice-card:not(.print-only){display:none!important}
+ .wrap,.practice{margin:0!important;padding:0!important;max-width:none!important;width:100%!important}
+ .practice-card.print-only{display:block!important;padding:0!important;margin:0!important;background:white!important;border:0!important;border-radius:0!important}
+ .print-only h2{font:700 17pt Arial,sans-serif!important;margin:0 0 3mm!important}
+ .print-only .print-detail{margin:0 0 3mm!important}
+ .print-question{break-inside:avoid!important;margin:0 0 2.1mm!important}
+ .print-question p{white-space:pre-line!important;font-size:10.5pt!important;margin:0 0 2mm!important}
+ .print-options{font:10pt/1.45 Arial,sans-serif!important;margin-left:5mm}
+ .print-options span{display:inline-block;margin-right:6mm}
+ .print-line{border-bottom:1px solid #777;height:8mm}
+}
+#answer-area label{display:block;margin:0 0 .8rem;font-weight:700}#answer-area .fill{display:block;max-width:100%;margin:0 0 .4rem 0}
+</style></head>
+<body>
+<a class="skip" href="#inhoud">Ga naar inhoud</a>
+<header class="site-header"><nav class="nav" aria-label="Hoofdnavigatie"><a class="site-label" href="../../index.html"><img src="https://touwtaal.github.io/assets/logo.jpg" alt="TouwTaal" style="height:45px;max-width:155px;object-fit:contain"> <span>NT2-oefeningen</span></a><div class="navlinks"><a href="../../index.html">Alle niveaus</a><a href="https://touwtaal.github.io/">TouwTaal</a></div></nav></header>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">A2 · Hoofdstuk 9</div><h1>Iets leuks of niets bijzonders?</h1><p>Oefen iets, niets, wat en woorden zoals 'iets warms'.</p></div></section>
+<main class="wrap" id="inhoud"><div class="practice"><div class="breadcrumbs"><a href="../../index.html">Alle niveaus</a> / <a href="../index.html">A1</a> / Wonen</div>
+<section class="practice-card"><span class="pill">Hoofdstuk 9 · Iets en niets</span><h2>Wat ga je oefenen?</h2><p>Je vertelt wat je wel of niet wilt, wat je hebt gedaan en wat je nodig hebt. Je gebruikt iets en niets met een bijvoeglijk naamwoord.</p><h3>Kies een moeilijkheid</h3><div id="levels" class="levels" role="group" aria-label="Kies moeilijkheid"><button type="button" data-level="basis" aria-pressed="true">1 · Basis</button><button type="button" data-level="gemiddeld" aria-pressed="false">2 · Gemiddeld</button><button type="button" data-level="uitdaging" aria-pressed="false">3 · Uitdaging</button></div>
+<p class="hint">10 vragen per niveau. Kies het antwoord, vul een woord in of maak een zin.</p></section>
+<section class="practice-card" aria-label="Interactieve oefening"><div class="steps" id="step">Vraag 1 van 10</div>
+<div class="bar" id="progress" role="progressbar" aria-label="Voortgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fillbar"></span></div>
+<p class="prompt" id="prompt"></p><div id="answer-area"></div>
+<div id="feedback" class="feedback" role="status" aria-live="polite"></div>
+<div class="actions"><button type="button" id="check" class="primary" hidden>Controleer</button><button type="button" id="next" class="primary" disabled>Volgende vraag</button><button type="button" id="retry">Opnieuw beginnen</button><button type="button" id="print">Print werkblad</button></div>
+</section>
+<section class="practice-card print-only" aria-label="Printbaar werkblad"><h2>Werkblad A2 · Iets en niets</h2><p class="print-detail" id="print-level">Basis</p><p class="print-detail">Naam: _________________________________ Datum: ________________</p><div id="print-questions"></div></section>
+</div></main>
+<footer class="footer"><p>Learn Dutch with confidence.</p><p><a href="https://touwtaal.github.io/">TouwTaal</a></p></footer>
+<script>
+(function(){
+"use strict";
+const bank={"basis":[{"type":"choice","q":"Je hebt dorst. Wat zeg je?","options":["Ik wil iets drinken.","Ik wil niets drinken.","Ik wil niemand drinken."],"good":0,"why":"Met iets drinken bedoel je dat je wel wat wilt drinken."},{"type":"choice","q":"De koelkast is helemaal leeg. Er is ...","options":["iets te eten.","niets te eten.","iets lekkers."],"good":1,"why":"Als de koelkast leeg is, is er niets te eten."},{"type":"choice","q":"Je wilt een leuk cadeau kopen. Welke zin klopt?","options":["Ik koop iets leuke.","Ik koop iets leuk.","Ik koop iets leuks."],"good":2,"why":"Na iets gebruik je hier het bijvoeglijk naamwoord met -s."},{"type":"choice","q":"Je hebt geen vragen meer. Wat zeg je?","options":["Ik heb niets meer te vragen.","Ik heb iets meer te vragen.","Ik heb niemand te vragen."],"good":0,"why":"Niets betekent dat je geen vraag meer hebt."},{"type":"choice","q":"Het is koud. Je wilt warme thee of koffie. Wat zeg je?","options":["Ik wil iets warme.","Ik wil iets warms.","Ik wil niets warms."],"good":1,"why":"Je zegt: iets warms drinken."},{"type":"choice","q":"De huisarts heeft je onderzocht. Alles is in orde. Wat is goed?","options":["Er is iets ernstig.","Er is niets ernstig.","Er is niets ernstigs."],"good":2,"why":"Niets ernstigs betekent dat er geen ernstig probleem is."},{"type":"choice","q":"Je zoekt een speciaal cadeau. Wat zeg je?","options":["Ik zoek iets bijzonders.","Ik zoek iets bijzonder.","Ik zoek niets bijzonders."],"good":0,"why":"Iets bijzonders is iets speciaals."},{"type":"choice","q":"Je hebt helemaal geen honger. Wat zeg je?","options":["Ik wil iets eten.","Ik wil niets eten.","Ik wil iets lekkers."],"good":1,"why":"Niets eten betekent dat je geen eten wilt."},{"type":"choice","q":"Je wilt je buurvrouw helpen. Welke vraag past?","options":["Wil je niemand?","Wil je niets doen?","Kan ik iets voor je doen?"],"good":2,"why":"Met 'Kan ik iets voor je doen?' bied je hulp aan."},{"type":"choice","q":"A: Is er iets gebeurd?\nB: Nee, er is ...","options":["niets gebeurd.","iets gebeurd.","iemand gebeurd."],"good":0,"why":"Nee, er is niets gebeurd."}],"gemiddeld":[{"type":"choice","q":"Het weekend was gewoon. Je hebt alleen gelezen en gerust. Wat vertel je?","options":["Ik heb iets bijzonders gedaan.","Ik heb niets bijzonders gedaan.","Ik heb niets bijzonder gedaan."],"good":1,"why":"Niets bijzonders betekent: geen speciale gebeurtenis."},{"type":"choice","q":"Bij de bakker wil je een zoet tussendoortje. Wat vraag je?","options":["Heeft u iets zoete?","Heeft u niets zoets?","Heeft u iets zoets?"],"good":2,"why":"Na iets krijgt zoet een -s."},{"type":"choice","q":"Je wilt een klein hapje, geen grote maaltijd. Wat zeg je?","options":["Ik wil iets kleins eten.","Ik wil iets kleine eten.","Ik wil niets kleins eten."],"good":0,"why":"Iets kleins is bijvoorbeeld een klein hapje."},{"type":"choice","q":"Je collega vraagt of je goed nieuws hebt. Je hebt een nieuwe baan. Wat zeg je?","options":["Ik heb niets leuks te vertellen.","Ik heb iets leuks te vertellen.","Ik heb iets leuk te vertellen."],"good":1,"why":"Bij goed nieuws past iets leuks."},{"type":"choice","q":"Een vriend vraagt: Heb je iets nodig? Je hebt alles al. Wat antwoord je?","options":["Ja, iets groots.","Ik moet iets kopen.","Nee, niets, bedankt."],"good":2,"why":"Met niets zeg je dat je niets nodig hebt."},{"type":"choice","q":"Je hebt het koud, maar wilt geen koude limonade. Wat bestel je?","options":["Iets warms.","Iets warme.","Niets warms."],"good":0,"why":"Iets warms kan een warme drank zijn."},{"type":"choice","q":"Je bent geschrokken, maar er is geen probleem. Wat zeg je?","options":["Het is iets ernstigs.","Er is niets aan de hand.","Er is niets gebeuren."],"good":1,"why":"Er is niets aan de hand betekent dat er geen probleem is."},{"type":"choice","q":"Je wilt een ander soort jas. Wat zeg je tegen de medewerker?","options":["Ik zoek niets anders.","Ik zoek iets andere.","Ik zoek iets anders."],"good":2,"why":"Iets anders betekent iets dat niet hetzelfde is."},{"type":"choice","q":"Een leerling vraagt: Wat heb je vandaag geleerd? Je hebt een nieuwe regel geleerd. Wat zeg je?","options":["Ik heb iets nieuws geleerd.","Ik heb iets nieuwe geleerd.","Ik heb niets nieuws geleerd."],"good":0,"why":"Iets nieuws betekent nieuwe informatie."},{"type":"choice","q":"Een vriendin vertelt: Ik heb niets bijzonders meegemaakt. Wat betekent dat?","options":["Ze heeft een ongeluk gehad.","Er is niets speciaals gebeurd.","Ze vertelt over een feest."],"good":1,"why":"Niets bijzonders betekent dat er niets speciaals is gebeurd."}],"uitdaging":[{"type":"fill","q":"De arts zegt: Het is gelukkig niet ernstig.\nHet is gelukkig niets ____ (ernstig).","answers":["ernstigs"],"show":"ernstigs","why":"Na niets krijgt ernstig hier een -s."},{"type":"fill","q":"Je zoekt een mooi cadeau.\nIk wil iets ____ (mooi) kopen.","answers":["moois"],"show":"moois","why":"Na iets wordt mooi: iets moois."},{"type":"order","q":"🧩 Maak de zin.","tiles":["gisteren","niets","bijzonders","Ik","gedaan.","heb"],"answer":["Ik","heb","gisteren","niets","bijzonders","gedaan."],"why":"Niets bijzonders staat als woordgroep bij elkaar."},{"type":"fill","q":"Er staat geen eten op tafel.\nWe hebben ____ gegeten.","answers":["niets"],"show":"niets","why":"Met niets geef je aan dat je geen eten hebt gegeten."},{"type":"fill","q":"Op het feest vertelde ik ____ (leuk) nieuws.","answers":["leuk"],"show":"leuk","why":"In 'leuk nieuws' staat leuk vóór het zelfstandig naamwoord en krijgt geen -s."},{"type":"fill","q":"Ik heb het koud. Geef me alsjeblieft iets ____ (warm).","answers":["warms"],"show":"warms","why":"Je zegt: iets warms."},{"type":"order","q":"🧩 Maak de zin.","tiles":["nieuws","heb","iets","Ik","geleerd."],"answer":["Ik","heb","iets","nieuws","geleerd."],"why":"Na iets gebruik je nieuws met -s."},{"type":"choice","q":"Je wilt niet uitleggen wat je doet. Welke zin past?","options":["Ik wil er nu niets over zeggen.","Ik wil er nu alles over vertellen.","Ik heb er iets leuks over verteld."],"good":0,"why":"Met niets geef je aan dat je niets wilt zeggen."},{"type":"fill","q":"Het was een gewoon weekend. Ik heb niets ____ (bijzonder) gedaan.","answers":["bijzonders"],"show":"bijzonders","why":"Niets bijzonders is een vaste, gebruikelijke combinatie."},{"type":"order","q":"🧩 Maak de zin.","tiles":["ik","Mag","vragen?","iets"],"answer":["Mag","ik","iets","vragen?"],"why":"Bij een vraag komt de persoonsvorm Mag vooraan."}]};
+const $=id=>document.getElementById(id);
+let level="basis",index=0,correct=0,answered=false,chosenTiles=[];
+function norm(v){return v.trim().toLocaleLowerCase("nl-NL").replace(/[.!?]+$/,"").replace(/\s+/g," ")}
+function showProgress(value){const pct=Math.round(value/bank[level].length*100);$("fillbar").style.width=pct+"%";$("progress").setAttribute("aria-valuenow",String(pct))}
+function valid(item){if(item.type==="choice")return item.options[item.good];if(item.type==="fill")return item.show;return item.answer.join(" ")}
+function mark(ok,item){
+ if(answered)return;answered=true;if(ok)correct++;
+ $("feedback").textContent=(ok?"Goed! ":"Nog niet. Goed is: "+valid(item)+". ")+item.why;
+ $("next").disabled=false;$("check").hidden=true;
+}
+function show(){
+ const items=bank[level],item=items[index];answered=false;chosenTiles=[];
+ $("step").textContent="Vraag "+(index+1)+" van "+items.length;showProgress(index);
+ $("prompt").textContent=item.q;$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===items.length-1?"Bekijk resultaat":"Volgende vraag";$("check").hidden=true;
+ const zone=$("answer-area");zone.replaceChildren();
+ if(item.type==="choice"){
+  item.options.forEach((option,n)=>{const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=option;
+   b.addEventListener("click",()=>{if(answered)return;const ok=n===item.good;[...zone.children].forEach((k,i)=>{k.disabled=true;k.classList.toggle("correct",i===item.good);k.classList.toggle("wrong",i===n&&!ok)});mark(ok,item)});zone.append(b)});
+ }else if(item.type==="fill"){
+  const label=document.createElement("label");label.htmlFor="written-answer";label.textContent="Vul het woord in:";zone.append(label);
+  const input=document.createElement("input");input.id="written-answer";input.className="fill";input.type="text";input.autocomplete="off";input.spellcheck=false;zone.append(input);
+  $("check").hidden=false;$("check").disabled=false;
+  input.addEventListener("keydown",ev=>{if(ev.key==="Enter"&&!answered){ev.preventDefault();$("check").click()}});
+ }else{
+  const label=document.createElement("p");label.className="hint";label.textContent="Tik op de woorden. Maak de zin of vraag.";zone.append(label);
+  const out=document.createElement("div");out.className="ordered";out.id="ordered-text";out.textContent="Tik op de woorden.";zone.append(out);
+  const tiles=document.createElement("div");tiles.className="tiles";zone.append(tiles);
+  item.tiles.forEach((word,i)=>{const b=document.createElement("button");b.type="button";b.textContent=word;b.addEventListener("click",()=>{if(answered||b.disabled)return;b.disabled=true;chosenTiles.push({word,button:b});out.textContent=chosenTiles.map(x=>x.word).join(" ");});tiles.append(b)});
+  const reset=document.createElement("button");reset.className="answer";reset.type="button";reset.textContent="Wis de zin";reset.addEventListener("click",()=>{if(answered)return;chosenTiles.forEach(x=>x.button.disabled=false);chosenTiles=[];out.textContent="Tik op de woorden."});zone.append(reset);
+  $("check").hidden=false;$("check").disabled=false;
+ }
+}
+function check(){if(answered)return;const item=bank[level][index];if(item.type==="choice")return;
+ let ok=false;
+ if(item.type==="fill"){const input=$("written-answer");if(!input.value.trim()){$("feedback").textContent="Vul eerst een woord in.";return}ok=item.answers.map(norm).includes(norm(input.value));input.disabled=true}
+ else{if(chosenTiles.length!==item.tiles.length){$("feedback").textContent="Gebruik eerst alle woorden.";return}ok=chosenTiles.map(x=>x.word).join(" ")===item.answer.join(" ");}
+ mark(ok,item);
+}
+function finish(){
+ $("step").textContent="Klaar!";showProgress(bank[level].length);
+ $("prompt").textContent="Je hebt "+correct+" van de "+bank[level].length+" vragen goed beantwoord.";
+ $("answer-area").replaceChildren();$("feedback").textContent="Wil je verder oefenen? Kies een andere moeilijkheid of begin opnieuw.";
+ $("next").disabled=true;$("check").hidden=true;
+}
+function start(next){level=next;index=0;correct=0;answered=false;document.querySelectorAll("[data-level]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.level===next)));makePrint();show();}
+function makePrint(){
+ const titles={basis:"1 · Basis",gemiddeld:"2 · Gemiddeld",uitdaging:"3 · Uitdaging"};
+ $("print-level").textContent=titles[level];$("print-questions").replaceChildren();
+ bank[level].forEach((item,n)=>{
+  const block=document.createElement("div");block.className="print-question";
+  const q=document.createElement("p");const strong=document.createElement("strong");strong.textContent=(n+1)+". ";q.append(strong,document.createTextNode(item.q));block.append(q);
+  if(item.type==="choice"){const options=document.createElement("div");options.className="print-options";item.options.forEach((c,i)=>{const span=document.createElement("span");span.textContent="◯ "+c;options.append(span)});block.append(options)}
+  else if(item.type==="order"){const text=document.createElement("p");text.textContent=item.tiles.join(" · ");block.append(text);const line=document.createElement("div");line.className="print-line";block.append(line)}
+  else{const line=document.createElement("div");line.className="print-line";block.append(line)}
+  $("print-questions").append(block);
+ });
+}
+document.querySelectorAll("[data-level]").forEach(b=>b.addEventListener("click",()=>start(b.dataset.level)));
+$("check").addEventListener("click",check);
+$("next").addEventListener("click",()=>{if(!answered)return;if(index===bank[level].length-1)finish();else{index++;show()}});
+$("retry").addEventListener("click",()=>start(level));
+$("print").addEventListener("click",()=>{location.href="../../werkblad.html?oefening=a2-iets-niets&niveau="+encodeURIComponent(level)});
+const requested=new URLSearchParams(location.search).get("niveau");start(requested&&bank[requested]?requested:"basis");
+})();
+</script></body></html>
