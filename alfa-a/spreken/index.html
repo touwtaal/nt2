@@ -33,6 +33,7 @@
 <p class="support">Kies het plaatje dat het beste bij de zin past. <button type="button" id="labels" aria-pressed="false">Toon woorden bij plaatjes</button></p>
 <div id="options" class="picture-grid" role="group" aria-label="Kies het juiste plaatje"></div>
 <div id="feedback" class="status" aria-live="polite"></div>
+<div id="arabic-help" class="sentence" hidden><button type="button" id="arabic-toggle" aria-expanded="false" aria-controls="arabic-text">Toon Arabisch</button> <button type="button" id="arabic-listen" hidden>▶ Luister Arabisch</button><p id="arabic-text" lang="ar" dir="rtl" hidden></p></div>
 <div class="action-row"><button class="primary" type="button" id="next" disabled>Volgende</button><button type="button" id="again">Opnieuw beginnen</button></div>
 <p class="support" id="audio-info">Het geluid gebruikt de Nederlandse voorleesstem van je apparaat. Werkt de stem niet? Gebruik 'Toon de zin'.</p>
 </section>
@@ -102,6 +103,7 @@ for(const [topicKey,group] of Object.entries(extra)){
   lessons[topicKey][star]=entries.map((item,i)=>[item[0],choiceKeys[i],choiceKeys[(i+3)%entries.length],choiceKeys[(i+6)%entries.length]]);
  }
 }
+const arabicIntro=["مرحبًا، أنا سام.","أنا أسكن في بيت.","هذا ابني.","هذه ابنتي.","لدي طفلان.","اسمي سارة.","أنا أسكن في هذا الشارع.","لدينا درس اليوم.","ما رقم هاتفك؟","أنا من هولندا."];
 const $=id=>document.getElementById(id);
 let theme="dokter",star=1,index=0,score=0,answered=false,showLabels=false;
 function cancel(){if("speechSynthesis" in window)window.speechSynthesis.cancel()}
@@ -113,14 +115,16 @@ function say(rate){
  u.onerror=()=>{$("audio-info").textContent="Het voorlezen werkte niet. Tik op 'Toon de zin' om de zin te bekijken."};
  window.speechSynthesis.speak(u)
 }
+function arabicReset(){ $("arabic-help").hidden=!(theme==="kennismaken"&&star===1);$("arabic-help").hidden=true;$("arabic-text").hidden=true;$("arabic-listen").hidden=true;$("arabic-toggle").textContent="Toon Arabisch";$("arabic-toggle").setAttribute("aria-expanded","false") }
 function choose(chosen){
  if(answered)return;answered=true;const item=lessons[theme][star][index],good=chosen===item[1];if(good)score++;
  [...$("options").children].forEach(b=>{b.disabled=true;if(b.dataset.key===item[1])b.classList.add("correct");if(b.dataset.key===chosen&&!good)b.classList.add("incorrect")});
  $("feedback").textContent=(good?"Goed gedaan! ":"Luister nog een keer. ")+ "Dit is: "+icons[item[1]][1]+". "+(star===1?"Zeg het woord nu hardop.":star===2?"Zeg de korte zin nu na.":"Zeg de zin na. Probeer daarna zelf te antwoorden.") ;
+ if(theme==="kennismaken"&&star===1){$("arabic-help").hidden=false;$("arabic-text").textContent=arabicIntro[index]}
  $("sentence").hidden=false;$("sentence").textContent=item[0];$("reveal").textContent="Verberg de zin";$("reveal").setAttribute("aria-expanded","true");$("next").disabled=false;
 }
 function render(){
- cancel();answered=false;const items=lessons[theme][star],item=items[index];
+ cancel();arabicReset();answered=false;const items=lessons[theme][star],item=items[index];
  $("step").textContent="Vraag "+(index+1)+" van "+items.length;
  const pct=Math.round(index/items.length*100);$("progress-fill").style.width=pct+"%";$("progress").setAttribute("aria-valuenow",String(pct));
  $("sentence").hidden=true;$("sentence").textContent=item[0];$("reveal").textContent="Toon de zin";$("reveal").setAttribute("aria-expanded","false");
@@ -158,6 +162,8 @@ $("reveal").addEventListener("click",()=>{const wasHidden=$("sentence").hidden;$
 $("labels").addEventListener("click",()=>{showLabels=!showLabels;$("labels").setAttribute("aria-pressed",String(showLabels));$("labels").textContent=showLabels?"Verberg woorden bij plaatjes":"Toon woorden bij plaatjes";document.querySelectorAll(".picture-label").forEach(x=>x.hidden=!showLabels)});
 $("next").addEventListener("click",()=>{if(!answered)return;if(index===lessons[theme][star].length-1)finish();else{index++;render()}});
 $("again").addEventListener("click",()=>start(star));
+$("arabic-toggle").addEventListener("click",()=>{const show=$("arabic-text").hidden;$("arabic-text").hidden=!show;$("arabic-listen").hidden=!show;$("arabic-toggle").textContent=show?"Verberg Arabisch":"Toon Arabisch";$("arabic-toggle").setAttribute("aria-expanded",String(show))});
+$("arabic-listen").addEventListener("click",()=>{if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window)){ $("audio-info").textContent="Geen Arabische voorleesstem beschikbaar.";return}cancel();const voices=window.speechSynthesis.getVoices();const voice=voices.find(v=>v.lang.toLowerCase().startsWith("ar"));if(!voice){$("audio-info").textContent="Geen Arabische voorleesstem beschikbaar op dit apparaat.";return}const u=new SpeechSynthesisUtterance($("arabic-text").textContent);u.lang="ar";u.voice=voice;u.rate=.85;window.speechSynthesis.speak(u)});
 window.addEventListener("pagehide",cancel);
 const wanted=new URLSearchParams(location.search).get("thema");selectTheme(wanted&&topics[wanted]?wanted:"dokter");
 })();
