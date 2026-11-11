@@ -40,6 +40,7 @@
 </div></main>
 <footer class="footer"><p>Learn Dutch with confidence.</p><p><a href="https://touwtaal.github.io/">TouwTaal</a></p></footer>
 <script src="lessen.js?v=20261109-buurt2"></script>
+<script src="../../assets/speech.js?v=20261111-safari3"></script>
 <script>
 (function(){
 "use strict";
@@ -109,6 +110,8 @@ let theme="dokter",star=1,index=0,score=0,answered=false,showLabels=false;
 function cancel(){if("speechSynthesis" in window)window.speechSynthesis.cancel()}
 function say(rate){
  const phrase=lessons[theme][star][index][0];
+ if(window.TouwTaalSpeech){window.TouwTaalSpeech.play(phrase,{slow:rate<0.8,statusElement:$("audio-info")});return;}
+
  if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window)){$("audio-info").textContent="Op dit apparaat is geen voorleesstem beschikbaar. Klik op 'Toon de zin'.";return}
  cancel();const u=new SpeechSynthesisUtterance(phrase);u.lang="nl-NL";u.rate=rate;
  const voices=window.speechSynthesis.getVoices();const dutch=voices.find(v=>v.lang.toLowerCase().startsWith("nl"));if(dutch)u.voice=dutch;
