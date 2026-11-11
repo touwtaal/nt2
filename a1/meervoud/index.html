@@ -32,6 +32,7 @@
  .print-options span{display:inline-block;margin-right:6mm}
  .print-line{border-bottom:1px solid #777;height:8mm}
 }
+.prompt-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin:.25rem 0 .7rem}.answer-row{display:flex;align-items:stretch;gap:.6rem;margin:.6rem 0;min-width:0}.answer-row .answer{flex:1;min-width:0;margin:0;overflow-wrap:anywhere}.sound-button{flex:none;min-height:48px;padding:.6rem .85rem;background:var(--art);color:var(--deep);border:2px solid var(--lavender);border-radius:12px;font:750 .95rem "DM Sans",Arial,sans-serif;cursor:pointer}.sound-button:hover{border-color:var(--purple)}.sound-button:focus-visible{outline:3px solid var(--deep);outline-offset:3px}.correct-audio{margin:.7rem 0 .1rem}@media(max-width:550px){.answer-row{gap:.35rem}.sound-button{font-size:.84rem;padding:.45rem .55rem}.answer-row .answer{padding:.55rem .6rem}}
 </style></head>
 <body>
 <a class="skip" href="#inhoud">Ga naar inhoud</a>
@@ -43,7 +44,7 @@
 <p class="hint">10 vragen per niveau. Kies het antwoord, vul een woord in of maak een zin.</p></section>
 <section class="practice-card" aria-label="Interactieve oefening"><div class="steps" id="step">Vraag 1 van 10</div>
 <div class="bar" id="progress" role="progressbar" aria-label="Voortgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fillbar"></span></div>
-<p class="prompt" id="prompt"></p><div id="answer-area"></div>
+<p class="prompt" id="prompt"></p><div class="prompt-actions" id="prompt-audio"></div><p class="hint" id="audio-status" role="status" aria-live="polite"></p><div id="answer-area"></div>
 <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
 <div class="actions"><button type="button" id="check" class="primary" hidden>Controleer</button><button type="button" id="next" class="primary" disabled>Volgende vraag</button><button type="button" id="retry">Opnieuw beginnen</button><button type="button" id="print">Print werkblad</button></div>
 </section>
@@ -56,32 +57,39 @@
 const bank={"basis":[{"type":"choice","q":"Eén boek. Twee ... Welke uitgang past?","options":["-en","-s","-'s"],"good":0,"why":"boek → boeken. Je gebruikt -en."},{"type":"choice","q":"Eén krant. Twee ... Welke uitgang past?","options":["-en","-s","-'s"],"good":0,"why":"krant → kranten. Je gebruikt -en."},{"type":"choice","q":"Eén woord. Twee ... Welke uitgang past?","options":["-en","-s","-'s"],"good":0,"why":"woord → woorden. Je gebruikt -en."},{"type":"choice","q":"Eén mens. Twee ... Welke uitgang past?","options":["-en","-s","-'s"],"good":0,"why":"mens → mensen. Je gebruikt -en."},{"type":"choice","q":"Eén appel. Twee ... Welke uitgang past?","options":["-en","-s","-'s"],"good":1,"why":"appel → appels. Je gebruikt -s."},{"type":"choice","q":"Eén bakker. Twee ... Welke uitgang past?","options":["-en","-s","-'s"],"good":1,"why":"bakker → bakkers. Je gebruikt -s."},{"type":"choice","q":"Eén meisje. Twee ... Welke uitgang past?","options":["-en","-s","-'s"],"good":1,"why":"meisje → meisjes. Je gebruikt -s."},{"type":"choice","q":"Eén broer. Twee ... Welke uitgang past?","options":["-en","-s","-'s"],"good":1,"why":"broer → broers. Je gebruikt -s."},{"type":"choice","q":"Eén restaurant. Twee ... Welke uitgang past?","options":["-en","-s","-'s"],"good":1,"why":"restaurant → restaurants. Je gebruikt -s."},{"type":"choice","q":"Eén tafel. Twee ... Welke uitgang past?","options":["-en","-s","-'s"],"good":1,"why":"tafel → tafels. Je gebruikt -s."}],"gemiddeld":[{"type":"choice","q":"Eén pizza. Twee ...","options":["pizzas","pizza's","pizzaen"],"good":1,"why":"Bij een leenwoord op -a gebruik je meestal -'s: pizza's."},{"type":"choice","q":"Eén taxi. Twee ...","options":["taxis","taxien","taxi's"],"good":2,"why":"Bij een leenwoord op -i gebruik je -'s: taxi's."},{"type":"choice","q":"Eén auto. Twee ...","options":["auto's","autos","autoen"],"good":0,"why":"Bij een leenwoord op -o gebruik je -'s: auto's."},{"type":"choice","q":"Eén hobby. Twee ...","options":["hobbyen","hobby's","hobbys"],"good":1,"why":"Bij een leenwoord op -y gebruik je -'s: hobby's."},{"type":"choice","q":"Eén paraplu. Twee ...","options":["parapluen","paraplus","paraplu's"],"good":2,"why":"Bij een leenwoord op -u gebruik je -'s: paraplu's."},{"type":"choice","q":"Eén garage. Twee ...","options":["garage's","garages","garageen"],"good":1,"why":"Bij garage komt -s zonder apostrof: garages."},{"type":"choice","q":"Eén deken. Twee ...","options":["dekens","dekenen","deken's"],"good":0,"why":"Woorden op -en krijgen vaak -s: dekens."},{"type":"choice","q":"Eén bezem. Twee ...","options":["bezemen","bezem's","bezems"],"good":2,"why":"Woorden op -em krijgen vaak -s: bezems."},{"type":"choice","q":"Eén dochter. Twee ...","options":["dochters","dochteren","dochter's"],"good":0,"why":"Veel familiebenamingen krijgen -s: dochters."},{"type":"choice","q":"Eén fiets. Twee ...","options":["fiets's","fietss","fietsen"],"good":2,"why":"Bij fiets komt -en: fietsen."}],"uitdaging":[{"type":"fill","q":"Eén druif. Drie ___","answers":["druiven"],"show":"druiven","why":"Bij druif verandert f in v: druiven."},{"type":"fill","q":"Eén huis. Twee ___","answers":["huizen"],"show":"huizen","why":"Bij huis verandert s in z: huizen."},{"type":"fill","q":"Eén stad. Twee ___","answers":["steden"],"show":"steden","why":"Stad heeft het onregelmatige meervoud steden."},{"type":"fill","q":"Eén brief. Vier ___","answers":["brieven"],"show":"brieven","why":"Bij brief verandert f in v: brieven."},{"type":"fill","q":"Eén prijs. Twee ___","answers":["prijzen"],"show":"prijzen","why":"Bij prijs verandert s in z: prijzen."},{"type":"fill","q":"Eén bal. Drie ___","answers":["ballen"],"show":"ballen","why":"Bij de korte a verdubbel je de l: ballen."},{"type":"fill","q":"Eén boot. Twee ___","answers":["boten"],"show":"boten","why":"Bij de lange o schrijf je in boten één o."},{"type":"fill","q":"Eén glas. Vijf ___","answers":["glazen"],"show":"glazen","why":"Bij glas verandert s in z en wordt de klinker langer: glazen."},{"type":"fill","q":"Eén schip. Twee ___","answers":["schepen"],"show":"schepen","why":"Schip heeft het onregelmatige meervoud schepen."},{"type":"fill","q":"Eén zus. Drie ___","answers":["zussen"],"show":"zussen","why":"Bij de korte u verdubbel je de s: zussen."}]};
 const $=id=>document.getElementById(id);
 let level="basis",index=0,correct=0,answered=false,chosenTiles=[];
+function spokenQuestion(item){if(item.spoken)return item.spoken;const m=item.q.match(/“([^”]+)”/);return m?m[1]:item.q}
+function say(text,slow){if(!String(text||"").trim())return;if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window)){$("audio-status").textContent="Audio is niet beschikbaar op dit apparaat.";return}const syn=window.speechSynthesis;syn.cancel();const u=new window.SpeechSynthesisUtterance(String(text).replace(/[_]{2,}/g," ... ").replace(/\s+/g," ").trim());u.lang="nl-NL";u.rate=slow?.75:.95;const voices=syn.getVoices();u.voice=voices.find(v=>v.lang.toLowerCase()==="nl-nl")||voices.find(v=>v.lang.toLowerCase().startsWith("nl"))||null;syn.speak(u)}
+function listenButton(txt,label,slow){const b=document.createElement("button");b.type="button";b.className="sound-button";b.textContent=slow?"▶ Langzaam":"🔊 Luister";b.setAttribute("aria-label",label);b.title=label;b.addEventListener("click",()=>say(typeof txt==="function"?txt():txt,slow));return b}
 function norm(v){return v.trim().toLocaleLowerCase("nl-NL").replace(/[.!?]+$/,"").replace(/\s+/g," ")}
 function showProgress(value){const pct=Math.round(value/bank[level].length*100);$("fillbar").style.width=pct+"%";$("progress").setAttribute("aria-valuenow",String(pct))}
 function valid(item){if(item.type==="choice")return item.options[item.good];if(item.type==="fill")return item.show;return item.answer.join(" ")}
 function mark(ok,item){
  if(answered)return;answered=true;if(ok)correct++;
  $("feedback").textContent=(ok?"Goed! ":"Nog niet. Goed is: "+valid(item)+". ")+item.why;
+ const audio=document.createElement("div");audio.className="correct-audio";audio.append(listenButton(valid(item),"Luister naar het goede antwoord",false));$("feedback").append(audio);
  $("next").disabled=false;$("check").hidden=true;
 }
 function show(){
  const items=bank[level],item=items[index];answered=false;chosenTiles=[];
  $("step").textContent="Vraag "+(index+1)+" van "+items.length;showProgress(index);
- $("prompt").textContent=item.q;$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===items.length-1?"Bekijk resultaat":"Volgende vraag";$("check").hidden=true;
+ $("prompt").textContent=item.q;$("prompt-audio").replaceChildren(listenButton(()=>spokenQuestion(item),"Luister naar de vraag",false),listenButton(()=>spokenQuestion(item),"Luister langzaam",true));$("audio-status").textContent="";$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===items.length-1?"Bekijk resultaat":"Volgende vraag";$("check").hidden=true;
  const zone=$("answer-area");zone.replaceChildren();
  if(item.type==="choice"){
-  item.options.forEach((option,n)=>{const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=option;
-   b.addEventListener("click",()=>{if(answered)return;const ok=n===item.good;[...zone.children].forEach((k,i)=>{k.disabled=true;k.classList.toggle("correct",i===item.good);k.classList.toggle("wrong",i===n&&!ok)});mark(ok,item)});zone.append(b)});
+  const buttons=[];item.options.forEach((option,n)=>{const row=document.createElement("div");row.className="answer-row";const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=option;buttons.push(b);
+   b.addEventListener("click",()=>{if(answered)return;const ok=n===item.good;buttons.forEach((k,i)=>{k.disabled=true;k.classList.toggle("correct",i===item.good);k.classList.toggle("wrong",i===n&&!ok)});mark(ok,item)});
+   row.append(b,listenButton(option,"Luister naar antwoord "+(n+1),false));zone.append(row)});
  }else if(item.type==="fill"){
   const label=document.createElement("label");label.htmlFor="written-answer";label.textContent="Vul het woord in:";zone.append(label);
   const input=document.createElement("input");input.id="written-answer";input.className="fill";input.type="text";input.autocomplete="off";input.spellcheck=false;zone.append(input);
   $("check").hidden=false;$("check").disabled=false;
   input.addEventListener("keydown",ev=>{if(ev.key==="Enter"&&!answered){ev.preventDefault();$("check").click()}});
+  zone.append(listenButton(()=>input.value,"Luister naar wat je invult",false));
  }else{
   const label=document.createElement("p");label.className="hint";label.textContent="Tik op de woorden. Maak de zin of vraag.";zone.append(label);
   const out=document.createElement("div");out.className="ordered";out.id="ordered-text";out.textContent="Tik op de woorden.";zone.append(out);
   const tiles=document.createElement("div");tiles.className="tiles";zone.append(tiles);
   item.tiles.forEach((word,i)=>{const b=document.createElement("button");b.type="button";b.textContent=word;b.addEventListener("click",()=>{if(answered||b.disabled)return;b.disabled=true;chosenTiles.push({word,button:b});out.textContent=chosenTiles.map(x=>x.word).join(" ");});tiles.append(b)});
+  zone.append(listenButton(()=>chosenTiles.map(x=>x.word).join(" "),"Luister naar jouw zin",false));
   const reset=document.createElement("button");reset.className="answer";reset.type="button";reset.textContent="Wis de zin";reset.addEventListener("click",()=>{if(answered)return;chosenTiles.forEach(x=>x.button.disabled=false);chosenTiles=[];out.textContent="Tik op de woorden."});zone.append(reset);
   $("check").hidden=false;$("check").disabled=false;
  }
