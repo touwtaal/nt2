@@ -158,7 +158,7 @@ Object.entries(topics).forEach(([key,detail])=>{
  b.append(symbol,name);b.setAttribute("aria-label","Thema "+detail.chapter+": "+detail.title);b.addEventListener("click",()=>selectTheme(key));$("topics").append(b);
 });
 document.querySelectorAll("[data-star]").forEach(b=>b.addEventListener("click",()=>start(Number(b.dataset.star))));
-$("listen").addEventListener("click",()=>say(.95));$("slow").addEventListener("click",()=>say(.72));
+$("listen").addEventListener("click",()=>say(1.0));$("slow").addEventListener("click",()=>say(0.55));
 $("reveal").addEventListener("click",()=>{const wasHidden=$("sentence").hidden;$("sentence").hidden=!wasHidden;$("reveal").textContent=wasHidden?"Verberg de zin":"Toon de zin";$("reveal").setAttribute("aria-expanded",String(wasHidden))});
 $("labels").addEventListener("click",()=>{showLabels=!showLabels;$("labels").setAttribute("aria-pressed",String(showLabels));$("labels").textContent=showLabels?"Verberg woorden bij plaatjes":"Toon woorden bij plaatjes";document.querySelectorAll(".picture-label").forEach(x=>x.hidden=!showLabels)});
 $("next").addEventListener("click",()=>{if(!answered)return;if(index===lessons[theme][star].length-1)finish();else{index++;render()}});
