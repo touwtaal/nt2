@@ -63,6 +63,7 @@
 <section class="practice-card" id="woordzoekers" aria-labelledby="woordzoeker-titel"><h2 id="woordzoeker-titel">Woordzoekers · Wonen</h2><p>Oefen woorden over kamers, woningen en meubels met woordzoekers en korte vragen.</p><p><a href="../wonen-woordzoeker/" style="font-weight:800;color:var(--deep)">Open de woordzoekers →</a></p></section>
 </div></main>
 <footer class="footer"><p>Learn Dutch with confidence.</p><p><a href="https://touwtaal.github.io/">TouwTaal</a></p></footer>
+<script src="../../assets/speech.js?v=20261111-safari3"></script>
 <script>
 (function(){
 "use strict";
@@ -76,6 +77,8 @@ function spokenQuestion(item){
  return item.q.split("\n").map(s=>s.replace(/^[^:]{1,24}:\s*/,"").replace(/^[^\p{L}\p{N}]+/u,"").trim()).filter(Boolean).slice(-1)[0]||item.q;
 }
 function say(text,slow){
+ if(window.TouwTaalSpeech){window.TouwTaalSpeech.play(text,{slow:!!slow,statusElement:$("audio-status")});return;}
+
  if(!text||!String(text).trim())return;
  if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window)){
   $("audio-status").textContent="Audio is niet beschikbaar op dit apparaat. Lees de zin op het scherm.";return;
