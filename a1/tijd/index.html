@@ -32,6 +32,19 @@
  .print-options span{display:inline-block;margin-right:6mm}
  .print-line{border-bottom:1px solid #777;height:8mm}
 }
+
+/* Luister en reageer: dezelfde TouwTaal-stijl voor A1 en A2. */
+.prompt-listen{display:flex;align-items:flex-start;gap:.8rem;flex-wrap:wrap}
+.prompt-listen .prompt{flex:1 1 100%;margin-bottom:.25rem}
+.prompt-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin:.15rem 0 .6rem}
+.answer-row{display:flex;align-items:stretch;gap:.6rem;margin:.6rem 0;min-width:0}
+.answer-row .answer{flex:1;min-width:0;margin:0;overflow-wrap:anywhere}
+.sound-button{flex:none;min-height:48px;padding:.6rem .85rem;background:var(--art);color:var(--deep);border:2px solid var(--lavender);border-radius:12px;font:750 .95rem "DM Sans",Arial,sans-serif;cursor:pointer}
+.sound-button:hover{border-color:var(--purple)}
+.sound-button:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+.sound-button:disabled{opacity:.55}
+.correct-audio{margin:.7rem 0 .1rem}
+@media(max-width:550px){.answer-row{gap:.35rem}.sound-button{font-size:.84rem;padding:.45rem .55rem}.answer-row .answer{padding:.55rem .6rem}}
 </style></head>
 <body>
 <a class="skip" href="#inhoud">Ga naar inhoud</a>
@@ -42,7 +55,7 @@
 <p class="hint">10 vragen per niveau. Kies het antwoord, vul een woord in of maak een zin.</p></section>
 <section class="practice-card" aria-label="Interactieve oefening"><div class="steps" id="step">Vraag 1 van 10</div>
 <div class="bar" id="progress" role="progressbar" aria-label="Voortgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fillbar"></span></div>
-<p class="prompt" id="prompt"></p><div id="answer-area"></div>
+<div class="prompt-listen"><p class="prompt" id="prompt"></p></div><div class="prompt-actions" id="prompt-audio"></div><p class="hint" id="audio-status" role="status" aria-live="polite"></p><div id="answer-area"></div>
 <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
 <div class="actions"><button type="button" id="check" class="primary" hidden>Controleer</button><button type="button" id="next" class="primary" disabled>Volgende vraag</button><button type="button" id="retry">Opnieuw beginnen</button><button type="button" id="print">Print werkblad</button></div>
 </section>
@@ -56,32 +69,66 @@
 const bank={"basis":[{"type":"choice","q":"🕘 09:00\nHoe laat is het?","options":["Het is acht uur.","Het is negen uur.","Het is tien uur."],"good":1,"why":"09:00 is negen uur."},{"type":"choice","q":"🕒 15:00\nHoe laat is het?","options":["Het is drie uur.","Het is vijf uur.","Het is zes uur."],"good":0,"why":"15:00 is drie uur 's middags."},{"type":"choice","q":"📅 Vandaag is maandag.\nMorgen is ...","options":["woensdag.","zondag.","dinsdag."],"good":2,"why":"Na maandag komt dinsdag."},{"type":"choice","q":"📅 Vandaag is vrijdag.\nMorgen is ...","options":["zaterdag.","donderdag.","maandag."],"good":0,"why":"Na vrijdag komt zaterdag."},{"type":"choice","q":"📅 Het is januari.\nDe volgende maand is ...","options":["maart.","februari.","juni."],"good":1,"why":"Na januari komt februari."},{"type":"choice","q":"📅 Het is vrijdag. Je wilt overmorgen afspreken.\nWelke dag bedoel je?","options":["Zondag.","Donderdag.","Zaterdag."],"good":0,"why":"Twee dagen na vrijdag is zondag."},{"type":"choice","q":"📅 Vandaag is donderdag.\nVrijdag werk je. Zaterdag ben je vrij.\nA: Zullen we vrijdag afspreken?\nB: ...","options":["Ja, vrijdag kan ik.","Nee, zaterdag kan ik.","Nee, zondag werk ik."],"good":1,"why":"Vrijdag werk je. Je kunt zaterdag afspreken."},{"type":"choice","q":"🕙 De afspraak is om 10.00 uur.\nA: Kom je om 11.00 uur?\nB: ...","options":["Ja, om 11.00 uur.","Nee, om 9.00 uur.","Nee, om 10.00 uur."],"good":2,"why":"De afspraak is om tien uur."},{"type":"fill","q":"🕗 08:00\nHet is ___ uur.","answers":["acht"],"show":"acht","why":"08:00 is acht uur."},{"type":"fill","q":"🕖 07:00\nDe les begint een uur later.\nDe les begint om ___ uur.","answers":["acht"],"show":"acht","why":"08:00 is acht uur."}],"gemiddeld":[{"type":"choice","q":"🕥 10:30\nHoe laat is het?","options":["Half elf.","Half tien.","Half twaalf."],"good":0,"why":"10:30 is half elf."},{"type":"choice","q":"🕑 14:15\nHoe laat is het?","options":["Kwart voor twee.","Kwart over twee.","Half drie."],"good":1,"why":"14:15 is kwart over twee."},{"type":"choice","q":"🕔 16:45\nHoe laat is het?","options":["Kwart over vijf.","Half vijf.","Kwart voor vijf."],"good":2,"why":"16:45 is kwart voor vijf."},{"type":"choice","q":"📅 Vandaag is woensdag.\nA: Is het vandaag donderdag?\nB: ...","options":["Nee, het is woensdag.","Ja, het is donderdag.","Nee, het is vrijdag."],"good":0,"why":"Vandaag is woensdag, niet donderdag."},{"type":"choice","q":"📅 Morgen is maandag. De les is op dinsdag.\nA: Is de les morgen?\nB: ...","options":["Ja, morgen.","Nee, overmorgen.","Nee, gisteren."],"good":1,"why":"Als morgen maandag is, is dinsdag overmorgen."},{"type":"choice","q":"A: Zal ik vanavond koken?\nB: Nee, we eten vanavond bij Noor.\nA: ...","options":["O, dan kook ik morgen.","O, dan eten we thuis.","O, dan eten we bij mij."],"good":0,"why":"Vanavond eet je bij Noor. Je kunt morgen koken."},{"type":"choice","q":"📅 A: Kun je dinsdag?\nB: Dan werk ik. Woensdag ben ik vrij.\nA: ...","options":["Dan spreken we woensdag af.","Dan spreken we dinsdag af.","Dan spreken we maandag af."],"good":0,"why":"B kan woensdag, niet dinsdag."},{"type":"fill","q":"A: Kun je zaterdag?\nB: Ja, zaterdag kan ik.\nA: Mooi, ___ zien we elkaar zaterdag.","answers":["dan"],"show":"dan","why":"Je spreekt af voor zaterdag: dan zien we elkaar."},{"type":"fill","q":"📅 Vandaag is zondag.\nGisteren was ___.","answers":["zaterdag"],"show":"zaterdag","why":"Vóór zondag komt zaterdag."},{"type":"fill","q":"🕛 12:15\nHet is kwart ___ twaalf.","answers":["over"],"show":"over","why":"12:15 is kwart over twaalf."}],"uitdaging":[{"type":"choice","q":"Mees: Zullen we vrijdag koffie drinken?\nAya: Vrijdag werk ik. Zaterdag ben ik vrij.\nMees: Zullen we dan zaterdag gaan?\nAya: ...","options":["Nee, zaterdag werk ik.","Ja, zaterdag kan ik.","Nee, vrijdag kan ik wel."],"good":1,"why":"Aya is zaterdag vrij. Ze kan dan koffie drinken."},{"type":"choice","q":"📅 Sam werkt maandag tot zes uur. Aya wil maandag om drie uur afspreken.\nAya: Kun je om drie uur?\nSam: ...","options":["Nee, dan kan ik niet.","Ja, om drie uur ben ik klaar.","Nee, ik werk dinsdag tot zes uur."],"good":0,"why":"Sam werkt om drie uur nog."},{"type":"choice","q":"🕝 De les begint om 14:30.\nJe bent om 14:15 op school.\nHoe lang moet je wachten?","options":["5 minuten.","10 minuten.","15 minuten."],"good":2,"why":"Van 14:15 tot 14:30 is vijftien minuten."},{"type":"choice","q":"A: Zullen we zaterdag naar het park gaan?\nB: Zaterdag werk ik. Zondag ben ik vrij.\nA: ...","options":["Jammer. Dan blijf ik zaterdag thuis.","Zullen we dan zondag gaan?","Dan gaan we zaterdag."],"good":1,"why":"B kan zaterdag niet, maar zondag wel. A stelt zondag voor."},{"type":"choice","q":"📅 Vandaag is woensdag.\nDe afspraak is overmorgen.\nWanneer is de afspraak?","options":["Donderdag.","Vrijdag.","Zaterdag."],"good":1,"why":"Twee dagen na woensdag is vrijdag."},{"type":"fill","q":"A: Wanneer is de les?\nB: Vrijdag.\nA: Dan zie ik je ___ vrijdag.","answers":["op"],"show":"op","why":"Je zegt: op vrijdag."},{"type":"fill","q":"A: Hoe laat begint de les?\nB: Negen uur.\nA: Dan ben ik er ___ negen uur.","answers":["om"],"show":"om","why":"Je zegt: om negen uur."},{"type":"order","q":"🧩 Maak de zin.","tiles":["les.","ik","Maandag","heb"],"answer":["Maandag","heb","ik","les."],"why":"Na 'Maandag' komt het werkwoord: heb."},{"type":"order","q":"🧩 Maak de vraag.","tiles":["afspreken?","we","Zullen","morgen"],"answer":["Zullen","we","morgen","afspreken?"],"why":"Je doet een voorstel met: zullen we ...?"},{"type":"order","q":"🧩 Maak de zin.","tiles":["uur.","om","De","begint","les","negen"],"answer":["De","les","begint","om","negen","uur."],"why":"Je zegt: de les begint om negen uur."}]};
 const $=id=>document.getElementById(id);
 let level="basis",index=0,correct=0,answered=false,chosenTiles=[];
+function spokenQuestion(item){
+ if(item.spoken)return item.spoken;
+ const quoted=item.q.match(/[“"]([^”"]+)[”"]/);
+ if(quoted)return quoted[1];
+ return item.q.split("\n").map(s=>s.replace(/^[^:]{1,24}:\s*/,"").replace(/^[^\p{L}\p{N}]+/u,"").trim()).filter(Boolean).slice(-1)[0]||item.q;
+}
+function say(text,slow){
+ if(!text||!String(text).trim())return;
+ if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window)){
+  $("audio-status").textContent="Audio is niet beschikbaar op dit apparaat. Lees de zin op het scherm.";return;
+ }
+ const synth=window.speechSynthesis;synth.cancel();
+ const speech=new window.SpeechSynthesisUtterance(String(text).replace(/[_]{2,}/g," ").replace(/\s+/g," ").trim());
+ speech.lang="nl-NL";speech.rate=slow?.75:.95;
+ const voices=synth.getVoices();const dutch=voices.find(v=>v.lang.toLowerCase()==="nl-nl")||voices.find(v=>v.lang.toLowerCase().startsWith("nl"));
+ if(dutch)speech.voice=dutch;
+ $("audio-status").textContent="";
+ synth.speak(speech);
+}
+function listenButton(getText,label,slow){
+ const b=document.createElement("button");b.type="button";b.className="sound-button";
+ b.textContent=slow?"▶ Langzaam":"🔊 Luister";
+ b.setAttribute("aria-label",label);b.title=label;
+ b.addEventListener("click",()=>say(typeof getText==="function"?getText():getText,slow));
+ return b;
+}
 function norm(v){return v.trim().toLocaleLowerCase("nl-NL").replace(/[.!?]+$/,"").replace(/\s+/g," ")}
 function showProgress(value){const pct=Math.round(value/bank[level].length*100);$("fillbar").style.width=pct+"%";$("progress").setAttribute("aria-valuenow",String(pct))}
 function valid(item){if(item.type==="choice")return item.options[item.good];if(item.type==="fill")return item.show;return item.answer.join(" ")}
 function mark(ok,item){
  if(answered)return;answered=true;if(ok)correct++;
  $("feedback").textContent=(ok?"Goed! ":"Nog niet. Goed is: "+valid(item)+". ")+item.why;
+ const audio=document.createElement("div");audio.className="correct-audio";audio.append(listenButton(valid(item),"Luister naar het goede antwoord",false));$("feedback").append(audio);
  $("next").disabled=false;$("check").hidden=true;
 }
 function show(){
  const items=bank[level],item=items[index];answered=false;chosenTiles=[];
  $("step").textContent="Vraag "+(index+1)+" van "+items.length;showProgress(index);
- $("prompt").textContent=item.q;$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===items.length-1?"Bekijk resultaat":"Volgende vraag";$("check").hidden=true;
+ $("prompt").textContent=item.q;$("prompt-audio").replaceChildren(listenButton(()=>spokenQuestion(item),"Luister naar de uitspraak",false),listenButton(()=>spokenQuestion(item),"Luister langzaam",true));$("audio-status").textContent="";$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===items.length-1?"Bekijk resultaat":"Volgende vraag";$("check").hidden=true;
  const zone=$("answer-area");zone.replaceChildren();
  if(item.type==="choice"){
-  item.options.forEach((option,n)=>{const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=option;
-   b.addEventListener("click",()=>{if(answered)return;const ok=n===item.good;[...zone.children].forEach((k,i)=>{k.disabled=true;k.classList.toggle("correct",i===item.good);k.classList.toggle("wrong",i===n&&!ok)});mark(ok,item)});zone.append(b)});
+  const buttons=[];
+  item.options.forEach((option,n)=>{
+   const row=document.createElement("div");row.className="answer-row";
+   const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=option;buttons.push(b);
+   b.addEventListener("click",()=>{if(answered)return;const ok=n===item.good;buttons.forEach((k,i)=>{k.disabled=true;k.classList.toggle("correct",i===item.good);k.classList.toggle("wrong",i===n&&!ok)});mark(ok,item)});
+   row.append(b,listenButton(option,"Luister naar antwoord "+(n+1),false));zone.append(row);
+  });
  }else if(item.type==="fill"){
   const label=document.createElement("label");label.htmlFor="written-answer";label.textContent="Vul het woord in:";zone.append(label);
   const input=document.createElement("input");input.id="written-answer";input.className="fill";input.type="text";input.autocomplete="off";input.spellcheck=false;zone.append(input);
   $("check").hidden=false;$("check").disabled=false;
   input.addEventListener("keydown",ev=>{if(ev.key==="Enter"&&!answered){ev.preventDefault();$("check").click()}});
+  zone.append(listenButton(()=>input.value,"Luister naar wat je hebt ingevuld",false));
  }else{
   const label=document.createElement("p");label.className="hint";label.textContent="Tik op de woorden. Maak de zin of vraag.";zone.append(label);
   const out=document.createElement("div");out.className="ordered";out.id="ordered-text";out.textContent="Tik op de woorden.";zone.append(out);
   const tiles=document.createElement("div");tiles.className="tiles";zone.append(tiles);
   item.tiles.forEach((word,i)=>{const b=document.createElement("button");b.type="button";b.textContent=word;b.addEventListener("click",()=>{if(answered||b.disabled)return;b.disabled=true;chosenTiles.push({word,button:b});out.textContent=chosenTiles.map(x=>x.word).join(" ");});tiles.append(b)});
+  zone.append(listenButton(()=>chosenTiles.map(x=>x.word).join(" "),"Luister naar jouw zin",false));
   const reset=document.createElement("button");reset.className="answer";reset.type="button";reset.textContent="Wis de zin";reset.addEventListener("click",()=>{if(answered)return;chosenTiles.forEach(x=>x.button.disabled=false);chosenTiles=[];out.textContent="Tik op de woorden."});zone.append(reset);
   $("check").hidden=false;$("check").disabled=false;
  }
