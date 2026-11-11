@@ -83,7 +83,7 @@ function say(text,slow){
  }
  const synth=window.speechSynthesis;synth.cancel();
  const speech=new window.SpeechSynthesisUtterance(String(text).replace(/[_]{2,}/g," ").replace(/\s+/g," ").trim());
- speech.lang="nl-NL";speech.rate=slow?.75:.95;
+ speech.lang="nl-NL";speech.rate=slow?0.55:1.0;
  const voices=synth.getVoices();const dutch=voices.find(v=>v.lang.toLowerCase()==="nl-nl")||voices.find(v=>v.lang.toLowerCase().startsWith("nl"));
  if(dutch)speech.voice=dutch;
  $("audio-status").textContent="";
