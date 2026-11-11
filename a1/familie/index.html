@@ -32,6 +32,19 @@
  .print-options span{display:inline-block;margin-right:6mm}
  .print-line{border-bottom:1px solid #777;height:8mm}
 }
+
+/* Luister en reageer: dezelfde TouwTaal-stijl voor A1 en A2. */
+.prompt-listen{display:flex;align-items:flex-start;gap:.8rem;flex-wrap:wrap}
+.prompt-listen .prompt{flex:1 1 100%;margin-bottom:.25rem}
+.prompt-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin:.15rem 0 .6rem}
+.answer-row{display:flex;align-items:stretch;gap:.6rem;margin:.6rem 0;min-width:0}
+.answer-row .answer{flex:1;min-width:0;margin:0;overflow-wrap:anywhere}
+.sound-button{flex:none;min-height:48px;padding:.6rem .85rem;background:var(--art);color:var(--deep);border:2px solid var(--lavender);border-radius:12px;font:750 .95rem "DM Sans",Arial,sans-serif;cursor:pointer}
+.sound-button:hover{border-color:var(--purple)}
+.sound-button:focus-visible{outline:3px solid var(--deep);outline-offset:3px}
+.sound-button:disabled{opacity:.55}
+.correct-audio{margin:.7rem 0 .1rem}
+@media(max-width:550px){.answer-row{gap:.35rem}.sound-button{font-size:.84rem;padding:.45rem .55rem}.answer-row .answer{padding:.55rem .6rem}}
 </style></head>
 <body>
 <a class="skip" href="#inhoud">Ga naar inhoud</a>
@@ -42,7 +55,7 @@
 <p class="hint">10 vragen per niveau. Kies het antwoord, vul een woord in of maak een zin.</p></section>
 <section class="practice-card" aria-label="Interactieve oefening"><div class="steps" id="step">Vraag 1 van 10</div>
 <div class="bar" id="progress" role="progressbar" aria-label="Voortgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fillbar"></span></div>
-<p class="prompt" id="prompt"></p><div id="answer-area"></div>
+<div class="prompt-listen"><p class="prompt" id="prompt"></p></div><div class="prompt-actions" id="prompt-audio"></div><p class="hint" id="audio-status" role="status" aria-live="polite"></p><div id="answer-area"></div>
 <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
 <div class="actions"><button type="button" id="check" class="primary" hidden>Controleer</button><button type="button" id="next" class="primary" disabled>Volgende vraag</button><button type="button" id="retry">Opnieuw beginnen</button><button type="button" id="print">Print werkblad</button></div>
 </section>
@@ -56,32 +69,66 @@
 const bank={"basis":[{"type":"choice","q":"👴 De vader van mijn moeder is mijn ...","options":["opa.","oom.","broer."],"good":0,"why":"De vader van je moeder is je opa."},{"type":"choice","q":"👵 De moeder van mijn vader is mijn ...","options":["tante.","oma.","zus."],"good":1,"why":"De moeder van je vader is je oma."},{"type":"choice","q":"👩 Mijn moeder heet Sara.\nIk zeg: ...","options":["Zijn naam is Sara.","Mijn naam is Sara.","Haar naam is Sara."],"good":2,"why":"Bij je moeder gebruik je haar: haar naam is Sara."},{"type":"choice","q":"Lina: Mijn moeder heeft een broer. Hij heet Karim.\nWie is Karim voor Lina?","options":["Haar oom.","Haar opa.","Haar neef."],"good":0,"why":"De broer van je moeder is je oom."},{"type":"choice","q":"Mila: Mijn vader heeft een zus. Ze heet Fatima.\nWie is Fatima voor Mila?","options":["Haar oma.","Haar tante.","Haar nicht."],"good":1,"why":"De zus van je vader is je tante."},{"type":"choice","q":"Nora heeft twee zoons en een dochter.\nA: Heeft Nora kinderen?\nB: ...","options":["Ja, Nora heeft drie kinderen.","Ja, Nora heeft één kind.","Nee, Nora heeft geen kinderen."],"good":0,"why":"Twee zoons en één dochter zijn samen drie kinderen."},{"type":"choice","q":"Sam: Dit zijn mijn vader en moeder.\nA: Wie zijn dat?\nSam: ...","options":["Mijn ouders.","Mijn broer en zus.","Mijn opa en oma."],"good":0,"why":"Je vader en moeder zijn je ouders."},{"type":"choice","q":"Mijn vader heeft een broer en mijn moeder heeft een zus.\nWie zijn dat voor mij?","options":["Mijn oom en tante.","Mijn opa en oma.","Mijn broer en zus."],"good":0,"why":"De broer van je vader is je oom. De zus van je moeder is je tante."},{"type":"fill","q":"Ik heb een broer. ___ naam is Sam.","answers":["zijn"],"show":"Zijn","why":"Bij je broer zeg je: zijn naam."},{"type":"fill","q":"A: Hoe ___ je broer?\nB: Sam.","answers":["heet"],"show":"heet","why":"Je vraagt: hoe heet je broer?"}],"gemiddeld":[{"type":"choice","q":"Sam: Ik heb drie zussen.\nNoor: ...\nSam: Sara, Lina en Aya.","options":["Hoe heten ze?","Hoeveel zussen heb je?","Waar wonen ze?"],"good":0,"why":"Sam noemt namen. Noor vraagt dus hoe de zussen heten."},{"type":"choice","q":"Noor heeft één broer en geen zussen.\nA: Heb jij een zus?\nNoor: ...","options":["Ja, ik heb een zus.","Nee, ik heb alleen een broer.","Nee, ik heb twee zussen."],"good":1,"why":"Noor heeft een broer, maar geen zus."},{"type":"choice","q":"Oma woont in Leiden. Tante Noor woont in Delft.\nA: Woont je oma in Delft?\nB: ...","options":["Ja, ze woont in Delft.","Nee, ze woont in Leiden.","Nee, ze woont in Haarlem."],"good":1,"why":"Oma woont in Leiden. Tante Noor woont in Delft."},{"type":"choice","q":"A: Ik heb twee broers.\nB: ...","options":["Hoe heet hij?","Hoe heten ze?","Hoe heet je zus?"],"good":1,"why":"Het zijn twee broers; gebruik ze en heten."},{"type":"choice","q":"A: Mijn oom woont in Utrecht.\nB: ...\nA: Hij heet Omar.","options":["Hoe heet hij?","Waar woont hij?","Hoe oud is hij?"],"good":0,"why":"Het antwoord geeft een naam: Omar."},{"type":"choice","q":"A: Hoe oud is je zus?\nB: ...","options":["Ze is 23 jaar oud.","Ze heeft 23 jaar.","Hij is 23 jaar oud."],"good":0,"why":"In het Nederlands zeg je: zij is 23 jaar oud. Niet: zij heeft 23 jaar."},{"type":"fill","q":"Mijn tante heeft een zoon. Hij heet Adam.\nAdam is mijn ___.","answers":["neef"],"show":"neef","why":"De zoon van je tante is je neef."},{"type":"fill","q":"Mijn moeder heeft een bril. ___ draagt hem elke dag.","answers":["ze","zij"],"show":"ze","why":"Ze en zij zijn allebei goed als je over je moeder praat."},{"type":"fill","q":"Ik heb een zus. ___ naam is Noor.","answers":["haar"],"show":"Haar","why":"Bij je zus zeg je: haar naam."},{"type":"fill","q":"Mijn oom heeft een dochter. Ze heet Esra.\nEsra is mijn ___.","answers":["nicht"],"show":"nicht","why":"De dochter van je oom is je nicht."}],"uitdaging":[{"type":"fill","q":"Mijn zus is getrouwd met Ali.\nAli is mijn ___.","answers":["zwager"],"show":"zwager","why":"De man van je zus is je zwager."},{"type":"fill","q":"Mijn broer is getrouwd met Sara.\nSara is mijn ___.","answers":["schoonzus"],"show":"schoonzus","why":"De vrouw van je broer is je schoonzus."},{"type":"fill","q":"Mijn vader heeft twee zoons. Wij hebben dezelfde vader, maar een andere moeder.\nDe andere zoon is mijn ___.","answers":["halfbroer"],"show":"halfbroer","why":"Een halfbroer heeft één ouder met jou gemeen."},{"type":"fill","q":"A: Is dit ___ huis? (wij)\nB: Ja, wij wonen hier.","answers":["ons"],"show":"ons","why":"Huis is een het-woord: ons huis."},{"type":"fill","q":"A: Is dit ___ familie? (wij)\nB: Ja.","answers":["onze"],"show":"onze","why":"Familie is een de-woord: onze familie."},{"type":"choice","q":"Mijn moeder heeft krullend haar. Mijn zus heeft steil haar.\nWelke omschrijving past bij mijn moeder?","options":["Een vrouw met steil haar.","Een man met krullend haar.","Een vrouw met krullend haar."],"good":2,"why":"Mijn moeder is een vrouw en zij heeft krullend haar."},{"type":"fill","q":"Zij hebben twee kinderen. ___ kinderen zijn nog klein.","answers":["hun"],"show":"Hun","why":"Hun verwijst naar de kinderen van die twee personen."},{"type":"order","q":"🧩 Maak de zin.","tiles":["Leiden.","mijn","in","zus","Nu","woont"],"answer":["Nu","woont","mijn","zus","in","Leiden."],"why":"Na Nu staat het werkwoord: Nu woont mijn zus in Leiden."},{"type":"order","q":"🧩 Maak de vraag.","tiles":["broers","je","heeft","Hoeveel","moeder?"],"answer":["Hoeveel","broers","heeft","je","moeder?"],"why":"Na Hoeveel broers komt de persoonsvorm heeft."},{"type":"order","q":"🧩 Maak de zin.","tiles":["opa","in","Utrecht.","oma","en","wonen","Mijn"],"answer":["Mijn","opa","en","oma","wonen","in","Utrecht."],"why":"Opa en oma zijn twee personen. Daarom: wonen."}]};
 const $=id=>document.getElementById(id);
 let level="basis",index=0,correct=0,answered=false,chosenTiles=[];
+function spokenQuestion(item){
+ if(item.spoken)return item.spoken;
+ const quoted=item.q.match(/[“"]([^”"]+)[”"]/);
+ if(quoted)return quoted[1];
+ return item.q.split("\n").map(s=>s.replace(/^[^:]{1,24}:\s*/,"").replace(/^[^\p{L}\p{N}]+/u,"").trim()).filter(Boolean).slice(-1)[0]||item.q;
+}
+function say(text,slow){
+ if(!text||!String(text).trim())return;
+ if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window)){
+  $("audio-status").textContent="Audio is niet beschikbaar op dit apparaat. Lees de zin op het scherm.";return;
+ }
+ const synth=window.speechSynthesis;synth.cancel();
+ const speech=new window.SpeechSynthesisUtterance(String(text).replace(/[_]{2,}/g," ").replace(/\s+/g," ").trim());
+ speech.lang="nl-NL";speech.rate=slow?.75:.95;
+ const voices=synth.getVoices();const dutch=voices.find(v=>v.lang.toLowerCase()==="nl-nl")||voices.find(v=>v.lang.toLowerCase().startsWith("nl"));
+ if(dutch)speech.voice=dutch;
+ $("audio-status").textContent="";
+ synth.speak(speech);
+}
+function listenButton(getText,label,slow){
+ const b=document.createElement("button");b.type="button";b.className="sound-button";
+ b.textContent=slow?"▶ Langzaam":"🔊 Luister";
+ b.setAttribute("aria-label",label);b.title=label;
+ b.addEventListener("click",()=>say(typeof getText==="function"?getText():getText,slow));
+ return b;
+}
 function norm(v){return v.trim().toLocaleLowerCase("nl-NL").replace(/[.!?]+$/,"").replace(/\s+/g," ")}
 function showProgress(value){const pct=Math.round(value/bank[level].length*100);$("fillbar").style.width=pct+"%";$("progress").setAttribute("aria-valuenow",String(pct))}
 function valid(item){if(item.type==="choice")return item.options[item.good];if(item.type==="fill")return item.show;return item.answer.join(" ")}
 function mark(ok,item){
  if(answered)return;answered=true;if(ok)correct++;
  $("feedback").textContent=(ok?"Goed! ":"Nog niet. Goed is: "+valid(item)+". ")+item.why;
+ const audio=document.createElement("div");audio.className="correct-audio";audio.append(listenButton(valid(item),"Luister naar het goede antwoord",false));$("feedback").append(audio);
  $("next").disabled=false;$("check").hidden=true;
 }
 function show(){
  const items=bank[level],item=items[index];answered=false;chosenTiles=[];
  $("step").textContent="Vraag "+(index+1)+" van "+items.length;showProgress(index);
- $("prompt").textContent=item.q;$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===items.length-1?"Bekijk resultaat":"Volgende vraag";$("check").hidden=true;
+ $("prompt").textContent=item.q;$("prompt-audio").replaceChildren(listenButton(()=>spokenQuestion(item),"Luister naar de uitspraak",false),listenButton(()=>spokenQuestion(item),"Luister langzaam",true));$("audio-status").textContent="";$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===items.length-1?"Bekijk resultaat":"Volgende vraag";$("check").hidden=true;
  const zone=$("answer-area");zone.replaceChildren();
  if(item.type==="choice"){
-  item.options.forEach((option,n)=>{const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=option;
-   b.addEventListener("click",()=>{if(answered)return;const ok=n===item.good;[...zone.children].forEach((k,i)=>{k.disabled=true;k.classList.toggle("correct",i===item.good);k.classList.toggle("wrong",i===n&&!ok)});mark(ok,item)});zone.append(b)});
+  const buttons=[];
+  item.options.forEach((option,n)=>{
+   const row=document.createElement("div");row.className="answer-row";
+   const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=option;buttons.push(b);
+   b.addEventListener("click",()=>{if(answered)return;const ok=n===item.good;buttons.forEach((k,i)=>{k.disabled=true;k.classList.toggle("correct",i===item.good);k.classList.toggle("wrong",i===n&&!ok)});mark(ok,item)});
+   row.append(b,listenButton(option,"Luister naar antwoord "+(n+1),false));zone.append(row);
+  });
  }else if(item.type==="fill"){
   const label=document.createElement("label");label.htmlFor="written-answer";label.textContent="Vul het woord in:";zone.append(label);
   const input=document.createElement("input");input.id="written-answer";input.className="fill";input.type="text";input.autocomplete="off";input.spellcheck=false;zone.append(input);
   $("check").hidden=false;$("check").disabled=false;
   input.addEventListener("keydown",ev=>{if(ev.key==="Enter"&&!answered){ev.preventDefault();$("check").click()}});
+  zone.append(listenButton(()=>input.value,"Luister naar wat je hebt ingevuld",false));
  }else{
   const label=document.createElement("p");label.className="hint";label.textContent="Tik op de woorden. Maak de zin of vraag.";zone.append(label);
   const out=document.createElement("div");out.className="ordered";out.id="ordered-text";out.textContent="Tik op de woorden.";zone.append(out);
   const tiles=document.createElement("div");tiles.className="tiles";zone.append(tiles);
   item.tiles.forEach((word,i)=>{const b=document.createElement("button");b.type="button";b.textContent=word;b.addEventListener("click",()=>{if(answered||b.disabled)return;b.disabled=true;chosenTiles.push({word,button:b});out.textContent=chosenTiles.map(x=>x.word).join(" ");});tiles.append(b)});
+  zone.append(listenButton(()=>chosenTiles.map(x=>x.word).join(" "),"Luister naar jouw zin",false));
   const reset=document.createElement("button");reset.className="answer";reset.type="button";reset.textContent="Wis de zin";reset.addEventListener("click",()=>{if(answered)return;chosenTiles.forEach(x=>x.button.disabled=false);chosenTiles=[];out.textContent="Tik op de woorden."});zone.append(reset);
   $("check").hidden=false;$("check").disabled=false;
  }
