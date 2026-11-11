@@ -45,6 +45,7 @@
  .print-options{font:9pt/1.35 Arial,sans-serif!important}
  .print-options span{display:block!important;margin-bottom:.5mm!important}
 }
+.quiz-answer-row{display:flex;align-items:stretch;gap:.4rem}.quiz-answer-row .answer{flex:1;min-width:0;overflow-wrap:anywhere}.sound-button{flex:none;padding:.45rem .6rem;background:var(--art);color:var(--deep);border:1px solid var(--lavender);border-radius:8px;font:700 .84rem "DM Sans",Arial,sans-serif;cursor:pointer}.sound-button:hover{border-color:var(--purple)}.sound-button:focus-visible{outline:3px solid var(--deep);outline-offset:2px}.question>.sound-button{margin:0 0 .55rem}.result .sound-button{margin:.35rem 0 0}@media print{.sound-button{display:none!important}}
 </style></head><body>
 <a class="skip" href="#inhoud">Ga naar inhoud</a>
 <header class="site-header"><nav class="nav" aria-label="Hoofdnavigatie">
@@ -141,22 +142,29 @@ function tap(i){
  update();
  if(found.size===themes[theme].words.length)status("Alle woorden gevonden! Het geheime woord is "+themes[theme].secret+". Maak ook de vragen.");
 }
+function sayDutch(text,slow){if(!String(text||"").trim())return;if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window)){status("Audio is niet beschikbaar op dit apparaat.");return}const synth=window.speechSynthesis;synth.cancel();const utterance=new window.SpeechSynthesisUtterance(String(text).replace(/[_]{2,}/g," ... "));utterance.lang="nl-NL";utterance.rate=slow?.75:.95;const voices=synth.getVoices();utterance.voice=voices.find(v=>v.lang.toLowerCase()==="nl-nl")||voices.find(v=>v.lang.toLowerCase().startsWith("nl"))||null;synth.speak(utterance)}
+function quizAudio(text,label){const b=document.createElement("button");b.type="button";b.className="sound-button";b.textContent="🔊 Luister";b.setAttribute("aria-label",label);b.addEventListener("click",()=>sayDutch(text,false));return b}
 function drawQuiz(){
  answered=new Set();const root=$("quiz");root.replaceChildren();
  themes[theme].questions.forEach((q,i)=>{
   const card=document.createElement("div");card.className="question";
-  const heading=document.createElement("strong");heading.textContent=(i+1)+". "+q.q;card.append(heading);
+  const heading=document.createElement("strong");heading.textContent=(i+1)+". "+q.q;
+  card.append(heading,quizAudio(q.q,"Luister naar vraag "+(i+1)));
   const options=document.createElement("div");options.className="choices";
   const printChoices=document.createElement("div");printChoices.className="print-options";
   const result=document.createElement("p");result.className="result";result.setAttribute("aria-live","polite");
+  const optionButtons=[];
   q.options.forEach((value,n)=>{
+   const row=document.createElement("div");row.className="quiz-answer-row";
    const button=document.createElement("button");button.type="button";button.className="answer";button.textContent=String.fromCharCode(65+n)+". "+value;
+   optionButtons.push(button);
    button.addEventListener("click",()=>{
     if(answered.has(i))return;answered.add(i);
-    [...options.children].forEach((other,k)=>{other.disabled=true;other.classList.toggle("correct",k===q.good);other.classList.toggle("wrong",k===n&&k!==q.good)});
+    optionButtons.forEach((other,k)=>{other.disabled=true;other.classList.toggle("correct",k===q.good);other.classList.toggle("wrong",k===n&&k!==q.good)});
     result.textContent=n===q.good?"Goed! "+q.why:"Nog niet. Goed is: "+q.options[q.good]+". "+q.why;
+    result.append(quizAudio(q.options[q.good],"Luister naar het goede antwoord"));
    });
-   options.append(button);
+   row.append(button,quizAudio(value,"Luister naar antwoord "+(n+1)));options.append(row);
    const span=document.createElement("span");span.textContent="◯ "+String.fromCharCode(65+n)+". "+value;printChoices.append(span);
   });
   card.append(options,printChoices,result);root.append(card);
@@ -180,7 +188,7 @@ function draw(){
    const steps={ArrowLeft:-1,ArrowRight:1,ArrowUp:-N,ArrowDown:N};
    if(!(e.key in steps))return;
    const target=i+steps[e.key];
-   if(target<0||target>=N*N||(e.key==="ArrowLeft"&&col===0)||(e.key==="ArrowRight"&&col===N-1))return;
+   if(target<0||target>=N*R||(e.key==="ArrowLeft"&&col===0)||(e.key==="ArrowRight"&&col===N-1))return;
    e.preventDefault();[...root.children].forEach(child=>child.tabIndex=-1);root.children[target].tabIndex=0;root.children[target].focus();
   });
   root.append(button);
