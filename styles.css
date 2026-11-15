@@ -46,3 +46,17 @@ h1,h2,h3{font-family:Manrope,Arial,sans-serif;letter-spacing:-.055em;line-height
 .write-row .entry input{min-width:0;max-width:100%;box-sizing:border-box}
 .write-row .entry button{min-width:0;max-width:100%;white-space:normal}
 @media(max-width:460px){.write-row .entry{flex-direction:column}.write-row .entry input{width:100%;flex:0 0 auto}.write-row .entry button{width:100%}}
+
+/* TouwTaal worksheet copyright: reuse an existing print header line.
+   Keep this out of normal document flow so A4 pagination is unchanged.
+   Also picked up by the central werkblad.html print preview. */
+@media print{
+ :is(#print-level,.print-name,.sheet > p.print-only,.print-header > p:first-of-type,main > .print-only > p:first-of-type){position:relative!important}
+ :is(#print-level,.print-name,.sheet > p.print-only,.print-header > p:first-of-type,main > .print-only > p:first-of-type)::after{
+  content:"© 2026 TouwTaal · Yasmina Touw";
+  position:absolute!important;right:0!important;top:50%!important;transform:translateY(-50%);
+  display:block!important;white-space:nowrap!important;
+  font:400 7pt/1 Arial,sans-serif!important;letter-spacing:0!important;color:#666!important;
+  margin:0!important;padding:0!important;border:0!important;pointer-events:none
+ }
+}
