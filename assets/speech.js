@@ -12,10 +12,13 @@
   for(let i=0;i<words.length;i+=2)parts.push(words.slice(i,i+2).join(" "));
   return parts;
  }
+ function cleanSpeech(text){
+  return String(text??"").replace(/\\/g,"").replace(/["“”„«»]/g,"").replace(/[\p{Extended_Pictographic}\uFE0F\u200D]/gu," ").replace(/_{2,}/g," ").replace(/\s+/g," ").trim();
+ }
  function play(text,opts){
   opts=opts||{};
   const status=opts.statusElement||null;
-  text=String(text||"").replace(/_{2,}/g," ").replace(/\s+/g," ").trim();
+  text=cleanSpeech(text);
   if(!text)return;
   if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window)){
    if(status)status.textContent="Audio is niet beschikbaar op dit apparaat.";
