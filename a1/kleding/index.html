@@ -2,7 +2,7 @@
 <html lang="nl">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#F8F4EE">
-<meta name="description" content="A1 Nederlands oefenen: kleding, kleuren, passen, maten en vergelijkingen in 3 niveaus met printbare A4-werkbladen.">
+<meta name="description" content="A1 Nederlands oefenen: kleding, maten, passen, kleuren, ruilen en betalen; drie niveaus, printbaar A4.">
 <title>A1 · In de kledingwinkel | TouwTaal NT2</title>
 <link rel="stylesheet" href="../../styles.css">
 <style>
@@ -45,17 +45,19 @@
 .sound-button:disabled{opacity:.55}
 .correct-audio{margin:.7rem 0 .1rem}
 @media(max-width:550px){.answer-row{gap:.35rem}.sound-button{font-size:.84rem;padding:.45rem .55rem}.answer-row .answer{padding:.55rem .6rem}}
+.context-heading{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap}.context-languages{display:flex;gap:.3rem}.context-languages button{background:#fff;border:2px solid var(--lavender);border-radius:9px;color:var(--ink);font:700 .9rem "DM Sans",Arial,sans-serif;padding:.45rem .7rem;min-height:40px;cursor:pointer}.context-languages button[aria-pressed=true]{background:var(--purple);border-color:var(--purple);color:#fff}.context-languages button:focus-visible{outline:3px solid var(--deep);outline-offset:2px}.context-text{margin:.4rem 0 0;font-weight:600}#context-support{background:var(--art);border:1px solid var(--line);border-radius:12px;padding:.7rem .9rem;margin:.9rem 0 0}#context-support[hidden]{display:none!important}
+.open-answer{display:block;width:100%;box-sizing:border-box;min-height:92px;resize:vertical;margin:.45rem 0 .65rem;border:2px solid var(--lavender);border-radius:12px;background:white;color:var(--ink);padding:.75rem;font:600 1rem "DM Sans",Arial,sans-serif}.open-answer:focus-visible{outline:3px solid var(--deep);outline-offset:2px}.open-model{display:block;font-weight:800;margin:.55rem 0}.open-label{display:block}.open-note{margin:.5rem 0}
 </style></head>
 <body>
 <a class="skip" href="#inhoud">Ga naar inhoud</a>
 <header class="site-header"><nav class="nav" aria-label="Hoofdnavigatie"><a class="site-label" href="../../index.html"><img src="https://touwtaal.github.io/assets/logo.jpg" alt="TouwTaal" style="height:45px;max-width:155px;object-fit:contain"> <span>NT2-oefeningen</span></a><div class="navlinks"><a href="../../index.html">Alle niveaus</a><a href="https://touwtaal.github.io/">TouwTaal</a></div></nav></header>
-<section class="hero"><div class="hero-inner"><div class="eyebrow">A1 · Kleding</div><h1>Welke maat heeft u?</h1><p>Zoek kleding. Kies een maat en een kleur.</p></div></section>
+<section class="hero"><div class="hero-inner"><div class="eyebrow">A1 · Kleding</div><h1>Kan ik dit passen?</h1><p>Oefen een gesprek in de kledingwinkel.</p></div></section>
 <main class="wrap" id="inhoud"><div class="practice"><div class="breadcrumbs"><a href="../../index.html">Alle niveaus</a> / <a href="../index.html">A1</a> / Kleding</div>
-<section class="practice-card"><span class="pill">Hoofdstuk 7 · Kleding</span><h2>Wat ga je oefenen?</h2><p>Je oefent kleding, kleuren, passen, maten en vergelijken.</p><h3>Kies een moeilijkheid</h3><div id="levels" class="levels" role="group" aria-label="Kies moeilijkheid"><button type="button" data-level="basis" aria-pressed="true">1 · Basis</button><button type="button" data-level="gemiddeld" aria-pressed="false">2 · Gemiddeld</button><button type="button" data-level="uitdaging" aria-pressed="false">3 · Uitdaging</button></div>
-<p class="hint">10 vragen per niveau. Kies het antwoord, vul een woord in of maak een zin.</p></section>
+<section class="practice-card"><span class="pill">Hoofdstuk 7 · Kleding</span><h2>Wat ga je oefenen?</h2><p>Je oefent vragen naar kleding, kiezen, passen, maten, betalen en ruilen.</p><h3>Kies een moeilijkheid</h3><div id="levels" class="levels" role="group" aria-label="Kies moeilijkheid"><button type="button" data-level="basis" aria-pressed="true">1 · Basis</button><button type="button" data-level="gemiddeld" aria-pressed="false">2 · Gemiddeld</button><button type="button" data-level="uitdaging" aria-pressed="false">3 · Uitdaging</button></div>
+<p class="hint">10 vragen per niveau. Kies een antwoord, vul een woord in of geef zelf antwoord.</p></section>
 <section class="practice-card" aria-label="Interactieve oefening"><div class="steps" id="step">Vraag 1 van 10</div>
 <div class="bar" id="progress" role="progressbar" aria-label="Voortgang" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="fillbar"></span></div>
-<div class="prompt-listen"><p class="prompt" id="prompt"></p></div><div class="prompt-actions" id="prompt-audio"></div><p class="hint" id="audio-status" role="status" aria-live="polite"></p><div id="answer-area"></div>
+<div id="context-support" hidden><div class="context-heading"><span class="hint" id="context-label">Situation</span><div class="context-languages" role="group" aria-label="Situation language / Idioma de la situación"><button type="button" id="context-en" aria-label="English" aria-pressed="true">EN</button><button type="button" id="context-es" aria-label="Español" aria-pressed="false">ES</button></div></div><p class="context-text"><span id="context-emoji" aria-hidden="true"></span> <span id="context-text" lang="en"></span></p></div><div class="prompt-listen"><p class="prompt" id="prompt"></p></div><div class="prompt-actions" id="prompt-audio"></div><p class="hint" id="audio-status" role="status" aria-live="polite"></p><div id="answer-area"></div>
 <div id="feedback" class="feedback" role="status" aria-live="polite"></div>
 <div class="actions"><button type="button" id="check" class="primary" hidden>Controleer</button><button type="button" id="next" class="primary" disabled>Volgende vraag</button><button type="button" id="retry">Opnieuw beginnen</button><button type="button" id="print">Print werkblad</button></div>
 </section>
@@ -63,13 +65,23 @@
 <section class="practice-card" id="woordzoekers" aria-labelledby="woordzoeker-titel"><h2 id="woordzoeker-titel">Woordzoekers · Kleding</h2><p>Zoek woorden over kleding, kleuren en maten en oefen hun betekenis met korte vragen.</p><p><a href="../kleding-woordzoeker/" style="font-weight:800;color:var(--deep)">Open de woordzoekers →</a></p></section>
 </div></main>
 <footer class="footer"><p>Learn Dutch with confidence.</p><p><a href="https://touwtaal.github.io/">TouwTaal</a></p></footer>
-<script src="../../assets/speech.js?v=20261111-safari3"></script>
+<script src="../../assets/speech.js?v=20261116-clean1"></script>
 <script>
 (function(){
 "use strict";
-const bank={"basis":[{"type":"choice","q":"🧥 Het is koud buiten. De klant zoekt een warme jas.\nVerkoper: “Wat zoekt u?”\nKlant: ...","options":["Een winterjas.","Een zwembroek.","Een T-shirt."],"good":0,"why":"De klant zoekt een warme jas voor koud weer."},{"type":"choice","q":"👖 A: “Wat is dit?”\nB: ...","options":["Een jurk.","Een broek.","Een schoen."],"good":1,"why":"👖 Dit is een broek."},{"type":"choice","q":"👟 A: “Wat zijn dit?”\nB: ...","options":["Twee jassen.","Twee jurken.","Twee schoenen."],"good":2,"why":"👟 Dit zijn schoenen."},{"type":"choice","q":"🟥 A: “Welke kleur is dit?”\nB: ...","options":["Rood.","Blauw.","Groen."],"good":0,"why":"🟥 De kleur is rood."},{"type":"choice","q":"🟦 A: “Welke kleur is dit?”\nB: ...","options":["Geel.","Blauw.","Zwart."],"good":1,"why":"🟦 De kleur is blauw."},{"type":"choice","q":"👖 De klant past maat 38. De broek is te klein.\nVerkoper: “Wat zoekt u?”\nKlant: ...","options":["Een grotere maat.","Een kleinere maat.","Dezelfde maat."],"good":0,"why":"Als de broek te klein is, zoekt de klant een grotere maat."},{"type":"choice","q":"👖 De klant wil een broek passen.\nWaar gaat hij heen?","options":["Naar de paskamer.","Naar de kassa.","Naar het magazijn."],"good":0,"why":"In een paskamer kun je kleding passen."},{"type":"choice","q":"👖 De klant past een broek. Die zit precies goed.\nVerkoper: “Zit hij goed?”\nKlant: ...","options":["Nee, hij is te klein.","Ja, hij zit goed.","Nee, hij is te groot."],"good":1,"why":"De broek zit precies goed."},{"type":"fill","q":"Verkoper: “Welke ___ heeft u?”\nKlant: “40.”","answers":["maat"],"show":"maat","why":"De verkoper vraagt naar de maat."},{"type":"fill","q":"A: “Wat is je favoriete ___?”\nB: “Blauw.”","answers":["kleur"],"show":"kleur","why":"Blauw is een kleur."}],"gemiddeld":[{"type":"choice","q":"👖 De klant zoekt een broek in maat 42.\nVerkoper: “We hebben alleen maat 38 en 40.”\nWat zegt de verkoper?","options":["Maat tweeënveertig is er niet.","Maat tweeënveertig is er wel.","U kunt maat tweeënveertig passen."],"good":0,"why":"De winkel heeft alleen 38 en 40, niet 42."},{"type":"choice","q":"👖 De broek is te klein.\nVerkoper: ...","options":["Wilt u een kleinere maat?","Wilt u een grotere maat?","Wilt u een andere kleur?"],"good":1,"why":"De klant heeft een grotere maat nodig."},{"type":"choice","q":"👕 De klant wil een shirt passen.\nWaar kan dat?","options":["Bij de kassa.","In het magazijn.","In de paskamer."],"good":2,"why":"Je past kleding in een paskamer."},{"type":"choice","q":"🧥 Een rode jas kost € 80. Een blauwe kost € 40.\nDe klant heeft € 50 en wil één jas kopen.\nWelke koopt hij?","options":["De blauwe jas.","De rode jas.","Hij kan allebei kopen."],"good":0,"why":"Met € 50 kan hij de blauwe jas van € 40 kopen."},{"type":"choice","q":"👕 Je hebt een shirt in je hand.\nVerkoper: “Wilt u ___ shirt passen?”","options":["deze","dit","die"],"good":1,"why":"Je hebt het shirt dichtbij; shirt is een het-woord: dit shirt."},{"type":"choice","q":"A: “Ik wil ___ broek passen.”","options":["deze","dit","dat"],"good":0,"why":"Broek is een de-woord: deze broek."},{"type":"choice","q":"🧥 Noor heeft een jas gekocht.\nA: “Heb je die jas al?”\nNoor: ...","options":["Ja, ik heb het gekocht.","Ja, ik heb ze gekocht.","Ja, ik heb hem gekocht."],"good":2,"why":"Jas is een de-woord; je verwijst met hem."},{"type":"fill","q":"Een broek. Twee ___.","answers":["broeken"],"show":"broeken","why":"Het meervoud is broeken."},{"type":"fill","q":"🟦 A: “Heeft u het shirt ook in het ___?”\nB: “Ja, dat kan.”","answers":["blauw"],"show":"blauw","why":"🟦 De kleur is blauw."},{"type":"fill","q":"A: “Is de jurk te klein?”\nB: “Ja, ik wil een ___ maat.”","answers":["grotere"],"show":"grotere","why":"Je wilt een grotere maat."}],"uitdaging":[{"type":"choice","q":"🧥 Jas A kost € 80. Jas B kost € 50.\nNoor heeft € 60.\nWelke jas kan Noor kopen?","options":["Alleen jas A.","Alleen jas B.","Allebei."],"good":1,"why":"Jas B kost € 50 en past bij € 60. Jas A is te duur."},{"type":"choice","q":"De zwarte broek is te strak.\nDe blauwe zit goed.\nWelke broek kan Noor het best dragen?","options":["De broek die te strak zit.","De broek die goed zit.","Geen van beide."],"good":1,"why":"Noor kiest de broek die goed zit en niet de te strakke broek."},{"type":"choice","q":"👕 Het shirt is te groot.\nDe verkoper geeft advies: ...","options":["Neem een grotere maat.","Neem dezelfde maat.","Neem een kleinere maat."],"good":2,"why":"Een kleiner shirt past waarschijnlijk beter."},{"type":"choice","q":"Noor past twee jassen.\nDe eerste vindt ze mooi. De tweede vindt ze nog mooier.\nWelke zin klopt?","options":["De eerste jas is de mooiste.","De tweede jas is de mooiste.","Noor vindt beide jassen lelijk."],"good":1,"why":"Noor vindt de tweede jas mooier dan de eerste."},{"type":"choice","q":"A: “Heb je dit shirt gekocht?”\nB: ...","options":["Ja, ik heb hem gekocht.","Ja, ik heb het gekocht.","Ja, ik heb haar gekocht."],"good":1,"why":"Bij “het shirt” zeg je: ik heb het gekocht."},{"type":"fill","q":"Een kleine jas. Een ___ jas. (groot)","answers":["grote"],"show":"grote","why":"Je zegt: een grote jas."},{"type":"fill","q":"Deze broek zit goed. Die broek zit nog ___ . (goed)","answers":["beter"],"show":"beter","why":"Bij vergelijken gebruik je goed – beter."},{"type":"order","q":"🧩 Maak de vraag.","tiles":["paskamer?","de","Waar","is"],"answer":["Waar","is","de","paskamer?"],"why":"Je vraagt: waar is de paskamer?"},{"type":"order","q":"🧩 Maak de zin.","tiles":["broek","deze","passen.","wil","Ik"],"answer":["Ik","wil","deze","broek","passen."],"why":"Het tweede werkwoord staat achteraan: passen."},{"type":"order","q":"🧩 Maak de zin.","tiles":["is","mij.","voor","jas","Deze","te","klein"],"answer":["Deze","jas","is","te","klein","voor","mij."],"why":"Je zegt: deze jas is te klein voor mij."}]};
+const bank={"basis":[{"type":"choice","context":{"emoji":"🧥","en":"You need a warm coat for cold weather.","es":"Necesitas un abrigo para el frío."},"q":"Verkoper: Goedemiddag! Kan ik u helpen?","spoken":"Goedemiddag! Kan ik u helpen?","options":["Ja, ik zoek een jas.","Ja, ik zoek een rok.","Ja, ik zoek een trui."],"good":0,"why":"Je zoekt een jas. Zo vraag je ernaar."},{"type":"choice","context":{"emoji":"📏","en":"You normally wear size forty. Tell the shop assistant.","es":"Normalmente usas la talla cuarenta. Díselo al vendedor."},"q":"Verkoper: Welke maat heeft u?","spoken":"Welke maat heeft u?","options":["Ik heb maat zesendertig.","Ik heb maat tweeënveertig.","Ik heb maat veertig."],"good":2,"why":"Je vertelt welke maat je hebt."},{"type":"choice","context":{"emoji":"👕","en":"You'd like to try on the T-shirt before buying it.","es":"Quieres probarte la camiseta antes de comprarla."},"q":"Verkoper: Kan ik u helpen?","spoken":"Kan ik u helpen?","options":["Mag ik dit T-shirt betalen?","Mag ik dit T-shirt passen?","Mag ik dit T-shirt ruilen?"],"good":1,"why":"Passen betekent: kijken of de kleding goed zit."},{"type":"choice","context":{"emoji":"🟦","en":"You prefer the blue sweater.","es":"Prefieres el jersey azul."},"q":"Verkoper: Wilt u de rode of de blauwe trui?","spoken":"Wilt u de rode of de blauwe trui?","options":["De blauwe, graag.","De rode, graag.","Allebei, graag."],"good":0,"why":"Je kiest de blauwe trui."},{"type":"choice","context":{"emoji":"👖","en":"The trousers are too tight. Ask for a bigger size.","es":"El pantalón te queda demasiado ajustado. Pide una talla más grande."},"q":"Verkoper: Zit deze broek goed?","spoken":"Zit deze broek goed?","options":["Ja, hij zit precies goed.","Nee, hebt u een kleinere maat?","Nee, hebt u een grotere maat?"],"good":2,"why":"Deze broek zit te strak. Een grotere maat past misschien beter."},{"type":"choice","context":{"emoji":"🛍️","en":"You're just looking around and don't need help yet.","es":"Solo estás mirando y todavía no necesitas ayuda."},"q":"Verkoper: Zoekt u iets?","spoken":"Zoekt u iets?","options":["Ja, ik zoek de paskamer.","Nee, dank u. Ik kijk nog even.","Ja, ik wil deze trui passen."],"good":1,"why":"Je zegt beleefd dat je nog even wilt kijken."},{"type":"choice","context":{"emoji":"👗","en":"You like the dress, but you'd prefer another colour.","es":"Te gusta el vestido, pero prefieres otro color."},"q":"Verkoper: Wat vindt u van deze jurk?","spoken":"Wat vindt u van deze jurk?","options":["Mooi, maar hebt u een grotere maat?","Mooi, ik neem hem meteen mee.","Mooi, maar hebt u een andere kleur?"],"good":2,"why":"Je vindt de jurk mooi, maar wilt een andere kleur."},{"type":"choice","context":{"emoji":"🧾","en":"You're buying the sweater. Ask for a receipt.","es":"Vas a comprar el jersey. Pide el recibo."},"q":"Verkoper: Dat is dertig euro, alstublieft.","spoken":"Dat is dertig euro, alstublieft.","options":["Mag ik de bon, alstublieft?","Mag ik de trui passen?","Hebt u een andere maat?"],"good":0,"why":"Bij de kassa kun je om een bon vragen."},{"type":"fill","context":{"emoji":"💳","en":"You'd like to pay by card, not in cash.","es":"Quieres pagar con tarjeta, no en efectivo."},"q":"Verkoper: Wilt u contant betalen?\nJij: Nee, mag ik ___?","spoken":"Wilt u contant betalen?","answers":["pinnen"],"show":"Nee, mag ik pinnen?","why":"Pinnen is betalen met je bankpas."},{"type":"fill","context":{"emoji":"🔁","en":"The sweater you bought is too small. You'd like to exchange it.","es":"El jersey que compraste te queda pequeño. Quieres cambiarlo."},"q":"Verkoper: Kan ik u helpen?\nJij: Ja, ik wil deze trui ___.","spoken":"Kan ik u helpen?","answers":["ruilen"],"show":"Ja, ik wil deze trui ruilen.","why":"Ruilen betekent: je geeft iets terug en kiest iets anders."}],"gemiddeld":[{"type":"choice","q":"👖 De klant zoekt een broek in maat 42.\nVerkoper: “We hebben alleen maat 38 en 40.”\nWat zegt de verkoper?","options":["Maat tweeënveertig is er niet.","Maat tweeënveertig is er wel.","U kunt maat tweeënveertig passen."],"good":0,"why":"De winkel heeft alleen 38 en 40, niet 42."},{"type":"choice","q":"👖 De broek is te klein.\nVerkoper: ...","options":["Wilt u een kleinere maat?","Wilt u een grotere maat?","Wilt u een andere kleur?"],"good":1,"why":"De klant heeft een grotere maat nodig."},{"type":"choice","q":"👕 De klant wil een shirt passen.\nWaar kan dat?","options":["Bij de kassa.","In het magazijn.","In de paskamer."],"good":2,"why":"Je past kleding in een paskamer."},{"type":"choice","q":"🧥 Een rode jas kost € 80. Een blauwe kost € 40.\nDe klant heeft € 50 en wil één jas kopen.\nWelke koopt hij?","options":["De blauwe jas.","De rode jas.","Hij kan allebei kopen."],"good":0,"why":"Met € 50 kan hij de blauwe jas van € 40 kopen."},{"type":"choice","q":"👕 Je hebt een shirt in je hand.\nVerkoper: “Wilt u ___ shirt passen?”","options":["deze","dit","die"],"good":1,"why":"Je hebt het shirt dichtbij; shirt is een het-woord: dit shirt."},{"type":"choice","q":"A: “Ik wil ___ broek passen.”","options":["deze","dit","dat"],"good":0,"why":"Broek is een de-woord: deze broek."},{"type":"choice","q":"🧥 Noor heeft een jas gekocht.\nA: “Heb je die jas al?”\nNoor: ...","options":["Ja, ik heb het gekocht.","Ja, ik heb ze gekocht.","Ja, ik heb hem gekocht."],"good":2,"why":"Jas is een de-woord; je verwijst met hem."},{"type":"fill","q":"Een broek. Twee ___.","answers":["broeken"],"show":"broeken","why":"Het meervoud is broeken."},{"type":"fill","q":"🟦 A: “Heeft u het shirt ook in het ___?”\nB: “Ja, dat kan.”","answers":["blauw"],"show":"blauw","why":"🟦 De kleur is blauw."},{"type":"fill","q":"A: “Is de jurk te klein?”\nB: “Ja, ik wil een ___ maat.”","answers":["grotere"],"show":"grotere","why":"Je wilt een grotere maat."}],"uitdaging":[{"type":"choice","q":"🧥 Jas A kost € 80. Jas B kost € 50.\nNoor heeft € 60.\nWelke jas kan Noor kopen?","options":["Alleen jas A.","Alleen jas B.","Allebei."],"good":1,"why":"Jas B kost € 50 en past bij € 60. Jas A is te duur."},{"type":"choice","q":"De zwarte broek is te strak.\nDe blauwe zit goed.\nWelke broek kan Noor het best dragen?","options":["De broek die te strak zit.","De broek die goed zit.","Geen van beide."],"good":1,"why":"Noor kiest de broek die goed zit en niet de te strakke broek."},{"type":"choice","q":"👕 Het shirt is te groot.\nDe verkoper geeft advies: ...","options":["Neem een grotere maat.","Neem dezelfde maat.","Neem een kleinere maat."],"good":2,"why":"Een kleiner shirt past waarschijnlijk beter."},{"type":"choice","q":"Noor past twee jassen.\nDe eerste vindt ze mooi. De tweede vindt ze nog mooier.\nWelke zin klopt?","options":["De eerste jas is de mooiste.","De tweede jas is de mooiste.","Noor vindt beide jassen lelijk."],"good":1,"why":"Noor vindt de tweede jas mooier dan de eerste."},{"type":"choice","q":"A: “Heb je dit shirt gekocht?”\nB: ...","options":["Ja, ik heb hem gekocht.","Ja, ik heb het gekocht.","Ja, ik heb haar gekocht."],"good":1,"why":"Bij “het shirt” zeg je: ik heb het gekocht."},{"type":"fill","q":"Een kleine jas. Een ___ jas. (groot)","answers":["grote"],"show":"grote","why":"Je zegt: een grote jas."},{"type":"fill","q":"Deze broek zit goed. Die broek zit nog ___ . (goed)","answers":["beter"],"show":"beter","why":"Bij vergelijken gebruik je goed – beter."},{"type":"order","q":"🧩 Maak de vraag.","tiles":["paskamer?","de","Waar","is"],"answer":["Waar","is","de","paskamer?"],"why":"Je vraagt: waar is de paskamer?"},{"type":"order","q":"🧩 Maak de zin.","tiles":["broek","deze","passen.","wil","Ik"],"answer":["Ik","wil","deze","broek","passen."],"why":"Het tweede werkwoord staat achteraan: passen."},{"type":"order","q":"🧩 Maak de zin.","tiles":["is","mij.","voor","jas","Deze","te","klein"],"answer":["Deze","jas","is","te","klein","voor","mij."],"why":"Je zegt: deze jas is te klein voor mij."}]};
 const $=id=>document.getElementById(id);
-let level="basis",index=0,correct=0,answered=false,chosenTiles=[];
+let level="basis",index=0,correct=0,answered=false,chosenTiles=[],reviewed=0,contextLang=new URLSearchParams(location.search).get("taal")==="es"?"es":"en",finished=false;
+function renderContext(){const item=bank[level][index];const visible=!finished&&!!item.context;$("context-support").hidden=!visible;if(!visible)return;
+ $("context-text").textContent=item.context[contextLang]||item.context.en;$("context-emoji").textContent=item.context.emoji||"";$("context-text").lang=contextLang;$("context-label").textContent=contextLang==="es"?"Situación":"Situation";$("context-label").lang=contextLang;for(const lng of ["en","es"]){$("context-"+lng).setAttribute("aria-pressed",String(contextLang===lng));}
+}
+function updateTaskLanguage(){
+ const item=bank[level][index],label=$("answer-area").querySelector("label");
+ if(label){label.textContent=item.type==="open"?(contextLang==="es"?"Responde en voz alta o escribe tu respuesta:":"Say your answer aloud or write it down:"):(contextLang==="es"?"Escribe la palabra:":"Fill in the word:");label.lang=contextLang;}
+ if(item.type==="open"){$("check").textContent=contextLang==="es"?"Ver ejemplo":"Show example";const note=$("answer-area").querySelector(".open-note");if(note){note.textContent=contextLang==="es"?"Puede haber varias respuestas correctas.":"More than one answer can be correct.";note.lang=contextLang;}}
+}
+for(const lng of ["en","es"]){$("context-"+lng).addEventListener("click",()=>{contextLang=lng;renderContext();makePrint();updateTaskLanguage();});}
+function displayText(text){return String(text??"").replace(/\\/g,"").replace(/["“”„«»]/g,"")}
 function spokenQuestion(item){
  if(item.spoken)return item.spoken;
  const quoted=item.q.match(/[“"]([^”"]+)[”"]/);
@@ -77,6 +89,7 @@ function spokenQuestion(item){
  return item.q.split("\n").map(s=>s.replace(/^[^:]{1,24}:\s*/,"").replace(/^[^\p{L}\p{N}]+/u,"").trim()).filter(Boolean).slice(-1)[0]||item.q;
 }
 function say(text,slow){
+ text=displayText(text);
  if(window.TouwTaalSpeech){window.TouwTaalSpeech.play(text,{slow:!!slow,statusElement:$("audio-status")});return;}
 
  if(!text||!String(text).trim())return;
@@ -100,7 +113,7 @@ function listenButton(getText,label,slow){
 }
 function norm(v){return v.trim().toLocaleLowerCase("nl-NL").replace(/[.!?]+$/,"").replace(/\s+/g," ")}
 function showProgress(value){const pct=Math.round(value/bank[level].length*100);$("fillbar").style.width=pct+"%";$("progress").setAttribute("aria-valuenow",String(pct))}
-function valid(item){if(item.type==="choice")return item.options[item.good];if(item.type==="fill")return item.show;return item.answer.join(" ")}
+function valid(item){if(item.type==="choice")return displayText(item.options[item.good]);if(item.type==="fill"||item.type==="open")return item.show;return item.answer.join(" ")}
 function mark(ok,item){
  if(answered)return;answered=true;if(ok)correct++;
  $("feedback").textContent=(ok?"Goed! ":"Nog niet. Goed is: "+valid(item)+". ")+item.why;
@@ -108,24 +121,30 @@ function mark(ok,item){
  $("next").disabled=false;$("check").hidden=true;
 }
 function show(){
- const items=bank[level],item=items[index];answered=false;chosenTiles=[];
+ const items=bank[level],item=items[index];answered=false;chosenTiles=[];finished=false;renderContext();
  $("step").textContent="Vraag "+(index+1)+" van "+items.length;showProgress(index);
- $("prompt").textContent=item.q;$("prompt-audio").replaceChildren(listenButton(()=>spokenQuestion(item),"Luister naar de uitspraak",false),listenButton(()=>spokenQuestion(item),"Luister langzaam",true));$("audio-status").textContent="";$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===items.length-1?"Bekijk resultaat":"Volgende vraag";$("check").hidden=true;
+ $("prompt").textContent=displayText(item.q);$("prompt-audio").replaceChildren(listenButton(()=>spokenQuestion(item),"Luister naar de uitspraak",false),listenButton(()=>spokenQuestion(item),"Luister langzaam",true));$("audio-status").textContent="";$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===items.length-1?"Bekijk resultaat":"Volgende vraag";$("check").hidden=true;$("check").textContent="Controleer";
  const zone=$("answer-area");zone.replaceChildren();
  if(item.type==="choice"){
   const buttons=[];
   item.options.forEach((option,n)=>{
    const row=document.createElement("div");row.className="answer-row";
-   const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=option;buttons.push(b);
+   const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=displayText(option);buttons.push(b);
    b.addEventListener("click",()=>{if(answered)return;const ok=n===item.good;buttons.forEach((k,i)=>{k.disabled=true;k.classList.toggle("correct",i===item.good);k.classList.toggle("wrong",i===n&&!ok)});mark(ok,item)});
    row.append(b,listenButton(option,"Luister naar antwoord "+(n+1),false));zone.append(row);
   });
  }else if(item.type==="fill"){
-  const label=document.createElement("label");label.htmlFor="written-answer";label.textContent="Vul het woord in:";zone.append(label);
+  const label=document.createElement("label");label.htmlFor="written-answer";label.textContent=item.context?(contextLang==="es"?"Escribe la palabra:":"Fill in the word:"):"Vul het woord in:";zone.append(label);
   const input=document.createElement("input");input.id="written-answer";input.className="fill";input.type="text";input.autocomplete="off";input.spellcheck=false;zone.append(input);
   $("check").hidden=false;$("check").disabled=false;
   input.addEventListener("keydown",ev=>{if(ev.key==="Enter"&&!answered){ev.preventDefault();$("check").click()}});
   zone.append(listenButton(()=>input.value,"Luister naar wat je hebt ingevuld",false));
+ }else if(item.type==="open"){
+ const label=document.createElement("label");label.className="open-label";label.htmlFor="open-response";zone.append(label);
+ const input=document.createElement("textarea");input.id="open-response";input.className="open-answer";input.rows=3;input.lang="nl";input.spellcheck=false;input.autocomplete="off";zone.append(input);
+ zone.append(listenButton(()=>input.value,"Luister naar jouw antwoord",false));
+ const note=document.createElement("p");note.className="hint open-note";zone.append(note);
+ $("check").hidden=false;$("check").disabled=false;updateTaskLanguage();
  }else{
   const label=document.createElement("p");label.className="hint";label.textContent="Tik op de woorden. Maak de zin of vraag.";zone.append(label);
   const out=document.createElement("div");out.className="ordered";out.id="ordered-text";out.textContent="Tik op de woorden.";zone.append(out);
@@ -137,25 +156,36 @@ function show(){
  }
 }
 function check(){if(answered)return;const item=bank[level][index];if(item.type==="choice")return;
+ if(item.type==="open"){
+ answered=true;reviewed++;$("check").hidden=true;$("next").disabled=false;
+ const input=$("open-response");if(input)input.readOnly=true;
+ const fb=$("feedback");fb.replaceChildren();const label=document.createElement("span");label.textContent="Voorbeeldantwoord";fb.append(label);
+ const model=document.createElement("strong");model.className="open-model";model.textContent=item.show;fb.append(model);
+ fb.append(document.createTextNode(item.why+" Je antwoord mag anders zijn."));
+ const audio=document.createElement("div");audio.className="correct-audio";audio.append(listenButton(item.show,"Luister naar het voorbeeldantwoord",false));fb.append(audio);return;
+ }
  let ok=false;
  if(item.type==="fill"){const input=$("written-answer");if(!input.value.trim()){$("feedback").textContent="Vul eerst een woord in.";return}ok=item.answers.map(norm).includes(norm(input.value));input.disabled=true}
  else{if(chosenTiles.length!==item.tiles.length){$("feedback").textContent="Gebruik eerst alle woorden.";return}ok=chosenTiles.map(x=>x.word).join(" ")===item.answer.join(" ");}
  mark(ok,item);
 }
 function finish(){
+ finished=true;renderContext();
  $("step").textContent="Klaar!";showProgress(bank[level].length);
- $("prompt").textContent="Je hebt "+correct+" van de "+bank[level].length+" vragen goed beantwoord.";
+ const closed=bank[level].filter(x=>x.type!=="open").length;
+ $("prompt").textContent=reviewed?(closed?correct+" van de "+closed+" gesloten vragen goed. ":"")+reviewed+" open vragen geoefend.":"Je hebt "+correct+" van de "+bank[level].length+" vragen goed beantwoord.";
+ $("prompt-audio").replaceChildren();$("audio-status").textContent="";
  $("answer-area").replaceChildren();$("feedback").textContent="Wil je verder oefenen? Kies een andere moeilijkheid of begin opnieuw.";
  $("next").disabled=true;$("check").hidden=true;
 }
-function start(next){level=next;index=0;correct=0;answered=false;document.querySelectorAll("[data-level]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.level===next)));makePrint();show();}
+function start(next){level=next;index=0;correct=0;reviewed=0;answered=false;document.querySelectorAll("[data-level]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.level===next)));makePrint();show();}
 function makePrint(){
  const titles={basis:"1 · Basis",gemiddeld:"2 · Gemiddeld",uitdaging:"3 · Uitdaging"};
  $("print-level").textContent=titles[level];$("print-questions").replaceChildren();
  bank[level].forEach((item,n)=>{
   const block=document.createElement("div");block.className="print-question";
-  const q=document.createElement("p");const strong=document.createElement("strong");strong.textContent=(n+1)+". ";q.append(strong,document.createTextNode(item.q));block.append(q);
-  if(item.type==="choice"){const options=document.createElement("div");options.className="print-options";item.options.forEach((c,i)=>{const span=document.createElement("span");span.textContent="◯ "+c;options.append(span)});block.append(options)}
+  const q=document.createElement("p");const strong=document.createElement("strong");strong.textContent=(n+1)+". ";q.append(strong,document.createTextNode((item.context?item.context[contextLang]+"\n":"")+displayText(item.q)));block.append(q);
+  if(item.type==="choice"){const options=document.createElement("div");options.className="print-options";item.options.forEach((c,i)=>{const span=document.createElement("span");span.textContent="◯ "+displayText(c);options.append(span)});block.append(options)}
   else if(item.type==="order"){const text=document.createElement("p");text.textContent=item.tiles.join(" · ");block.append(text);const line=document.createElement("div");line.className="print-line";block.append(line)}
   else{const line=document.createElement("div");line.className="print-line";block.append(line)}
   $("print-questions").append(block);
@@ -165,7 +195,7 @@ document.querySelectorAll("[data-level]").forEach(b=>b.addEventListener("click",
 $("check").addEventListener("click",check);
 $("next").addEventListener("click",()=>{if(!answered)return;if(index===bank[level].length-1)finish();else{index++;show()}});
 $("retry").addEventListener("click",()=>start(level));
-$("print").addEventListener("click",()=>{location.href="../../werkblad.html?oefening=a1-kleding&niveau="+encodeURIComponent(level)});
+$("print").addEventListener("click",()=>{location.href="../../werkblad.html?oefening=a1-kleding&niveau="+encodeURIComponent(level)+"&taal="+encodeURIComponent(contextLang)});
 const requested=new URLSearchParams(location.search).get("niveau");start(requested&&bank[requested]?requested:"basis");
 })();
 </script></body></html>
