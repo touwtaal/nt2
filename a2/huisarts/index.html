@@ -66,7 +66,7 @@ if(!String(text||"").trim())return;if(!("speechSynthesis" in window)||!("SpeechS
 function listenButton(text,label,slow){const b=document.createElement("button");b.type="button";b.className="sound-button";b.textContent=slow?"▶ Langzaam":"🔊 Luister";b.setAttribute("aria-label",label);b.title=label;b.addEventListener("click",()=>say(typeof text==="function"?text():text,slow));return b}
 function norm(v){return v.trim().toLocaleLowerCase("nl-NL").replace(/[.!?]+$/,"").replace(/\s+/g," ")}
 function showProgress(value){const pct=Math.round(value/bank[level].length*100);$("fillbar").style.width=pct+"%";$("progress").setAttribute("aria-valuenow",String(pct))}
-function valid(item){if(item.type==="choice")return item.options[item.good];if(item.type==="fill")return item.show;return item.answer.join(" ")}
+function displaySpeech(value){return String(value).replace(/[“”"]/g,"").trim()}\nfunction valid(item){if(item.type==="choice")return displaySpeech(item.options[item.good]);if(item.type==="fill")return item.show;return item.answer.join(" ")}
 function mark(ok,item){
  if(answered)return;answered=true;if(ok)correct++;
  $("feedback").textContent=(ok?"Goed! ":"Nog niet. Goed is: "+valid(item)+". ")+item.why;
@@ -76,10 +76,10 @@ function mark(ok,item){
 function show(){
  const items=bank[level],item=items[index];answered=false;chosenTiles=[];
  $("step").textContent="Vraag "+(index+1)+" van "+items.length;showProgress(index);
- $("prompt").textContent=item.q;$("prompt-audio").replaceChildren(listenButton(()=>spokenQuestion(item),"Luister naar de uitspraak",false),listenButton(()=>spokenQuestion(item),"Luister langzaam",true));$("audio-status").textContent="";$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===items.length-1?"Bekijk resultaat":"Volgende vraag";$("check").hidden=true;
+ $("prompt").textContent=displaySpeech(item.q);$("prompt-audio").replaceChildren(listenButton(()=>spokenQuestion(item),"Luister naar de uitspraak",false),listenButton(()=>spokenQuestion(item),"Luister langzaam",true));$("audio-status").textContent="";$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===items.length-1?"Bekijk resultaat":"Volgende vraag";$("check").hidden=true;
  const zone=$("answer-area");zone.replaceChildren();
  if(item.type==="choice"){
-  const buttons=[];item.options.forEach((option,n)=>{const row=document.createElement("div");row.className="answer-row";const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=option;buttons.push(b);
+  const buttons=[];item.options.forEach((option,n)=>{const row=document.createElement("div");row.className="answer-row";const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=displaySpeech(option);buttons.push(b);
    b.addEventListener("click",()=>{if(answered)return;const ok=n===item.good;buttons.forEach((k,i)=>{k.disabled=true;k.classList.toggle("correct",i===item.good);k.classList.toggle("wrong",i===n&&!ok)});mark(ok,item)});
    row.append(b,listenButton(option,"Luister naar antwoord "+(n+1),false));zone.append(row)});
  }else if(item.type==="fill"){
@@ -116,8 +116,8 @@ function makePrint(){
  $("print-level").textContent=titles[level];$("print-questions").replaceChildren();
  bank[level].forEach((item,n)=>{
   const block=document.createElement("div");block.className="print-question";
-  const q=document.createElement("p");const strong=document.createElement("strong");strong.textContent=(n+1)+". ";q.append(strong,document.createTextNode(item.q));block.append(q);
-  if(item.type==="choice"){const options=document.createElement("div");options.className="print-options";item.options.forEach((c,i)=>{const span=document.createElement("span");span.textContent="◯ "+c;options.append(span)});block.append(options)}
+  const q=document.createElement("p");const strong=document.createElement("strong");strong.textContent=(n+1)+". ";q.append(strong,document.createTextNode(displaySpeech(item.q)));block.append(q);
+  if(item.type==="choice"){const options=document.createElement("div");options.className="print-options";item.options.forEach((c,i)=>{const span=document.createElement("span");span.textContent="◯ "+displaySpeech(c);options.append(span)});block.append(options)}
   else if(item.type==="order"){const text=document.createElement("p");text.textContent=item.tiles.join(" · ");block.append(text);const line=document.createElement("div");line.className="print-line";block.append(line)}
   else{const line=document.createElement("div");line.className="print-line";block.append(line)}
   $("print-questions").append(block);
