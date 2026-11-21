@@ -108,7 +108,7 @@ function check(){if(answered)return;const item=bank[level][index];if(item.type==
 function finish(){
  $("step").textContent="Klaar!";showProgress(bank[level].length);
  $("prompt").textContent="Je hebt "+correct+" van de "+bank[level].length+" vragen goed beantwoord.";
- $("answer-area").replaceChildren();$("feedback").textContent="Wil je verder oefenen? Kies een andere moeilijkheid of begin opnieuw.";
+ $("answer-area").replaceChildren();$("prompt-audio").replaceChildren();$("audio-status").textContent="";$("feedback").textContent="Wil je verder oefenen? Kies een andere moeilijkheid of begin opnieuw.";
  $("next").disabled=true;$("check").hidden=true;
 }
 function start(next){level=next;index=0;correct=0;answered=false;document.querySelectorAll("[data-level]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.level===next)));makePrint();show();}
