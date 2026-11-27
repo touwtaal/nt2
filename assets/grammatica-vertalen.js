@@ -23,10 +23,14 @@ const ruleTitle=document.createElement("h2");
 ruleTitle.textContent="Handige regel";
 const quickStyle=document.createElement("style");
 quickStyle.textContent="\n/* Eén herkenbaar grammatica-overzicht voor alle A1- en A2-modules. */\n.tt-quick-list{display:flex;flex-direction:column;gap:0;margin:1.1rem 0 1.6rem;background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden}\n.tt-quick-line{display:grid;grid-template-columns:2.6rem minmax(0,1fr);align-items:start;gap:1rem;padding:1.05rem 1.25rem;line-height:1.62;overflow-wrap:anywhere;background:#fff}\n.tt-quick-line:nth-child(even){background:#faf8fd}\n.tt-quick-line:not(:last-child){border-bottom:1px solid var(--line)}\n.tt-quick-line strong,.tt-quick-line b{color:var(--deep);font-weight:800}\n.tt-quick-key{display:block;color:var(--deep);font-weight:800;margin-bottom:.3rem}\n.tt-quick-model{display:block;font-weight:700;margin-top:.4rem}\n.tt-quick-index{display:flex;align-items:center;justify-content:center;min-height:2rem;padding:.2rem;border-radius:8px;background:#f0e9f7;color:var(--deep);font-size:.95rem;font-weight:800;margin:0;text-align:center}\n.tt-quick-copy{min-width:0}\n.tt-quick-copy strong{display:block;margin-bottom:.25rem}\n.tt-quick-list[hidden],#rule-examples[hidden],#example-label[hidden]{display:none!important}\n@media(max-width:540px){.tt-quick-line{grid-template-columns:2.2rem minmax(0,1fr);gap:.7rem;padding:.95rem 1rem}}\n";
+quickStyle.textContent+="\n.tt-rule-fold{width:100%}.tt-rule-fold>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:1rem;color:var(--deep);font-weight:800;padding:.3rem 0;border-radius:10px}.tt-rule-fold>summary::-webkit-details-marker{display:none}.tt-rule-fold>summary::after{content:'+';font-size:1.6rem;line-height:1;flex:none}.tt-rule-fold[open]>summary::after{content:'−'}.tt-rule-fold>summary:focus-visible{outline:3px solid #8a69a4;outline-offset:4px}.tt-rule-fold>summary h2{margin:0;font-size:inherit}.tt-rule-fold>.tt-quick-list{margin-top:1.1rem}";
 document.head.append(quickStyle);
 const ruleGrid=document.createElement("div");
 ruleGrid.className="tt-quick-list";
-ruleCard.append(ruleTitle,ruleGrid);
+const ruleFold=document.createElement("details");
+ruleFold.className="tt-rule-fold";ruleFold.open=false;
+const summary=document.createElement("summary");summary.append(ruleTitle);
+ruleFold.append(summary,ruleGrid);ruleCard.append(ruleFold);
 if(nativeRules.length){
  nativeRules[0].insertAdjacentElement("afterend",ruleCard);
 }else if(printCard){printCard.insertAdjacentElement("afterend",ruleCard);}
