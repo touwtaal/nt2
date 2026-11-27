@@ -21,23 +21,60 @@ ruleCard.className=intro.classList.contains("module-card")?"module-card":"practi
 ruleCard.setAttribute("aria-label","Handige regel");
 const ruleTitle=document.createElement("h2");
 ruleTitle.textContent="Handige regel";
-const ruleText=document.createElement("p");
-ruleText.style.whiteSpace="pre-line";
-ruleCard.append(ruleTitle,ruleText);
+const quickStyle=document.createElement("style");
+quickStyle.textContent="\n.tt-quick-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:.7rem;margin:.75rem 0 1rem}\n.tt-quick-line{display:block;background:#fff;border:1px solid var(--line);border-left:4px solid var(--lavender);border-radius:12px;padding:.8rem 1rem;line-height:1.5;overflow-wrap:anywhere}\n.tt-quick-line strong,.tt-quick-line b{color:var(--deep);font-weight:800}\n.tt-quick-key{display:block;color:var(--deep);font-weight:800;margin-bottom:.2rem}\n.tt-quick-model{display:block;font-weight:700;margin-top:.25rem}\n.tt-quick-index{display:inline-block;font-weight:800;color:var(--deep);margin-right:.45rem}\n.tt-quick-list[hidden]{display:none!important}\n@media(max-width:540px){.tt-quick-list{grid-template-columns:1fr}}\n";
+document.head.append(quickStyle);
+const ruleGrid=document.createElement("div");
+ruleGrid.className="tt-quick-list";
+ruleCard.append(ruleTitle,ruleGrid);
 if(nativeRules.length){
  nativeRules[0].insertAdjacentElement("afterend",ruleCard);
- nativeRules.forEach(el=>{const h=el.querySelector("h2");if(h)h.textContent="Handige regel";});
 }else if(printCard){printCard.insertAdjacentElement("afterend",ruleCard);}
 const ruleRecord=ruleTranslations[key];
+// As in the A1 source lesson: subject → verb form → short example.
+const presentTense={
+nl:[["ik","stam","ik werk"],["jij/je · hij/zij · u","stam + t","jij werkt"],["wij · jullie · zij","hele werkwoord","wij werken"],["werkwoord + jij/je?","geen -t","Werk jij?"]],
+en:[["ik","verb stem","ik werk"],["jij/je · hij/zij · u","stem + t","jij werkt"],["wij · jullie · zij","infinitive","wij werken"],["verb + jij/je?","no -t","Werk jij?"]],
+es:[["ik","raíz verbal","ik werk"],["jij/je · hij/zij · u","raíz + t","jij werkt"],["wij · jullie · zij","infinitivo","wij werken"],["verbo + jij/je?","sin -t","Werk jij?"]]
+};
+function ruleLine(number,content){
+ const line=document.createElement("div");line.className="tt-quick-line";
+ const num=document.createElement("span");num.className="tt-quick-index";num.textContent=String(number)+".";
+ line.append(num,content);ruleGrid.append(line);
+}
 function showRule(lang){
  if(!ruleRecord)return;
- nativeRules.forEach(el=>el.hidden=lang!=="nl");
- const isNative=lang==="nl"&&nativeRules.length>0;
- ruleCard.hidden=isNative;
- if(isNative)return;
- const textRule=lang==="es"?ruleRecord[2]:lang==="en"?ruleRecord[1]:ruleRecord[0];
+ nativeRules.forEach(el=>el.hidden=true);
+ ruleCard.hidden=false;
+ ruleGrid.replaceChildren();
  ruleTitle.textContent=lang==="en"?"Useful rule":lang==="es"?"Regla útil":"Handige regel";
- ruleText.textContent=textRule||"";
+ if(key==="a1/grammatica"){
+  presentTense[lang].forEach(([who,formula,model],i)=>{
+   const inner=document.createElement("div");
+   const whoLabel=document.createElement("strong");whoLabel.className="tt-quick-key";whoLabel.textContent=who;
+   const line=document.createElement("span");line.textContent=formula;
+   const example=document.createElement("span");example.className="tt-quick-model";example.textContent="→ "+model;
+   inner.append(whoLabel,line,example);ruleLine(i+1,inner);
+  });
+  const note=document.createElement("div");note.className="tt-quick-line";
+  note.textContent=lang==="en"?"Remember: zijn and hebben have irregular forms (ik ben, ik heb).":lang==="es"?"Atención: zijn y hebben tienen formas irregulares (ik ben, ik heb).":"Let op: zijn en hebben zijn onregelmatig (ik ben, ik heb).";
+  ruleGrid.append(note);
+  return;
+ }
+ if(lang==="nl"&&nativeRules.length){
+  let rows=nativeRules.flatMap(el=>[...el.querySelectorAll("p, li")]);
+  if(!rows.length)rows=nativeRules.filter(el=>el.textContent.trim());
+  rows.forEach((p,i)=>{
+   const content=document.createElement("span");
+   if(p.tagName==="P"||p.tagName==="LI")content.innerHTML=p.innerHTML;
+   else content.textContent=p.textContent.trim();
+   ruleLine(i+1,content);
+  });
+ }else{
+  const raw=(lang==="es"?ruleRecord[2]:lang==="en"?ruleRecord[1]:ruleRecord[0])||"";
+  const rows=raw.split(/(?<=[.!?])\s+(?=[A-ZÁÉÍÓÚÜ])/u).filter(Boolean);
+  rows.forEach((part,i)=>{const span=document.createElement("span");span.textContent=part;ruleLine(i+1,span)});
+ }
 }
 
 function change(lang){langs.forEach(([k])=>buttons[k].setAttribute("aria-pressed",String(k===lang)));
