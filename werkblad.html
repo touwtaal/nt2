@@ -98,7 +98,7 @@ if(item.levels){
  });
 }
 const selected=new URLSearchParams;
-if(item.levels){selected.set("niveau",level);if(["a1-cafe","a1-kennismaken","a1-familie","a1-tijd","a1-markt","a1-restaurant","a1-kleding","a1-wonen","a1-extra-grammatica","a2-extra-grammatica"].includes(key)&&["en","es"].includes(query.get("taal")))selected.set("taal",query.get("taal"));if(["a1-extra-grammatica","a2-extra-grammatica"].includes(key)&&/^(a1|a2)-\d{1,2}$/.test(query.get("onderwerp")||""))selected.set("onderwerp",query.get("onderwerp"));}
+if(item.levels){selected.set("niveau",level);if(["a1-cafe","a1-kennismaken","a1-familie","a1-tijd","a1-markt","a1-restaurant","a1-kleding","a1-wonen","a1-extra-grammatica","a2-extra-grammatica","a1-grammatica","a1-meervoud","a1-bijvoeglijk-naamwoord","a1-modale-werkwoorden","a1-niet-geen","a1-vergelijken","a1-voegwoorden","a2-perfectum","a2-iets-niets","a2-verleden-tijd","a2-wederkerende-werkwoorden","a2-scheidbare-werkwoorden","a2-gebiedende-wijs"].includes(key)&&["en","es"].includes(query.get("taal")))selected.set("taal",query.get("taal"));if(["a1-extra-grammatica","a2-extra-grammatica"].includes(key)&&/^(a1|a2)-\d{1,2}$/.test(query.get("onderwerp")||""))selected.set("onderwerp",query.get("onderwerp"));}
 else{
  const theme=query.get("thema");if(theme&&/^[a-zA-Z0-9.\-]+$/.test(theme))selected.set("thema",theme);
  const lesson=query.get("les");if(lesson!==null&&/^\d{1,2}$/.test(lesson))selected.set("les",lesson);
