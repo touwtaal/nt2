@@ -10,7 +10,7 @@ function cleanText(s){return String(s||"").replace(/["“”]/g,"").replace(/\p{
 function say(s,slow){if(window.TouwTaalSpeech)window.TouwTaalSpeech.play(cleanText(s),{slow,statusElement:$("audio-status")});}
 function sound(s,slow=false){const b=document.createElement("button");b.type="button";b.className="sound-button";b.textContent=slow?"▶ Langzaam":"🔊 Luister";b.setAttribute("aria-label",slow?"Langzaam luisteren":"Luister naar het Nederlands");b.onclick=()=>say(s,slow);return b}
 function buildChoices(item){const arr=[item.answer,...item.wrong];const rotate=index%3;return arr.map((x,i)=>arr[(i+rotate)%3])}
-function full(item){return item.q.replace("___",item.answer).replace(/^Bepaald lidwoord: /,"").replace(/^(Dichtbij|Ver weg): /,"")}
+function full(item){return item.q.replace("___",item.answer).replace(/^Bepaald lidwoord: /,"").replace(/^Vraag[^:]*:\s*/,"").replace(/^Maak[^:]*:\s*/,"").replace(/^(Dichtbij|Ver weg): /,"")}
 function updateLanguage(){const t=instruction[lang];$("rule").textContent=selected.rule[lang];$("instruction").textContent=t[level==="basis"?"choose":level==="gemiddeld"?"fill":"open"];$("language").value=lang;document.documentElement.lang="nl";makePrint()}
 function selectTopic(id){selected=topics.find(t=>t.id===id)||topics[0];index=0;correct=0;openDone=0;answered=false;$("topic").value=selected.id;$("lesson-title").textContent=selected.title;$("sub-title").textContent=selected.sub;updateLanguage();render();}
 function render(){answered=false;shown=false;const item=selected.items[index],t=instruction[lang];
@@ -19,7 +19,7 @@ $("question").textContent=level==="uitdaging"?item.cue:item.q;
 $("answers").replaceChildren();$("feedback").replaceChildren();$("next").disabled=true;
 $("check").hidden=level==="basis";$("check").textContent=level==="uitdaging"?t.sample:t.check;
 $("instruction").textContent=t[level==="basis"?"choose":level==="gemiddeld"?"fill":"open"];
-$("audio-actions").replaceChildren(sound(full(item)),sound(full(item),true));$("audio-status").textContent="";
+$("audio-actions").replaceChildren(sound(level==="uitdaging"?item.cue:item.q),sound(level==="uitdaging"?item.cue:item.q,true));$("audio-status").textContent="";
 if(level==="basis"){const choices=buildChoices(item);choices.forEach((c,i)=>{const row=document.createElement("div");row.className="answer-row";const b=document.createElement("button");b.type="button";b.className="answer";b.textContent=c;b.addEventListener("click",()=>{if(answered)return;answered=true;const ok=norm(c)===norm(item.answer);if(ok)correct++;document.querySelectorAll("#answers .answer").forEach(x=>{x.disabled=true;if(norm(x.textContent)===norm(item.answer))x.classList.add("correct");if(x===b&&!ok)x.classList.add("wrong")});feedback(ok,item);$("next").disabled=false});row.append(b,sound(c));$("answers").append(row)});}
 else {const lab=document.createElement("label");lab.htmlFor="response";lab.textContent=level==="uitdaging"?(lang==="es"?"Escribe tu frase:":"Write your sentence:"):(lang==="es"?"Completa:":"Fill in:");const input=document.createElement(level==="uitdaging"?"textarea":"input");input.id="response";input.className="fill";if(level==="uitdaging")input.rows=3;else input.type="text";input.autocomplete="off";$("answers").append(lab,input);}
 $("next").textContent=index===selected.items.length-1?"Bekijk je resultaat":t.next;
