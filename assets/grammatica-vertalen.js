@@ -22,7 +22,7 @@ ruleCard.setAttribute("aria-label","Handige regel");
 const ruleTitle=document.createElement("h2");
 ruleTitle.textContent="Handige regel";
 const quickStyle=document.createElement("style");
-quickStyle.textContent="\n.tt-quick-list{display:flex;flex-direction:column;gap:1.15rem;margin:1.3rem 0 1.8rem}\n.tt-quick-line{display:flex;align-items:flex-start;gap:.9rem;background:#fff;border:1px solid var(--line);border-left:4px solid var(--lavender);border-radius:14px;padding:1.2rem 1.25rem;line-height:1.75;overflow-wrap:anywhere}\n.tt-quick-line strong,.tt-quick-line b{color:var(--deep);font-weight:800}\n.tt-quick-line>span:not(.tt-quick-index){flex:1;min-width:0}\n.tt-quick-key{display:block;color:var(--deep);font-weight:800;margin-bottom:.55rem}\n.tt-quick-model{display:block;font-weight:700;margin-top:.55rem}\n.tt-quick-index{display:inline-flex;align-items:center;justify-content:center;flex:0 0 1.85rem;height:1.85rem;background:var(--lilac);color:var(--deep);border-radius:50%;font-size:.93rem;font-weight:800;margin-top:.12rem}\n.tt-quick-list[hidden]{display:none!important}\n.tt-quick-list + p{margin-top:1.5rem}\n@media(max-width:540px){.tt-quick-line{padding:1rem;gap:.7rem}}\n";
+quickStyle.textContent="\n/* Eén herkenbaar grammatica-overzicht voor alle A1- en A2-modules. */\n.tt-quick-list{display:flex;flex-direction:column;gap:0;margin:1.1rem 0 1.6rem;background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden}\n.tt-quick-line{display:grid;grid-template-columns:2.6rem minmax(0,1fr);align-items:start;gap:1rem;padding:1.05rem 1.25rem;line-height:1.62;overflow-wrap:anywhere;background:#fff}\n.tt-quick-line:nth-child(even){background:#faf8fd}\n.tt-quick-line:not(:last-child){border-bottom:1px solid var(--line)}\n.tt-quick-line strong,.tt-quick-line b{color:var(--deep);font-weight:800}\n.tt-quick-key{display:block;color:var(--deep);font-weight:800;margin-bottom:.3rem}\n.tt-quick-model{display:block;font-weight:700;margin-top:.4rem}\n.tt-quick-index{display:flex;align-items:center;justify-content:center;min-height:2rem;padding:.2rem;border-radius:8px;background:#f0e9f7;color:var(--deep);font-size:.95rem;font-weight:800;margin:0;text-align:center}\n.tt-quick-copy{min-width:0}\n.tt-quick-copy strong{display:block;margin-bottom:.25rem}\n.tt-quick-list[hidden],#rule-examples[hidden],#example-label[hidden]{display:none!important}\n@media(max-width:540px){.tt-quick-line{grid-template-columns:2.2rem minmax(0,1fr);gap:.7rem;padding:.95rem 1rem}}\n";
 document.head.append(quickStyle);
 const ruleGrid=document.createElement("div");
 ruleGrid.className="tt-quick-list";
@@ -57,9 +57,7 @@ function showRule(lang){
    const example=document.createElement("span");example.className="tt-quick-model";example.textContent="→ "+model;
    inner.append(whoLabel,line,example);ruleLine(i+1,inner);
   });
-  const note=document.createElement("div");note.className="tt-quick-line";
-  note.textContent=lang==="en"?"Remember: zijn and hebben have irregular forms (ik ben, ik heb).":lang==="es"?"Atención: zijn y hebben tienen formas irregulares (ik ben, ik heb).":"Let op: zijn en hebben zijn onregelmatig (ik ben, ik heb).";
-  ruleGrid.append(note);
+  const note=document.createElement("span");note.textContent=lang==="en"?"Remember: zijn and hebben have irregular forms (ik ben, ik heb).":lang==="es"?"Atención: zijn y hebben tienen formas irregulares (ik ben, ik heb).":"Let op: zijn en hebben zijn onregelmatig (ik ben, ik heb).";ruleLine(5,note);
   return;
  }
  const rows=alignedRuleSteps[key]||[];
