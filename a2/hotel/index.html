@@ -88,10 +88,10 @@ function show(){
    b.addEventListener("click",()=>{if(answered)return;const ok=n===item.good;buttons.forEach((k,i)=>{k.disabled=true;k.classList.toggle("correct",i===item.good);k.classList.toggle("wrong",i===n&&!ok)});mark(ok,item)});
    row.append(b,listenButton(option,"Luister naar antwoord "+(n+1),false));zone.append(row)});
  }else if(item.type==="open"){
-  const label=document.createElement("label");label.htmlFor="open-response";label.textContent=item.mode==="write"?"Schrijf je antwoord:":"Zeg je antwoord. Je kunt het ook opschrijven:";zone.append(label);
+  const label=document.createElement("label");label.htmlFor="open-response";label.textContent=item.mode==="write"?"Schrijf je antwoord:":"Zeg je antwoord hardop. Schrijf het eventueel op:";zone.append(label);
   const input=document.createElement("textarea");input.id="open-response";input.rows=5;input.autocomplete="off";zone.append(input);
   const speak=listenButton(()=>input.value,"Luister naar jouw Nederlandse tekst",false);zone.append(speak);
-  $("check").hidden=false;$("check").textContent="Bekijk een voorbeeld";
+  $("check").hidden=false;$("check").textContent=item.mode==="speak"?"Ik heb het hardop gezegd · Bekijk voorbeeld":"Bekijk een voorbeeld";
  }else if(item.type==="fill"){
   const label=document.createElement("label");label.htmlFor="written-answer";label.textContent="Vul het woord in:";zone.append(label);
   const input=document.createElement("input");input.id="written-answer";input.className="fill";input.type="text";input.autocomplete="off";input.spellcheck=false;zone.append(input);
@@ -111,7 +111,7 @@ function show(){
 function check(){if(answered)return;const item=bank[level][index];if(item.type==="choice")return;
  let ok=false;
  if(item.type==="open"){
-  const input=$("open-response");if(!input.value.trim()){$("feedback").textContent="Maak eerst een zin. Schrijf je antwoord of spreek het hardop uit.";return;}
+  const input=$("open-response");if(item.mode==="write"&&!input.value.trim()){$("feedback").textContent="Schrijf eerst een paar zinnen.";return;}
   answered=true;openDone++;input.readOnly=true;
   const fb=$("feedback");fb.replaceChildren();const intro=document.createElement("p");intro.textContent="Voorbeeldantwoord (andere goede antwoorden zijn ook mogelijk):";const model=document.createElement("p");model.textContent=item.model;const why=document.createElement("p");why.textContent=item.why;fb.append(intro,model,why,listenButton(item.model,"Luister naar het voorbeeldantwoord",false));$("check").hidden=true;$("next").disabled=false;return;
  }
