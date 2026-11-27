@@ -60,3 +60,6 @@ h1,h2,h3{font-family:Manrope,Arial,sans-serif;letter-spacing:-.055em;line-height
   margin:0!important;padding:0!important;border:0!important;pointer-events:none
  }
 }
+
+/* Keuze voor grammaticale uitleg in het Nederlands, Engels of Spaans. */
+.grammar-translation{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;margin:1rem 0;padding:.8rem;border:1px solid var(--line);background:var(--section);border-radius:12px}.grammar-translation span{font-size:.9rem;font-weight:700;margin-right:.2rem}.grammar-translation button{min-height:42px;padding:.45rem .7rem;background:white;border:2px solid var(--lavender);color:var(--deep);border-radius:10px;font:700 .9rem 'DM Sans',Arial,sans-serif;cursor:pointer}.grammar-translation button[aria-pressed='true']{background:var(--purple);color:white;border-color:var(--purple)}.grammar-translation button:focus-visible{outline:3px solid var(--deep);outline-offset:3px}@media print{.grammar-translation{display:none!important}}
