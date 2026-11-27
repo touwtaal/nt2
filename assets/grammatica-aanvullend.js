@@ -31,10 +31,10 @@ function renderRule(){
   articleRows.forEach(([symbol,label,text])=>addRow(symbol,text[lang==="nl"?0:lang==="en"?1:2],label));
   return;
  }
- const parts=selected.rule[lang].split(/(?<=\\.)\\s+(?=[A-ZÁÉÍÓÚÜ])/u).map(x=>x.trim()).filter(Boolean);
+ const parts=selected.rule[lang].split(/(?<=\.)\s+(?=[A-ZÁÉÍÓÚÜ])/u).map(x=>x.trim()).filter(Boolean);
  parts.forEach((part,i)=>addRow(String(i+1),part));
  const exampleName=lang==="en"?"Example":lang==="es"?"Ejemplo":"Voorbeeld";
- (selected.examples||"").split(/\\n/).map(s=>s.trim()).filter(Boolean).forEach(example=>addRow("→",example,exampleName));
+ (selected.examples||"").split(/\n/).map(s=>s.trim()).filter(Boolean).forEach(example=>addRow("→",example,exampleName));
 }
 function updateLanguage(){const t=instruction[lang];renderRule();$("grammar-rule-title").textContent=lang==="en"?"Useful rule":lang==="es"?"Regla útil":"Handige regel";$("example-label").textContent=lang==="en"?"Examples":lang==="es"?"Ejemplos":"Voorbeelden";$("instruction").textContent=t[level==="basis"?"choose":level==="gemiddeld"?"fill":"open"];document.querySelectorAll("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.lang===lang)));document.documentElement.lang="nl";makePrint()}
 function selectTopic(id){selected=topics.find(t=>t.id===id)||topics[0];index=0;correct=0;openDone=0;answered=false;$("topic").value=selected.id;$("lesson-title").textContent=selected.title;$("sub-title").textContent=selected.sub;const heroTitle=document.querySelector(".hero h1");if(heroTitle)heroTitle.textContent=selected.title;document.title=selected.title+" | TouwTaal NT2";updateLanguage();render();}
