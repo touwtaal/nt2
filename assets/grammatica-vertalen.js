@@ -24,13 +24,58 @@ ruleTitle.textContent="Handige regel";
 const quickStyle=document.createElement("style");
 quickStyle.textContent="\n/* Eén herkenbaar grammatica-overzicht voor alle A1- en A2-modules. */\n.tt-quick-list{display:flex;flex-direction:column;gap:0;margin:1.1rem 0 1.6rem;background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden}\n.tt-quick-line{display:grid;grid-template-columns:2.6rem minmax(0,1fr);align-items:start;gap:1rem;padding:1.05rem 1.25rem;line-height:1.62;overflow-wrap:anywhere;background:#fff}\n.tt-quick-line:nth-child(even){background:#faf8fd}\n.tt-quick-line:not(:last-child){border-bottom:1px solid var(--line)}\n.tt-quick-line strong,.tt-quick-line b{color:var(--deep);font-weight:800}\n.tt-quick-key{display:block;color:var(--deep);font-weight:800;margin-bottom:.3rem}\n.tt-quick-model{display:block;font-weight:700;margin-top:.4rem}\n.tt-quick-index{display:flex;align-items:center;justify-content:center;min-height:2rem;padding:.2rem;border-radius:8px;background:#f0e9f7;color:var(--deep);font-size:.95rem;font-weight:800;margin:0;text-align:center}\n.tt-quick-copy{min-width:0}\n.tt-quick-copy strong{display:block;margin-bottom:.25rem}\n.tt-quick-list[hidden],#rule-examples[hidden],#example-label[hidden]{display:none!important}\n@media(max-width:540px){.tt-quick-line{grid-template-columns:2.2rem minmax(0,1fr);gap:.7rem;padding:.95rem 1rem}}\n";
 quickStyle.textContent+="\n.tt-rule-fold{width:100%}.tt-rule-fold>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:1rem;color:var(--deep);font-weight:800;padding:.3rem 0;border-radius:10px}.tt-rule-fold>summary::-webkit-details-marker{display:none}.tt-rule-fold>summary::after{content:'+';font-size:1.6rem;line-height:1;flex:none}.tt-rule-fold[open]>summary::after{content:'−'}.tt-rule-fold>summary:focus-visible{outline:3px solid #8a69a4;outline-offset:4px}.tt-rule-fold>summary h2{margin:0;font-size:inherit}.tt-rule-fold>.tt-quick-list{margin-top:1.1rem}";
+quickStyle.textContent+="\n.tt-rule-keyword{color:var(--deep);font-weight:800;background:rgba(225,221,247,.47);padding:0 .12em;border-radius:.25em}\n.tt-rule-label{display:block;color:var(--deep);font-weight:800;margin:0 0 .23rem}\n.tt-rule-example{display:block;color:var(--ink);font-style:italic;margin-top:.22rem}\n.tt-rule-path{margin:1.2rem 0 1.4rem}\n.tt-flow-title{font:800 1rem/1.4 Manrope,Arial,sans-serif;color:var(--deep);margin:.1rem 0 .75rem}\n.tt-flow-list{counter-reset:step;list-style:none;padding:0;margin:0;display:grid;gap:.7rem}\n.tt-flow-item{display:grid;grid-template-columns:1fr;gap:.25rem;position:relative;background:var(--section);border:1px solid var(--line);border-radius:12px;padding:.75rem .95rem;line-height:1.55}\n.tt-flow-question{color:var(--deep);font-weight:800}\n.tt-flow-arrow{font-weight:900;color:var(--purple);font-size:1.15rem;line-height:1}\n.tt-flow-action{display:block}\n.tt-rule-path+.tt-quick-list{margin-top:1.3rem}\n@media print{.tt-rule-path,.tt-rule-example,.tt-quick-list{break-inside:avoid}}\n";
 document.head.append(quickStyle);
+const ttDecisionSteps={"a1/grammatica":[["Wie doet iets? → Kies ik, jij, hij, wij, jullie of zij.","Who is doing something? → Choose ik, jij, hij, wij, jullie or zij.","¿Quién hace algo? → Elige ik, jij, hij, wij, jullie o zij."],["Kies de werkwoordsvorm → ik = stam; hij/jij = vaak stam + t; wij/jullie/zij = infinitief.","Choose the verb form → ik = stem; hij/jij = usually stem + t; plural subjects = infinitive.","Elige la forma verbal → ik = raíz; hij/jij = normalmente raíz + t; sujetos plurales = infinitivo."],["Staat jij/je na het werkwoord? → Schrijf geen -t: Werk jij?","Does jij/je follow the verb? → Drop -t: Werk jij?","¿Jij/je va después del verbo? → Quita la -t: Werk jij?"]],"a1/meervoud":[["Eén of meer? → Bij meer dan één gebruik je het meervoud.","One or more? → Use a plural for more than one.","¿Uno o varios? → Usa el plural para más de uno."],["Kies de uitgang → Vaak -en of -s; soms -’s.","Choose an ending → Often -en or -s; sometimes -’s.","Elige la terminación → Normalmente -en o -s; a veces -’s."],["Controleer de spelling → Bijvoorbeeld raam → ramen, man → mannen. Leer uitzonderingen apart.","Check the spelling → For example raam → ramen, man → mannen. Learn exceptions separately.","Revisa la escritura → Por ejemplo raam → ramen, man → mannen. Aprende las excepciones aparte."]],"a1/bijvoeglijk-naamwoord":[["Staat het bijvoeglijk naamwoord ná zijn? → Geen -e: Het huis is mooi.","Is the adjective after zijn? → No -e: Het huis is mooi.","¿El adjetivo va después de zijn? → Sin -e: Het huis is mooi."],["Staat het vóór een enkelvoudig het-woord met een of geen? → Geen -e: een mooi huis.","Before a singular het-word with een or geen? → No -e: een mooi huis.","¿Delante de un sustantivo het singular con een o geen? → Sin -e: een mooi huis."],["Anders vóór een zelfstandig naamwoord → Meestal -e: de mooie jas, het mooie huis.","Otherwise, before a noun → Usually add -e: de mooie jas, het mooie huis.","En los demás casos, delante de un sustantivo → Normalmente añade -e: de mooie jas, het mooie huis."]],"a1/modale-werkwoorden":[["Wat wil je zeggen? → Mogelijkheid: kunnen; toestemming: mogen; verplichting: moeten; wens: willen.","What is the meaning? → Ability: kunnen; permission: mogen; obligation: moeten; wish: willen.","¿Qué quieres expresar? → Capacidad: kunnen; permiso: mogen; obligación: moeten; deseo: willen."],["Kies de juiste vorm → ik kan, hij mag, wij moeten.","Choose the right form → ik kan, hij mag, wij moeten.","Elige la forma correcta → ik kan, hij mag, wij moeten."],["Nog een werkwoord? → Zet het hele werkwoord meestal achteraan: Ik wil koffie bestellen.","Another verb? → Usually put the infinitive at the end: Ik wil koffie bestellen.","¿Hay otro verbo? → Normalmente pon el infinitivo al final: Ik wil koffie bestellen."]],"a1/niet-geen":[["Ontken je een onbepaald zelfstandig naamwoord? → Gebruik geen: Ik heb geen fiets.","Negating an indefinite noun? → Use geen: Ik heb geen fiets.","¿Niegas un sustantivo indefinido? → Usa geen: Ik heb geen fiets."],["Ontken je een werkwoord, eigenschap of iets specifieks? → Gebruik niet: Ik fiets niet.","Negating a verb, a description or something specific? → Use niet: Ik fiets niet.","¿Niegas un verbo, una característica o algo concreto? → Usa niet: Ik fiets niet."],["Controleer de plek → Ik heb geen fiets. De soep is niet lekker.","Check the position → Ik heb geen fiets. De soep is niet lekker.","Comprueba la posición → Ik heb geen fiets. De soep is niet lekker."]],"a1/vergelijken":[["Vergelijk je twee dingen? → Gebruik vaak -er + dan: groter dan.","Comparing two things? → Often use -er + dan: groter dan.","¿Comparas dos cosas? → Normalmente usa -er + dan: groter dan."],["Is iets het meest of het minst? → Gebruik vaak -st: het grootst.","Is something the most or the least? → Usually use -st: het grootst.","¿Algo es lo máximo o lo mínimo? → Normalmente usa -st: het grootst."],["Controleer uitzonderingen → goed → beter → best.","Check irregular forms → goed → beter → best.","Revisa las formas irregulares → goed → beter → best."]],"a1/voegwoorden":[["Welke verbinding heb je nodig? → en, maar, want, of of dus.","Which link do you need? → en, maar, want, of or dus.","¿Qué relación necesitas? → en, maar, want, of o dus."],["Maak twee hoofdzinnen → Het werkwoord blijft normaal op plaats twee.","Connect two main clauses → The verb keeps its normal second position.","Une dos oraciones principales → El verbo sigue en segunda posición."],["Controleer het verband → Ik blijf thuis, want ik ben ziek.","Check the connection → Ik blijf thuis, want ik ben ziek.","Comprueba la relación → Ik blijf thuis, want ik ben ziek."]],"a2/perfectum":[["Gebeurde iets in het verleden? → Maak het perfectum met hebben of zijn.","Talking about something that happened? → Use hebben or zijn for the perfect.","¿Hablas de algo ocurrido? → Forma el perfecto con hebben o zijn."],["Kies het hulpwerkwoord → Ik heb gewerkt. Ik ben vertrokken.","Choose the auxiliary verb → Ik heb gewerkt. Ik ben vertrokken.","Elige el verbo auxiliar → Ik heb gewerkt. Ik ben vertrokken."],["Maak het voltooid deelwoord → gewerkt, gemaakt, gezien. Leer onregelmatige vormen apart.","Make the past participle → gewerkt, gemaakt, gezien. Learn irregular forms separately.","Forma el participio → gewerkt, gemaakt, gezien. Aprende las formas irregulares."]],"a2/iets-niets":[["Is er iets of helemaal niets? → Kies iets of niets.","Is there something or nothing? → Choose iets or niets.","¿Hay algo o no hay nada? → Elige iets o niets."],["Komt er een bijvoeglijk naamwoord achter? → Vaak -s: iets lekkers, niets bijzonders.","Is there an adjective after it? → Usually add -s: iets lekkers, niets bijzonders.","¿Después hay un adjetivo? → Normalmente añade -s: iets lekkers, niets bijzonders."]],"a2/verleden-tijd":[["Wat wil je vertellen? → Bijvoorbeeld een gewoonte of situatie van vroeger.","What are you describing? → For example a past habit or situation.","¿Qué quieres contar? → Por ejemplo un hábito o una situación del pasado."],["Kies een passende tijd → Imperfectum of perfectum kan soms allebei; de context beslist.","Choose a suitable tense → Imperfectum and perfectum may both be possible; context matters.","Elige un tiempo adecuado → A veces sirven tanto imperfectum como perfectum; depende del contexto."],["Controleer de vorm → Ik werkte, wij werkten; ik ging, wij gingen.","Check the verb form → Ik werkte, wij werkten; ik ging, wij gingen.","Comprueba la forma verbal → Ik werkte, wij werkten; ik ging, wij gingen."]],"a2/wederkerende-werkwoorden":[["Heeft het werkwoord zich nodig? → Bijvoorbeeld zich wassen of zich vergissen.","Does the verb need zich? → For example zich wassen or zich vergissen.","¿El verbo necesita zich? → Por ejemplo zich wassen o zich vergissen."],["Wie doet het? → ik = me; jij = je; hij/zij = zich; wij = ons.","Who is the subject? → ik = me; jij = je; hij/zij = zich; wij = ons.","¿Quién es el sujeto? → ik = me; jij = je; hij/zij = zich; wij = ons."],["Maak de zin → Ik was me. Hij vergist zich.","Build the sentence → Ik was me. Hij vergist zich.","Forma la oración → Ik was me. Hij vergist zich."]],"a2/scheidbare-werkwoorden":[["Staat het werkwoord als persoonsvorm in een hoofdzin? → Splits: Ik sta op.","Is it the finite verb in a main clause? → Separate it: Ik sta op.","¿Es el verbo conjugado de una oración principal? → Separa: Ik sta op."],["Staat het als infinitief achter een ander werkwoord? → Samen: Ik wil opstaan.","Is it an infinitive after another verb? → Keep it together: Ik wil opstaan.","¿Es un infinitivo después de otro verbo? → Unido: Ik wil opstaan."],["Gebruik je het perfectum? → ge- komt vaak ertussen: Ik ben opgestaan.","Using the perfect? → ge- often goes in the middle: Ik ben opgestaan.","¿Usas el perfecto? → ge- suele ir en medio: Ik ben opgestaan."]],"a2/gebiedende-wijs":[["Wil je een korte instructie geven? → Gebruik meestal de stam: Wacht!","Giving a short instruction? → Usually use the verb stem: Wacht!","¿Quieres dar una instrucción breve? → Normalmente usa la raíz verbal: Wacht!"],["Wil je extra beleefd zijn? → Gebruik eventueel u: Volgt u de borden.","Want to be more polite? → You can use u: Volgt u de borden.","¿Quieres ser más cortés? → Puedes usar u: Volgt u de borden."]]};
+
+function ttEmphasize(target,text,lang){
+ const regex=/\b(?:niet|geen|omdat|want|hebben|zijn|perfectum|imperfectum|inversie|stam|infinitief|werkwoord|meervoud|verkleinwoord|de|het|een)\b|-(?:en|te|ten|de|den|s|e|t)\b/giu;
+ regex.lastIndex=0;let pos=0,count=0,match;
+ while((match=regex.exec(String(text)))!==null){
+  if(match.index>pos)target.append(document.createTextNode(text.slice(pos,match.index)));
+  const value=match[0],isSpanishPreposition=lang==="es"&&value.toLowerCase()==="de";
+  if(count<5&&!isSpanishPreposition){const b=document.createElement("strong");b.className="tt-rule-keyword";b.textContent=value;target.append(b);count++;}
+  else target.append(document.createTextNode(value));
+  pos=match.index+value.length;
+ }
+ if(pos<text.length)target.append(document.createTextNode(text.slice(pos)));
+}
+function ttRulePhrase(target,phrase,lang){
+ const str=String(phrase);
+ const colon=str.indexOf(": ");
+ if(colon>2&&colon<74){
+  const label=document.createElement("strong");label.className="tt-rule-label";ttEmphasize(label,str.slice(0,colon+1),lang);target.append(label);
+  const rest=str.slice(colon+2);
+  if(/^(?:Ik|Hij|Zij|Wij|Je|Jij|De|Het|Een|We|ik|hij|zij|wij|de|het|een)\s/.test(rest)||rest.includes("→")){
+   const ex=document.createElement("em");ex.className="tt-rule-example";ttEmphasize(ex,rest,lang);target.append(ex);
+  }else{const tail=document.createElement("span");ttEmphasize(tail,rest,lang);target.append(tail);}
+ }else ttEmphasize(target,str,lang);
+}
+function ttStepFlow(container,items,lang){
+ container.replaceChildren();
+ if(!items?.length){container.hidden=true;return;}
+ container.hidden=false;
+ const heading=document.createElement("h3");heading.className="tt-flow-title";
+ heading.textContent=lang==="en"?"Follow these steps":lang==="es"?"Sigue estos pasos":"Zo pak je het aan";
+ const list=document.createElement("ol");list.className="tt-flow-list";
+ items.forEach((step,i)=>{
+  const item=document.createElement("li");item.className="tt-flow-item";
+  const raw=step[lang==="nl"?0:lang==="en"?1:2],pieces=raw.split(" → ");
+  const condition=document.createElement("strong");condition.className="tt-flow-question";ttEmphasize(condition,pieces[0],lang);
+  item.append(condition);
+  if(pieces.length>1){const arrow=document.createElement("span");arrow.className="tt-flow-arrow";arrow.textContent="→";const action=document.createElement("span");action.className="tt-flow-action";ttRulePhrase(action,pieces.slice(1).join(" → "),lang);item.append(arrow,action);}
+  list.append(item);
+ });
+ container.append(heading,list);
+}
+
 const ruleGrid=document.createElement("div");
 ruleGrid.className="tt-quick-list";
 const ruleFold=document.createElement("details");
 ruleFold.className="tt-rule-fold";ruleFold.open=false;
 const summary=document.createElement("summary");summary.append(ruleTitle);
-ruleFold.append(summary,ruleGrid);ruleCard.append(ruleFold);
+const rulePath=document.createElement("div");rulePath.className="tt-rule-path";
+ruleFold.append(summary,rulePath,ruleGrid);ruleCard.append(ruleFold);
 if(nativeRules.length){
  nativeRules[0].insertAdjacentElement("afterend",ruleCard);
 }else if(printCard){printCard.insertAdjacentElement("afterend",ruleCard);}
@@ -53,19 +98,20 @@ function showRule(lang){
  ruleCard.hidden=false;
  ruleGrid.replaceChildren();
  ruleTitle.textContent=lang==="en"?"Useful rule":lang==="es"?"Regla útil":"Handige regel";
+ ttStepFlow(rulePath,ttDecisionSteps[key],lang);
  if(key==="a1/grammatica"){
   presentTense[lang].forEach(([who,formula,model],i)=>{
    const inner=document.createElement("div");
    const whoLabel=document.createElement("strong");whoLabel.className="tt-quick-key";whoLabel.textContent=who;
-   const line=document.createElement("span");line.textContent=formula;
-   const example=document.createElement("span");example.className="tt-quick-model";example.textContent="→ "+model;
+   const line=document.createElement("strong");line.className="tt-rule-keyword";line.textContent=formula;
+   const example=document.createElement("em");example.className="tt-quick-model tt-rule-example";example.textContent="→ "+model;
    inner.append(whoLabel,line,example);ruleLine(i+1,inner);
   });
   const note=document.createElement("span");note.textContent=lang==="en"?"Remember: zijn and hebben have irregular forms (ik ben, ik heb).":lang==="es"?"Atención: zijn y hebben tienen formas irregulares (ik ben, ik heb).":"Let op: zijn en hebben zijn onregelmatig (ik ben, ik heb).";ruleLine(5,note);
   return;
  }
  const rows=alignedRuleSteps[key]||[];
- rows.forEach((part,i)=>{const label=document.createElement("span");label.textContent=part[lang==="nl"?0:lang==="en"?1:2];ruleLine(i+1,label)});
+ rows.forEach((part,i)=>{const label=document.createElement("span");ttRulePhrase(label,part[lang==="nl"?0:lang==="en"?1:2],lang);ruleLine(i+1,label)});
 
 }
 
